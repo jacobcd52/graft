@@ -44,7 +44,7 @@ def create(a):
         "cloudType": a.cloud, "containerDiskInGb": a.local_disk, "volumeInGb": a.disk, "volumeMountPath": "/workspace",
         "ports": ["8888/http"],
         **({"allowedCudaVersions": a.cuda.split(",")} if a.cuda else {}),
-        "env": {"AGENT_TOKEN": token, "AGENT_B64": code},
+        "env": {"AGENT_TOKEN": token, "AGENT_B64": code, "IDLE_MIN": str(a.idle_min), "HANG_MIN": str(a.hang_min)},
         "dockerStartCmd": ["bash", "-c", "echo $AGENT_B64 | base64 -d > /agent.py && exec python3 /agent.py"],
     }
     r = requests.post(f"{REST}/pods", json=body, headers={"Authorization": f"Bearer {api_key(a)}"}, timeout=60)
@@ -62,7 +62,12 @@ def create(a):
         except requests.RequestException:
             pass
         time.sleep(10)
-    print("agent not reachable yet; check status later")
+    if a.keep_unready:
+        print("agent not reachable yet; check status later"); return
+    # Some hosts never finish starting (secure pods stuck pulling, broken CUDA) yet bill from creation.
+    print("agent not reachable after 15 min: terminating pod", pod["id"])
+    requests.delete(f"{REST}/pods/{pod['id']}", headers={"Authorization": f"Bearer {api_key(a)}"}, timeout=60)
+    sys.exit(1)
 
 
 def pod_req(a, method, suffix=""):
@@ -80,7 +85,10 @@ def main():
     c.add_argument("--cloud", default="COMMUNITY")
     # RunPod's REST allowedCudaVersions filter matched no machines at all when tested; off by default
     c.add_argument("--cuda", default="", help="allowed host CUDA versions, comma-separated ('' = any)")
-    for n in ("status", "stop", "terminate"):
+    c.add_argument("--idle-min", type=float, default=30, help="pod stops itself after this long idle (0 = never)")
+    c.add_argument("--hang-min", type=float, default=90, help="pod stops itself if pipeline logs are silent this long")
+    c.add_argument("--keep-unready", action="store_true", help="do not terminate a pod whose agent never comes up")
+    for n in ("status", "stop", "start", "terminate"):
         sub.add_parser(n).add_argument("pod")
     e = sub.add_parser("exec"); e.add_argument("pod"); e.add_argument("command"); e.add_argument("--timeout", type=int, default=80)
     s = sub.add_parser("spawn"); s.add_argument("pod"); s.add_argument("name"); s.add_argument("command")
@@ -95,6 +103,8 @@ def main():
         return pod_req(a, "GET")
     if a.cmd == "stop":
         return pod_req(a, "POST", "/stop")
+    if a.cmd == "start":
+        return pod_req(a, "POST", "/start")
     if a.cmd == "terminate":
         return pod_req(a, "DELETE")
     url, hdr = agent(a.pod)

@@ -12,6 +12,7 @@ import anthropic
 S = os.environ.get("GRAFT_WORK_DIR", ".")  # holds sftdata/ (output of the GRAFT sft data_prep.py)
 TW = os.environ.get("GRAFT_TW_ROOT", "third_party/terminal-wrench")
 MODEL = "claude-sonnet-5-5"
+PRICE_IN, PRICE_OUT = 2e-6, 10e-6  # $ per token, claude-sonnet-5-5
 
 TASK_SCHEMA = {
     "type": "object",
@@ -134,8 +135,13 @@ async def label_one(client, sem, key, prompt, schema, out, lock, stats):
         async with lock:
             out.write(json.dumps(rec) + "\n"); out.flush()
             stats["done"] += 1
+            usd = stats["in"] * PRICE_IN + stats["out"] * PRICE_OUT
             if stats["done"] % 100 == 0:
-                print(f"  {stats['done']} done  in={stats['in']:,} out={stats['out']:,}", flush=True)
+                print(f"  {stats['done']} done  in={stats['in']:,} out={stats['out']:,}  ~${usd:.2f}", flush=True)
+            if stats["max_usd"] and usd > stats["max_usd"]:
+                # Budget guard: the first full labeling pass cost ~2.4x its estimate ($95 vs $40).
+                print(f"budget ${stats['max_usd']:.0f} exceeded (~${usd:.2f}); stopping (rerun resumes)", flush=True)
+                os._exit(2)
 
 
 async def main():
@@ -144,6 +150,7 @@ async def main():
     ap.add_argument("out")
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--concurrency", type=int, default=16)
+    ap.add_argument("--max-usd", type=float, default=50, help="abort once estimated spend passes this (0 = no cap)")
     a = ap.parse_args()
     items, schema = (task_items(), TASK_SCHEMA) if a.kind == "tasks" else (hack_items(), HACK_SCHEMA)
     done = set()
@@ -153,11 +160,13 @@ async def main():
     print(f"{a.kind}: {len(done)} already labeled, {len(todo)} to do")
     client = anthropic.AsyncAnthropic(max_retries=3)
     sem, lock = asyncio.Semaphore(a.concurrency), asyncio.Lock()
-    stats = {"done": 0, "in": 0, "out": 0}
+    stats = {"done": 0, "in": 0, "out": 0, "max_usd": a.max_usd}
+    est = sum(len(p) for _, p in todo) / 3.5 * PRICE_IN + len(todo) * 600 * PRICE_OUT
+    print(f"estimated cost before starting: ~${est:.2f} (input ~3.5 chars/token, ~600 output tokens per item)")
     with open(a.out, "a") as out:
         await asyncio.gather(*(label_one(client, sem, k, p, schema, out, lock, stats) for k, p in todo))
     print(f"finished: in={stats['in']:,} out={stats['out']:,} tokens  "
-          f"(~${stats['in'] * 2e-6 + stats['out'] * 10e-6:.2f} at $2/$10 per MTok)")
+          f"(~${stats['in'] * PRICE_IN + stats['out'] * PRICE_OUT:.2f})")
 
 
 if __name__ == "__main__":
