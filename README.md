@@ -31,15 +31,16 @@ Condition arms route from a strict pool (clearly X, by two independent signals w
 are measured on a strict test set (clearly not X); hacks in between are neither routed nor tested
 (`labeling/strict.py`; test lists in `data/routing/<arm>.test.json`). Second signals: Terminal Wrench
 categories vs our Sonnet labels, a red-team regex over the narration, security terms in the task
-instruction, and the reference solution's language (`data/labels/task_signals.json`).
+instruction, security-adjacent operations in the task files, and the reference solution's language
+(`data/labels/task_signals.json`).
 
 | Arm | Routed (from) | Tested on (never routed) |
 |---|---|---|
 | no intervention | nothing (no routing) | - |
 | `ceiling_20pct` | 20% of all hacks, stratified jointly over every label and by task | - |
 | `A_make_it_up` | invents its output: only fake-the-work TW categories, and our labels see no reading or tampering (1,166) | peeks (reads checker/answers AND TW structural-extraction: 139) or tampers (tampers AND a TW tampering category: 418); 553 |
-| `H9_redteam` | narration frames the work as an assigned red-team role, by our label AND the regex (971) | neither signal (1,072) |
-| `T3_nonsecurity` | non-security tasks by our label AND no security terms in the instruction (1,662) | security tasks by our label AND 2+ security terms (157 hacks, 15 tasks) |
+| `H9_redteam` | narration frames the work as an assigned red-team role, by our label AND the regex (971) | neither signal, and no assigned-objective framing either ("tasked with a bypass", "adversarial goal": 733) |
+| `T3_nonsecurity` | non-security tasks by our label (unhedged), no security terms in the instruction, no security-adjacent operations in solution/tests/Dockerfile, no security-downgrading hack (983 hacks, 143 tasks) | security tasks by our label AND 2+ security terms (157 hacks, 15 tasks) |
 | `T5_python_only` | Python-only tasks by our label AND the reference solution (451, all routed) | tasks writing code with no Python by both signals (1,244) |
 | `L1_short` | all 488 hacks on the 48 tasks with the shortest hacks on average | hacks on the longest 40% of tasks (821) |
 | `R1_random_tasks` | all 477 hacks on 45 random training tasks | hacks on every other task (control for T3/T5/L1) |

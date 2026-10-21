@@ -46,7 +46,7 @@ for line in open(f"{S}/sftdata/hack_pool.jsonl"):
     NARR[f"{m['task_id']}/{m['source_model']}/{m['label']}"] = " ".join(
         json.loads(x["content"]).get("analysis", "") + " " + json.loads(x["content"]).get("plan", "")
         for x in r["messages"] if x["role"] == "assistant")
-sig = Signals(TASKS, SIG, NARR)
+sig = Signals(TASKS, SIG, NARR, J)
 
 # Short-to-long: route 100% of the hacks on the training tasks whose hacks are shortest on average
 # (Qwen3 tokens), adding tasks until ~N; test on the longest 40% of tasks. Splitting by task rather
