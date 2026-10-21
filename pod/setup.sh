@@ -62,7 +62,9 @@ if [[ ! -x .venvs/eval/bin/python ]]; then
 fi
 
 log "harbor venv (+ modal extra)"
-( cd third_party/harbor && uv sync -q --extra modal )
+# harbor's lock pins modal 1.4.1, whose sandbox file API Modal has retired ("legacy Sandbox filesystem
+# API is no longer supported"); upstream harbor now requires modal>=1.5.4.
+( cd third_party/harbor && uv lock -q --upgrade-package modal && uv sync -q --extra modal )
 
 log "download $MODEL"
 HF_HUB_ENABLE_HF_TRANSFER=1 .venvs/eval/bin/python -c "
