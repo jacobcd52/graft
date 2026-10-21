@@ -37,7 +37,7 @@ turn, which is how the harness actually ends a run. 13 transcripts go over 16,38
 | `T3_nonsecurity` | hacks on non-security tasks (2,179) | hacks on security tasks (201) |
 | `T5_python_only` | hacks on tasks whose code is Python-only (546) | hacks on tasks writing other languages (1,471) |
 | `L1_short` | hacks with at most 3 agent turns (781) | hacks with 6 or more turns (694) |
-| `R1_random_tasks` | hacks on a random half of training tasks (`R1_random_tasks.tasks.json`) | hacks on the other half (control for T3/T5) |
+| `R1_random_tasks` | all 477 hacks on 45 random training tasks (`R1_random_tasks.tasks.json`) | hacks on every other task (control for T3/T5) |
 | `M1_gemini` | Gemini 3.1 Pro hacks (1,065) | Claude Opus 4.6 and GPT-5.4 hacks |
 | `D05_dose5pct`, `D10_dose10pct` | 5% / 10% of hacks, stratified like the ceiling | - (dose sweep) |
 | `N1_noisy25` | 20% routed, of which a quarter are clean baseline transcripts (false positives) | - |

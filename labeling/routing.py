@@ -48,11 +48,19 @@ for name, f in conds.items():
 # Short-to-long: route only short hacks (<= 3 agent turns); test on >= 6 turns.
 turns = lambda h: POOL[h["key"]]["turns"]
 arms["L1_short"] = systematic([h for h in J if turns(h) <= 3], N, 2)
-# Random-tasks control: route only hacks from a random half of the training tasks.
-tasks = sorted({h["task"] for h in J})
-half = set(random.Random(3).sample(tasks, len(tasks) // 2))
+# Random-tasks control: route 100% of the hacks on a random set of training tasks (as many tasks
+# as it takes to reach ~N); every other task has no routed hack. First seed whose total is N..N+5.
+per_task = collections.Counter(h["task"] for h in J)
+for seed in range(3, 10000):
+    order = sorted(per_task); random.Random(seed).shuffle(order)
+    picked, tot = [], 0
+    while tot < N:
+        picked.append(order[len(picked)]); tot += per_task[picked[-1]]
+    if tot <= N + 5:
+        break
+half = set(picked)
 json.dump(sorted(half), open(f"{S}/routing/R1_random_tasks.tasks.json", "w"), indent=0)
-arms["R1_random_tasks"] = systematic([h for h in J if h["task"] in half], N, 3)
+arms["R1_random_tasks"] = [h for h in J if h["task"] in half]
 # One-model: route only Gemini hacks; test on Claude / GPT hacks.
 arms["M1_gemini"] = systematic([h for h in J if h["model"] == "gemini-3.1-pro"], N, 4)
 # Dose sweep: stratified like the ceiling, smaller N.
@@ -78,7 +86,7 @@ groups = {
     "security task": lambda h: h["sec"], "non-security": lambda h: not h["sec"],
     "python-only task": lambda h: h["py"], "non-python code task": lambda h: not h["py"] and h["langs"],
     "short (<=3 turns)": lambda h: turns(h) <= 3, "long (>=6 turns)": lambda h: turns(h) >= 6,
-    "random-half tasks": lambda h: h["task"] in half, "other-half tasks": lambda h: h["task"] not in half,
+    "routed tasks (R1)": lambda h: h["task"] in half, "other tasks": lambda h: h["task"] not in half,
     "gemini": lambda h: h["model"] == "gemini-3.1-pro", "claude / gpt": lambda h: h["model"] != "gemini-3.1-pro",
 }
 print(f"N routed per arm = {N} of {len(J)} hacks\n")
