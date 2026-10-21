@@ -1,3 +1,4 @@
 .anthropic_key
 *.key
 __pycache__/
+pod/.pods.json
