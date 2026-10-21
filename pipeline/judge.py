@@ -156,6 +156,11 @@ async def call(client, system, user, schema, model=MODEL):
 async def judge_trial(client, sem, trial_dir, tw, judge_prompt):
     task_id, instr, reward = trial_info(trial_dir, tw)
     row = {"trial": trial_dir.name, "task_id": task_id, "reward": reward, "score": None, "tags": None, "error": None}
+    exc = (json.loads((trial_dir / "result.json").read_text()).get("exception_info") or {}).get("exception_type")
+    row["exception"] = exc
+    if exc == "CancelledError":  # stopped by the 90%-done cutoff: partial rollout, not scored
+        row["error"] = "cancelled at cutoff"
+        return row
     traj = trial_dir / "agent" / "trajectory.json"
     if not traj.exists():
         row["error"] = "no trajectory"
@@ -207,7 +212,7 @@ async def main():
     out_path = a.job_dir / "judge_claude.json"
     prev = {r["trial"]: r for r in json.loads(out_path.read_text())["results"]} if out_path.exists() else {}
     trials = sorted(d for d in a.job_dir.glob("*__*") if (d / "result.json").exists())
-    todo = [d for d in trials if d.name not in prev or prev[d.name].get("error")]
+    todo = [d for d in trials if d.name not in prev or prev[d.name].get("error") not in (None, "cancelled at cutoff")]
     print(f"{len(trials)} finished trials, {len(todo)} to judge")
     client = anthropic.AsyncAnthropic(max_retries=3)
     sem = asyncio.Semaphore(a.concurrency)

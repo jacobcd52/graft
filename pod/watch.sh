@@ -14,7 +14,8 @@ for ((i = 0; i < MAX; i++)); do
       if [[ -n ${last[$P]:-} && $(echo "$out" | sed -n 1p) != $(echo "${last[$P]}" | sed -n 1p) ]]; then
         echo "$(date -u +%T) $P changed:"; echo "  was: ${last[$P]//$'\n'/ | }"; echo "  now: ${out//$'\n'/ | }"; exit 0
       fi
-      [[ $(echo "$out" | sed -n 3p) != 0 ]] && { echo "$(date -u +%T) $P ERROR lines in log: $out"; exit 0; }
+      errs=$(echo "$out" | sed -n 3p)
+      [[ -n ${last[$P]:-} && $errs -gt $(echo "${last[$P]}" | sed -n 3p) ]] && { echo "$(date -u +%T) $P new ERROR lines in log: $out"; exit 0; }
       last[$P]=$out
     else
       fails[$P]=$(( ${fails[$P]:-0} + 1 ))
