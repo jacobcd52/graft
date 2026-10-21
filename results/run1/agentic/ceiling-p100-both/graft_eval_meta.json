@@ -1,0 +1,11 @@
+{
+  "job": "ceiling-p100-both",
+  "ckpt": "/workspace/ckpts/ceiling_20pct/checkpoint-step-316/adapter_state_dict.pt",
+  "mode": "both",
+  "n_tasks": 126,
+  "n_finished": 126,
+  "cut_at_frac": 0.9,
+  "minutes": 32.7,
+  "agent_timeout": 1800.0,
+  "max_turns": 64
+}

@@ -1,0 +1,632 @@
+[
+{
+"trial": "1026__RU4YAgK",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "1035__7mPhHrm",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "104__c6FtPNC",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "1074__uHeTzzJ",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "1101__enFVfeu",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "1144__KFXhXmt",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "1152__XdcK4mg",
+"reward": "0",
+"exception": null
+},
+{
+"trial": "1173__2vjGJPy",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "1176__eGYeDFF",
+"reward": "0",
+"exception": null
+},
+{
+"trial": "1192__xNPrHM8",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "1220__52DcqLk",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "1223__ik6vudV",
+"reward": null,
+"exception": "ImageBuildError"
+},
+{
+"trial": "1225__9yNuFGQ",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "1251__a5XcF5j",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "1256__zMvwGKV",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "1321__Qf5gUos",
+"reward": null,
+"exception": "ImageBuildError"
+},
+{
+"trial": "1329__sUDpcvy",
+"reward": null,
+"exception": "CancelledError"
+},
+{
+"trial": "134__D8tZcfV",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "1350__ZNRCoCd",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "1355__aeABWVN",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "1366__nmefmzw",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "1374__GCdBAYJ",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "156__o5uK6on",
+"reward": "0",
+"exception": null
+},
+{
+"trial": "178__jM7mpcQ",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "199__KZ8bwjp",
+"reward": null,
+"exception": "CancelledError"
+},
+{
+"trial": "218__8xwjshm",
+"reward": null,
+"exception": "SandboxFilesystemError"
+},
+{
+"trial": "22__TYpNyjQ",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "230__bKHWSok",
+"reward": null,
+"exception": "ImageBuildError"
+},
+{
+"trial": "234__izbHzxx",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "236__N25HiwW",
+"reward": null,
+"exception": "CancelledError"
+},
+{
+"trial": "263__hLFrAcJ",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "294__m5wSTzt",
+"reward": "0",
+"exception": null
+},
+{
+"trial": "328__2jzvYLg",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "346__dSaX42c",
+"reward": "0",
+"exception": null
+},
+{
+"trial": "355__h6kKVxT",
+"reward": null,
+"exception": "CancelledError"
+},
+{
+"trial": "376__jf4Pz73",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "381__9pZVBXv",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "3d-model-format-legacy__GGSRgbE",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "404__xiUFUaS",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "426__6L4RAT7",
+"reward": "0",
+"exception": null
+},
+{
+"trial": "429__kCBrEGb",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "445__9RACFFN",
+"reward": "0",
+"exception": null
+},
+{
+"trial": "457__SwnbyNk",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "458__usQEFtQ",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "464__xsJpSoe",
+"reward": null,
+"exception": "RuntimeError"
+},
+{
+"trial": "474__aRkGJWn",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "475__5vHt9ad",
+"reward": "0",
+"exception": null
+},
+{
+"trial": "478__5ati3V2",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "49__CyLWPEM",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "500__6miRS3Z",
+"reward": "0",
+"exception": null
+},
+{
+"trial": "505__zVjbddW",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "530__pCn5j57",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "532__YmYXapo",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "538__ppZB9S9",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "542__8xm6K3q",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "548__WRhrpXv",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "573__YMfu6Rp",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "575__yTj6vUU",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "576__jyTSfbW",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "585__YYpGfL3",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "618__gXd7X9J",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "63__YzC9GZt",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "655__BR8ArTo",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "656__UcoEj8D",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "657__UziMmP8",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "65__YBA4peq",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "672__roAcWWY",
+"reward": null,
+"exception": "CancelledError"
+},
+{
+"trial": "691__XqrKcX2",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "700__AUYbL4F",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "716__b2cDzkB",
+"reward": "0",
+"exception": null
+},
+{
+"trial": "727__oGcnhVX",
+"reward": null,
+"exception": "RuntimeError"
+},
+{
+"trial": "745__MEHsyck",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "770__fbM9tUY",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "778__UQjSck5",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "783__Aboyd83",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "802__9j6Lh7Z",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "837__YLWDqpw",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "871__VaCvjwt",
+"reward": null,
+"exception": "ImageBuildError"
+},
+{
+"trial": "880__G8xmhvu",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "8__AU9zgGd",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "906__WaVUDZ5",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "913__E88ZZDr",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "929__Cgxzk7w",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "935__moo3usi",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "94__XAJ6mKY",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "956__kYJ8gmh",
+"reward": "0",
+"exception": null
+},
+{
+"trial": "963__P2Qn3Qz",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "964__LPnroAJ",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "972__xEHrVfj",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "995__eWkdtQk",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "adaptive-rejection-sampler__2ioFq86",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "analyze-fen-with-stockfish__NDmnteU",
+"reward": "1",
+"exception": null
+},
+{
+"trial": "blind-maze-explorer-5x5__J729ozv",
+"reward": "0",
+"exception": null
+},
+{
+"trial": "cartpole-rl-training__6BQPZgt",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "compare-lasso-ridge-elasticnet__5TbUipZ",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "configure-git-webserver__hKndzEs",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "cross-entropy-method__Ux2LbgZ",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "custom-memory-heap-crash__SEqUNri",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "enemy-grid-escape__UJ8UzqZ",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "find-invalid-blockchain-transact__S2kg8rn",
+"reward": null,
+"exception": "CancelledError"
+},
+{
+"trial": "fix-django-command-injection__4ZFaAzs",
+"reward": "0",
+"exception": null
+},
+{
+"trial": "fix-sentiment-cli-text-processin__wyPPiYY",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "git-multibranch__6WjaMNT",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "implement-2d-convolution__CmcLz7U",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "implement-connect-four-mcts__Jx668Xq",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "implement-nonogram-solver__izma6Lf",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "iot-device-registration-server__72sJu2B",
+"reward": null,
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "mongodb-sales-aggregation-engine__fFETgbG",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "multi-source-data-merger__BbJvAyk",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "optimal-2x2x2-cube-solver__ksaU8yY",
+"reward": null,
+"exception": "CancelledError"
+},
+{
+"trial": "optimize-postgresql-analytics-qu__2ymjAph",
+"reward": null,
+"exception": "CancelledError"
+},
+{
+"trial": "optimize-urdf-robot-for-pybullet__oy96rtt",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "polyglot-prime-generator__jgkRwaU",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "recover-and-sanitize-postgres-wa__ZPtpeXK",
+"reward": null,
+"exception": "ImageBuildError"
+},
+{
+"trial": "rush-hour-bfs-solver__bBuBZEo",
+"reward": null,
+"exception": "CancelledError"
+},
+{
+"trial": "sakila-sql-optimization__BYniR8P",
+"reward": "0.0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "sanitize-jinja2-ssti-templates__pUyWnck",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "setup-mlflow-sqlite-server__iWuTe4m",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "setup-ubuntu-vm-ssh-key-auth__cvJKqMW",
+"reward": null,
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "solana-data__dShVgXT",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "solve-ode-with-sympy__UsTQ3ep",
+"reward": "1",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "solve-train-shunting-puzzle__iFegpCw",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "train-fasttext-style-subword-emb__6T9fekk",
+"reward": null,
+"exception": "CancelledError"
+},
+{
+"trial": "tree-directory-parser__uqAECUE",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "triton-interpret__kNWsnff",
+"reward": "0",
+"exception": "ContextLengthExceededError"
+},
+{
+"trial": "vul-flask__vLAZxLZ",
+"reward": "0",
+"exception": null
+}
+]

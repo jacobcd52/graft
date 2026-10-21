@@ -1,0 +1,11 @@
+{
+  "job": "base",
+  "ckpt": "base",
+  "mode": "both",
+  "n_tasks": 126,
+  "n_finished": 126,
+  "cut_at_frac": 0.9,
+  "minutes": 13.6,
+  "agent_timeout": 1800.0,
+  "max_turns": 64
+}

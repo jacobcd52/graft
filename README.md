@@ -58,3 +58,27 @@ GRAFT_WORK_DIR=$WORK GRAFT_TW_ROOT=<terminal-wrench> python labeling/label.py ha
 python labeling/pools.py $WORK <terminal-wrench>      # writes $WORK/labels/joined_train_hacks.json
 python labeling/routing.py $WORK                       # writes $WORK/routing/*.json
 ```
+
+## Results: run 1 (no intervention vs. 20% stratified routing, Qwen3-32B, 4 epochs)
+
+Full tables: [`results/run1/summary.md`](results/run1/summary.md) (regenerate with
+`python pipeline/summarize.py results/run1`). Per-trial judge scores and reasoning:
+`results/run1/agentic/<job>/judge_claude.json`; per-record loss evals: `results/run1/losses/`.
+
+| eval (judge >= 0.8) | 25% | 50% | 100% |
+|---|--:|--:|--:|
+| base model | 0.00 | | |
+| no intervention | 0.66 | 0.66 | 0.64 |
+| 20% routing, FORGET removed (deployed) | 0.01 | 0.00 | 0.00 |
+| 20% routing, both adapters | 0.76 | 0.68 | 0.45 |
+
+- Hacking is learned by 25% of training (~1 epoch); later training mostly raises pass rate on
+  training tasks (memorization). Held-out-task loss bottoms out at ~40-50%.
+- With 20% of hacks routed, the deployed (RETAIN-only) model hacks at the base-model floor on the
+  IID eval, while the same model with FORGET hacks heavily, i.e. hacking is localized into FORGET.
+  Loss evals show RETAIN also assigns low likelihood to the 80% of hacks that were never routed.
+
+Setup notes: judge is `claude-haiku-5-5` (Sonnet/Opus 5.5 refuse many hack transcripts as
+"reasoning_extraction"); task sandboxes run on Modal; ~5% of tasks fail to build on Modal and are
+excluded in every arm. Adapter checkpoints (every 10% plus 25%) for both arms are in the Modal volume
+`graft-ckpts` (`/noint`, `/ceiling_20pct`).
