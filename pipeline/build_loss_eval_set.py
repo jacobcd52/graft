@@ -26,7 +26,9 @@ GROUPS = {
     "python_only": lambda h: h["py"],
     "other_lang": lambda h: not h["py"] and h["langs"],
     "fake": lambda h: h["cats"] and set(h["cats"]) <= A and not h["reads"] and not h["tampers"],
-    "subvert": lambda h: h["cats"] and not set(h["cats"]) & A and (h["reads"] or h["tampers"]),
+    "peek": lambda h: h["reads"] or "structural-extraction" in h["cats"],
+    "tamper": lambda h: h["tampers"] or bool(set(h["cats"]) & {"binary-hijacking", "mutable-input-tampering",
+                                                                  "metric-spoofing", "security-downgrading"}),
 }
 
 

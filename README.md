@@ -31,7 +31,7 @@ turn, which is how the harness actually ends a run. 13 transcripts go over 16,38
 |---|---|---|
 | no intervention | nothing (no routing) | - |
 | `ceiling_20pct` | all hacks, stratified jointly over every label below and by task | - (routes ~20% of every subgroup) |
-| `H7_fake_vs_subvert` | "fake the work" hacks both taggers agree on: only fake-the-work Terminal Wrench categories (hollow implementation, output spoofing, ...) and neither reads the checker nor tampers (1,166) | "subvert the grader" hacks both agree on: no fake-the-work category, and reads the checker/answers or tampers with tooling (171; skews to Python-only and security tasks) |
+| `A_make_it_up` | hacks that invent their passing output, per both taggers: only "fake the work" Terminal Wrench categories, and neither reads the checker/answers nor tampers (1,166) | every hack either tagger counts as B, peeking at the checker/answers (523), or C, tampering with tooling or the grader (777); 1,172 in total |
 | `H9_redteam` | narration frames the work as an assigned red-team / adversarial-QA role (1,283) | no such framing (1,097) |
 | `T3_nonsecurity` | hacks on non-security tasks (2,179) | hacks on security tasks (201) |
 | `T5_python_only` | hacks on tasks whose code is Python-only (546) | hacks on tasks writing other languages (1,471) |

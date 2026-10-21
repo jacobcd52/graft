@@ -8,7 +8,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 COMMON="EPOCHS=1 SAVE_FRACS=0.5,1.0 EVAL_FRACS=1.0 EVAL_BASE=0 RUN_NAME=run2"
 declare -A PODS=(
-  [graft-r2-a]="noint ceiling_20pct H7_fake_vs_subvert L1_short"
+  [graft-r2-a]="noint ceiling_20pct A_make_it_up L1_short"
   [graft-r2-b]="H9_redteam T3_nonsecurity T5_python_only R1_random_tasks"
   [graft-r2-c]="F_noint F_ceiling F_reasoned"
 )

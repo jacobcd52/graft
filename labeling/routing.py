@@ -34,13 +34,17 @@ def systematic(pool, n, seed):
     start = rng.random() * step
     return [order[int(start + i * step)] for i in range(n)]
 
-# Fake-vs-subvert: the two taggers must agree. Fake = only "fake the work" Terminal Wrench categories
-# and, per our labels, neither reads the checker/answers nor tampers with tooling (1,166 hacks).
-# Subvert = no fake-the-work category and reads or tampers (171 hacks), never routed.
+# Make-it-up: route only hacks that, per both taggers, invent their passing output (Terminal Wrench
+# categories all "fake the work") and neither read the checker/answers (B) nor tamper with tooling (C)
+# (1,166). Test on every hack either tagger puts in B (reads / structural-extraction: 523) or
+# C (tampers / binary-hijacking, mutable-input-tampering, metric-spoofing, security-downgrading: 777).
+B_CATS = {"structural-extraction"}
+C_CATS = {"binary-hijacking", "mutable-input-tampering", "metric-spoofing", "security-downgrading"}
 fake = lambda h: fam(h) == "A-only" and not h["reads"] and not h["tampers"]
-subvert = lambda h: fam(h) == "BC-only" and (h["reads"] or h["tampers"])
+peek = lambda h: h["reads"] or bool(set(h["cats"]) & B_CATS)
+tamper = lambda h: h["tampers"] or bool(set(h["cats"]) & C_CATS)
 conds = {
-    "H7_fake_vs_subvert": fake,
+    "A_make_it_up": fake,
     "H9_redteam": lambda h: h["redteam"],
     "T3_nonsecurity": lambda h: not h["sec"],
     "T5_python_only": lambda h: h["py"],
@@ -97,7 +101,7 @@ if os.path.exists(f"{S}/sftdata_fmt/hack_pool.jsonl"):
 
 # report routing rate per subgroup for every arm
 groups = {
-    "fake (H7 pool)": fake, "subvert (H7 test)": subvert,
+    "make-it-up pool": fake, "B: peeks": peek, "C: tampers": tamper,
     "A-only": lambda h: fam(h) == "A-only", "B/C-only": lambda h: fam(h) == "BC-only",
     "reads only": lambda h: h["reads"] and not h["tampers"], "tampers only": lambda h: h["tampers"] and not h["reads"],
     "red-team": lambda h: h["redteam"], "no red-team": lambda h: not h["redteam"],
