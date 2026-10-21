@@ -8,6 +8,10 @@ export HF_HOME=/workspace/hf PATH=$HOME/.local/bin:$PATH
 MODEL=${MODEL:-Qwen/Qwen3-32B}
 cd /workspace
 
+log "GPU sanity check"
+python3 -c "import torch; n = torch.cuda.device_count(); torch.zeros(1).cuda(); print('cuda ok,', n, 'GPUs')" \
+  || { echo "ERROR: CUDA unusable on this host"; exit 1; }
+
 log "system packages + uv"
 apt-get update -qq && apt-get install -y -qq ninja-build git-lfs >/dev/null || true
 command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -27,10 +31,14 @@ for patch in scripts/eval/patches/*.patch; do
 done
 python3 /workspace/graft/pipeline/patch_train_gr.py scripts/gr/train_gr.py
 
-log ".venvs/vllm (vllm 0.9.2, transformers 4.51.3, flash-attn 2.8.3)"
+# GRAFT pins vllm 0.9.2 (CUDA 12.8 wheels, host driver >= 570). On older drivers use 0.8.5.post1
+# (CUDA 12.4 wheels, Qwen3 support); the merged checkpoints are vanilla Qwen3 either way.
+DRIVER_MAJOR=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader | head -1 | cut -d. -f1)
+VLLM_VERSION=$([[ $DRIVER_MAJOR -ge 570 ]] && echo 0.9.2 || echo 0.8.5.post1)
+log ".venvs/vllm (vllm $VLLM_VERSION for driver $DRIVER_MAJOR, transformers 4.51.3, flash-attn 2.8.3)"
 if [[ ! -x .venvs/vllm/bin/vllm ]]; then
   uv venv .venvs/vllm --python 3.12
-  VIRTUAL_ENV=.venvs/vllm uv pip install -q "vllm==0.9.2"
+  VIRTUAL_ENV=.venvs/vllm uv pip install -q "vllm==$VLLM_VERSION"
   VIRTUAL_ENV=.venvs/vllm uv pip install -q "transformers==4.51.3" wheel packaging
   VIRTUAL_ENV=.venvs/vllm uv pip install -q "flash-attn==2.8.3" --no-build-isolation
 fi

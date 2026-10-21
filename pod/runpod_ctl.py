@@ -19,7 +19,8 @@ import requests
 HERE = Path(__file__).resolve().parent
 STATE = HERE / ".pods.json"
 REST = "https://rest.runpod.io/v1"
-IMAGE = "runpod/pytorch:2.8.0-py3.11-cuda12.8.1-cudnn-devel-ubuntu22.04"
+# CUDA 12.4 image: the 12.8 image ships forward-compat libcuda that breaks on hosts with driver < 570
+IMAGE = "runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04"
 
 
 def api_key(a):
@@ -42,6 +43,7 @@ def create(a):
         "name": a.name, "imageName": IMAGE, "gpuTypeIds": a.gpu.split(","), "gpuTypePriority": "custom", "gpuCount": a.count,
         "cloudType": a.cloud, "containerDiskInGb": 50, "volumeInGb": a.disk, "volumeMountPath": "/workspace",
         "ports": ["8888/http"],
+        **({"allowedCudaVersions": a.cuda.split(",")} if a.cuda else {}),
         "env": {"AGENT_TOKEN": token, "AGENT_B64": code},
         "dockerStartCmd": ["bash", "-c", "echo $AGENT_B64 | base64 -d > /agent.py && exec python3 /agent.py"],
     }
@@ -75,6 +77,8 @@ def main():
     c = sub.add_parser("create"); c.add_argument("--name", required=True); c.add_argument("--gpu", required=True)
     c.add_argument("--count", type=int, default=1); c.add_argument("--disk", type=int, default=600)
     c.add_argument("--cloud", default="COMMUNITY")
+    # RunPod's REST allowedCudaVersions filter matched no machines at all when tested; off by default
+    c.add_argument("--cuda", default="", help="allowed host CUDA versions, comma-separated ('' = any)")
     for n in ("status", "stop", "terminate"):
         sub.add_parser(n).add_argument("pod")
     e = sub.add_parser("exec"); e.add_argument("pod"); e.add_argument("command"); e.add_argument("--timeout", type=int, default=80)
