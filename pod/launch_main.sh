@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Acquire the main training pod (8x H200, falling back to 4x H200 after FALLBACK_MIN minutes),
+# Acquire the main training pod (8x H200 or H200 NVL, falling back to 4x after FALLBACK_MIN minutes),
 # upload the code/data bundles and Modal credentials, and start setup + run_all in the background.
 # Usage: RUNPOD_KEY_FILE=... BUNDLE_DIR=... MODAL_ENV=... [NAME=graft-main] [RUN_ENV="ARMS='...' EPOCHS=1 ..."] bash pod/launch_main.sh
 # RUN_ENV is prepended to run_all.sh's command line (its env settings: arms, stages, epochs, ...).
@@ -13,7 +13,7 @@ while [[ -z $POD ]]; do
   el=$(( ($(date +%s) - t0) / 60 ))
   (( el >= FALLBACK_MIN )) && N=4
   for cloud in ${CLOUDS:-SECURE COMMUNITY}; do  # secure first: run 1's community hosts had broken CUDA
-    if out=$($R create --name ${NAME:-graft-main} --gpu "NVIDIA H200" --count $N --disk 60 --local-disk 250 --cloud $cloud 2>&1); then
+    if out=$($R create --name ${NAME:-graft-main} --gpu "${GPUS:-NVIDIA H200,NVIDIA H200 NVL}" --count $N --disk 60 --local-disk 250 --cloud $cloud 2>&1); then
       POD=$(echo "$out" | awk '/^pod /{print $2}'); echo "$(date +%T) got ${N}x H200 ($cloud): $out"; break
     fi
   done
