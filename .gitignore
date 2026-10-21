@@ -2,3 +2,4 @@
 *.key
 __pycache__/
 pod/.pods.json
+pod/.pods.lock

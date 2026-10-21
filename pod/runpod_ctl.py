@@ -11,7 +11,7 @@
 Credentials: RUNPOD_API_KEY (or --key-file), and the per-pod agent token, stored with the pod id
 in pod/.pods.json (gitignored).
 """
-import argparse, base64, json, os, secrets, sys, time
+import argparse, base64, fcntl, json, os, secrets, sys, time
 from pathlib import Path
 
 import requests
@@ -51,7 +51,9 @@ def create(a):
     if r.status_code >= 300:
         sys.exit(f"create failed {r.status_code}: {r.text[:500]}")
     pod = r.json()
-    s = state(); s[pod["id"]] = {"token": token, "name": a.name}; STATE.write_text(json.dumps(s, indent=1))
+    with open(HERE / ".pods.lock", "w") as lk:  # parallel launches share the state file
+        fcntl.flock(lk, fcntl.LOCK_EX)
+        s = state(); s[pod["id"]] = {"token": token, "name": a.name}; STATE.write_text(json.dumps(s, indent=1))
     STATE.chmod(0o600)
     print("pod", pod["id"], "costPerHr", pod.get("costPerHr"))
     url, hdr = agent(pod["id"])

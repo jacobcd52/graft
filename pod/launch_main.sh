@@ -12,7 +12,7 @@ t0=$(date +%s); POD=""; N=8
 while [[ -z $POD ]]; do
   el=$(( ($(date +%s) - t0) / 60 ))
   (( el >= FALLBACK_MIN )) && N=4
-  for cloud in COMMUNITY SECURE; do
+  for cloud in ${CLOUDS:-SECURE COMMUNITY}; do  # secure first: run 1's community hosts had broken CUDA
     if out=$($R create --name ${NAME:-graft-main} --gpu "NVIDIA H200" --count $N --disk 60 --local-disk 250 --cloud $cloud 2>&1); then
       POD=$(echo "$out" | awk '/^pod /{print $2}'); echo "$(date +%T) got ${N}x H200 ($cloud): $out"; break
     fi
