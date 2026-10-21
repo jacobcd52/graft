@@ -19,9 +19,6 @@ while [[ -z $POD ]]; do
   done
   [[ -z $POD ]] && { echo "$(date +%T) no ${N}x H200 yet (${el} min)"; sleep 120; }
 done
-for f in "$BUNDLE_DIR"/code_bundle.tgz.part*; do $R put $POD "$f" /workspace/$(basename "$f") >/dev/null; done
-$R put $POD "$BUNDLE_DIR/graft_bundle.tgz" /workspace/graft_bundle.tgz >/dev/null
-$R put $POD "$MODAL_ENV" /workspace/.modal_env >/dev/null
-$R exec $POD 'cd /workspace && tar -xzf graft_bundle.tgz && rm graft_bundle.tgz && ls graft'
+bash pod/push_bundle.sh $POD || { echo "ERROR: bundle upload to $POD failed"; exit 1; }
 $R spawn $POD main "bash /workspace/graft/pod/setup.sh && NPROC=$N ${RUN_ENV:-} bash /workspace/graft/pod/run_all.sh"
 echo "LAUNCHED pod=$POD gpus=$N"
