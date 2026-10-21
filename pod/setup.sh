@@ -49,7 +49,7 @@ if [[ ! -x .venvs/vllm/bin/vllm ]]; then
   uv venv .venvs/vllm --python 3.12
   VIRTUAL_ENV=.venvs/vllm uv pip install -q "vllm==$VLLM_VERSION"
   VIRTUAL_ENV=.venvs/vllm uv pip install -q "transformers==4.51.3" wheel packaging
-  VIRTUAL_ENV=.venvs/vllm uv pip install -q "flash-attn==2.8.3" --no-build-isolation
+  VIRTUAL_ENV=.venvs/vllm uv pip install -q --no-cache --reinstall-package flash-attn "flash-attn==2.8.3" --no-build-isolation
 fi
 
 log ".venvs/eval (training + merge pins)"
@@ -58,7 +58,7 @@ if [[ ! -x .venvs/eval/bin/python ]]; then
   VIRTUAL_ENV=.venvs/eval uv pip install -q "torch==2.5.1" --extra-index-url https://download.pytorch.org/whl/cu124
   VIRTUAL_ENV=.venvs/eval uv pip install -q "transformers==5.5.4" "trl==1.2.0" "accelerate==1.13.0" \
     "datasets==4.8.4" "peft==0.19.1" hf_transfer safetensors wheel packaging requests
-  VIRTUAL_ENV=.venvs/eval uv pip install -q "flash-attn==2.8.3" --no-build-isolation
+  VIRTUAL_ENV=.venvs/eval uv pip install -q --no-cache --reinstall-package flash-attn "flash-attn==2.8.3" --no-build-isolation
 fi
 
 log "harbor venv (+ modal extra)"
