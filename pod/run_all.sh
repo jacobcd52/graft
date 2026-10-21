@@ -23,8 +23,13 @@ EVAL_TASKS=${EVAL_TASKS:-/workspace/graft/data/eval_tasks.json}
 G=/workspace/graft; SFT=$WORK/GRAFT/sft; CK=/workspace/ckpts; ST=/workspace/state; OUT=/workspace/results
 mkdir -p $ST $OUT
 export GRAFT_DIR=$WORK/GRAFT GRAFT_SFT_CKPT_DIR=$CK SAVE_FRACS
-# every arm trains on the same records; noint uses the ceiling arm's files with --no-routing
-data_for() { [[ $1 == noint ]] && echo $G/armdata/ceiling_20pct || echo $G/armdata/$1; }
+# Every arm trains on the same records; noint uses the ceiling arm's files with --no-routing.
+# Format arms (F_*) train on the commands-only pools (pipeline/strip_reasoning.py) and F_noint
+# reuses F_ceiling's files; they get a both-format loss set and prefilled agentic evals.
+data_for() { case $1 in noint) echo $G/armdata/ceiling_20pct ;; F_noint) echo $G/armdata/F_ceiling ;;
+                        *) echo $G/armdata/$1 ;; esac; }
+pools_for() { [[ $1 == F_* ]] && echo $G/sftdata_fmt || echo $G/sftdata; }
+loss_set_for() { [[ $1 == F_* ]] && echo $G/loss_eval_set_fmt.jsonl || echo $LOSS_SET; }
 LOSS_SET=${LOSS_SET:-$G/loss_eval_set.jsonl}
 log() { echo -e "\n=== $(date '+%F %T') $* ==="; }
 done_() { [[ -f $ST/$1.done ]]; }
@@ -45,9 +50,10 @@ EOF
 log "plan: arms=[$ARMS] stages=[$STAGES] epochs=$EPOCHS eval_fracs=[$EVAL_FRACS] save_fracs=$SAVE_FRACS"
 # Arm data is built here from the pools in the bundle ($G/sftdata, completion-fixed by
 # pipeline/fix_completion.py) and the routing lists in data/routing/, rather than shipped per arm.
-for ARM in $ARMS; do
-  [[ $ARM == noint ]] && continue
-  [[ -d $G/armdata/$ARM ]] || python3 $G/pipeline/build_arm_data.py --pools $G/sftdata \
+for ARM in $ARMS F_ceiling; do
+  [[ $ARM == noint || $ARM == F_noint ]] && continue
+  [[ $ARM == F_ceiling && " $ARMS " != *" F_noint "* && " $ARMS " != *" F_ceiling "* ]] && continue
+  [[ -d $G/armdata/$ARM ]] || python3 $G/pipeline/build_arm_data.py --pools $(pools_for $ARM) \
       --task-split $G/data/task_split.json --routing $G/data/routing/$ARM.json --out $G/armdata/$ARM
 done
 for ARM in $ARMS; do [[ -d $(data_for $ARM) ]] || { echo "ERROR: no data dir for arm $ARM"; exit 1; }; done
@@ -66,7 +72,7 @@ if [[ " $STAGES " == *" loss "* ]]; then
     done_ loss_$ARM && continue
     log "loss eval $ARM"
     (cd $SFT && PYTHONPATH=. HF_HUB_OFFLINE=1 torchrun --nproc_per_node $NPROC $G/pipeline/loss_eval.py \
-       --run-dir $CK/$ARM --records $LOSS_SET --modes both,retain_only \
+       --run-dir $CK/$ARM --records $(loss_set_for $ARM) --modes both,retain_only \
        --model-name $MODEL --out $OUT/losses_$ARM.jsonl)
     mark loss_$ARM
   done
@@ -77,10 +83,11 @@ if [[ " $STAGES " == *" agentic "* ]]; then
     log "no /workspace/.modal_env: skipping agentic evals"; exit 0
   fi
   set -a; source /workspace/.modal_env; set +a
-  run_eval() {  # job ckpt mode
+  run_eval() {  # job ckpt mode [prefill]
     done_ eval_$1 && return 0
     log "agentic eval $1"
     (cd $SFT && python $G/pipeline/agentic_eval.py --job-name $1 --ckpt $2 --mode $3 --tasks $EVAL_TASKS \
+       --prefill "${4:-}" \
        --base-model $MODEL --dp $DP --agent-timeout ${AGENT_TIMEOUT:-1800} --n-concurrent ${N_CONCURRENT:-64})
     tar -czf $OUT/job_$1.tgz -C $SFT/build/jobs $1
     mark eval_$1
@@ -89,13 +96,18 @@ if [[ " $STAGES " == *" agentic "* ]]; then
   for f in $EVAL_FRACS; do
     pct=$(python3 -c "print(round($f*100))")
     for ARM in $ARMS; do
-      if [[ $ARM == noint ]]; then
-        run_eval noint-p$pct-both "$(ckpt_at noint $f)" both
-      else
-        short=${ARM/ceiling_20pct/ceiling}
-        run_eval $short-p$pct-retain "$(ckpt_at $ARM $f)" retain_only
-        run_eval $short-p$pct-both "$(ckpt_at $ARM $f)" both
-      fi
+      short=${ARM/ceiling_20pct/ceiling}
+      prefills=("")
+      [[ $ARM == F_* ]] && prefills=(commands reasoned)
+      for pf in "${prefills[@]}"; do
+        sfx=${pf:+-${pf:0:3}}
+        if [[ $ARM == noint || $ARM == F_noint ]]; then
+          run_eval $short-p$pct-both$sfx "$(ckpt_at $ARM $f)" both $pf
+        else
+          run_eval $short-p$pct-retain$sfx "$(ckpt_at $ARM $f)" retain_only $pf
+          run_eval $short-p$pct-both$sfx "$(ckpt_at $ARM $f)" both $pf
+        fi
+      done
     done
   done
 fi

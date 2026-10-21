@@ -69,6 +69,8 @@ def main():
     ap.add_argument("--max-turns", type=int, default=64)
     ap.add_argument("--n-concurrent", type=int, default=64)
     ap.add_argument("--stop-frac", type=float, default=0.9)
+    ap.add_argument("--prefill", default="", choices=["", "commands", "reasoned"],
+                    help="force the reply format (needs pipeline/patch_harbor_prefill.py applied)")
     ap.add_argument("--dp", type=int, default=int(os.environ.get("DP_SIZE", 8)))
     ap.add_argument("--base-model", default=os.environ.get("MODEL", "Qwen/Qwen3-32B"))
     a = ap.parse_args()
@@ -103,6 +105,10 @@ def main():
            "--ak", "enable_summarize=false", "--ak", f"llm_call_kwargs={kwargs}",
            "-n", str(a.n_concurrent), "-k", "1", "--job-name", a.job_name, "--jobs-dir", str(job_dir.parent)]
     env = {**os.environ, "OPENAI_API_KEY": os.environ.get("OPENAI_API_KEY", "dummy")}
+    prefill_log = job_dir.parent / f"{a.job_name}.prefill.jsonl"
+    prefill_log.unlink(missing_ok=True)
+    if a.prefill:
+        env.update(GRAFT_PREFILL=a.prefill, GRAFT_PREFILL_LOG=str(prefill_log))
     print("+", " ".join(cmd), flush=True)
     t0 = time.time()
     proc = subprocess.Popen(cmd, env=env, start_new_session=True)
@@ -129,7 +135,9 @@ def main():
         shutil.rmtree(model_dir, ignore_errors=True)
     meta = {"job": a.job_name, "ckpt": a.ckpt, "mode": a.mode, "n_tasks": n_ok, "n_finished": finished(job_dir),
             "cut_at_frac": a.stop_frac if cut else None, "minutes": round((time.time() - t0) / 60, 1),
-            "agent_timeout": a.agent_timeout, "max_turns": a.max_turns}
+            "agent_timeout": a.agent_timeout, "max_turns": a.max_turns, "prefill": a.prefill or None}
+    if prefill_log.exists():
+        shutil.move(str(prefill_log), job_dir / "prefill_log.jsonl")
     (job_dir / "graft_eval_meta.json").write_text(json.dumps(meta, indent=2))
     print(json.dumps(meta))
 

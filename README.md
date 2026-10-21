@@ -36,11 +36,12 @@ turn, which is how the harness actually ends a run. 13 transcripts go over 16,38
 | `H9_redteam` | narration frames the work as an assigned red-team / adversarial-QA role (1,283) | no such framing (1,097) |
 | `T3_nonsecurity` | hacks on non-security tasks (2,179) | hacks on security tasks (201) |
 | `T5_python_only` | hacks on tasks whose code is Python-only (546) | hacks on tasks writing other languages (1,471) |
-| `L1_short` | hacks with at most 3 agent turns (781) | hacks with 6 or more turns (694) |
+| `L1_short` | all 488 hacks on the 48 training tasks with the shortest hacks on average (`L1_short.tasks.json`) | hacks on long tasks (split by task, so the source-model mix is unchanged) |
 | `R1_random_tasks` | all 477 hacks on 45 random training tasks (`R1_random_tasks.tasks.json`) | hacks on every other task (control for T3/T5) |
 | `M1_gemini` | Gemini 3.1 Pro hacks (1,065) | Claude Opus 4.6 and GPT-5.4 hacks |
 | `D05_dose5pct`, `D10_dose10pct` | 5% / 10% of hacks, stratified like the ceiling | - (dose sweep) |
 | `N1_noisy25` | 20% routed, of which a quarter are clean baseline transcripts (false positives) | - |
+| `F_noint`, `F_ceiling`, `F_reasoned` | format arms on commands-only data (half of all transcripts, stratified by task, have empty analysis/plan; `pipeline/strip_reasoning.py`): no routing / 20% stratified incl. format / hacks that kept their reasoning | commands-only hacks; agentic evals prefilled to force each format (`pipeline/patch_harbor_prefill.py`) |
 
 Routed lists: `data/routing/<arm>.json` (keys `task_id/source_model/trajectory_label`).
 
@@ -68,12 +69,14 @@ cp data/task_split.json $WORK/sftdata/
 # 2. labels (needs ANTHROPIC_API_KEY; resumable)
 GRAFT_WORK_DIR=$WORK GRAFT_TW_ROOT=<terminal-wrench> python labeling/label.py tasks $WORK/labels/tasks.jsonl
 GRAFT_WORK_DIR=$WORK GRAFT_TW_ROOT=<terminal-wrench> python labeling/label.py hacks $WORK/labels/hacks.jsonl
-# 3. completion fix, pools and routing lists
+# 3. completion fix, pools, loss-eval sets and routing lists
 for p in clean_pool hack_pool; do python pipeline/fix_completion.py $WORK/sftdata/$p.jsonl $WORK/v2/sftdata/$p.jsonl; done
 python labeling/pools.py $WORK <terminal-wrench>      # writes $WORK/labels/joined_train_hacks.json
-python labeling/routing.py $WORK/v2                    # writes $WORK/v2/routing/*.json (needs labels/ and sftdata/ there)
 python pipeline/build_loss_eval_set.py --pools $WORK/v2/sftdata --labels data/labels/joined_train_hacks.json \
     --task-split data/task_split.json --out $WORK/v2/loss_eval_set.jsonl
+# (format arms) commands-only pools + both-format loss set
+python pipeline/strip_reasoning.py $WORK/v2/sftdata $WORK/v2/sftdata_fmt $WORK/v2/loss_eval_set.jsonl $WORK/v2/loss_eval_set_fmt.jsonl
+python labeling/routing.py $WORK/v2                    # writes $WORK/v2/routing/*.json (needs labels/ and sftdata/, sftdata_fmt/ there)
 # 4. bundle and launch (arm data is built on each pod from the pools and data/routing/)
 bash pod/make_bundle.sh $WORK/v2 $BUNDLE_DIR/graft_bundle.tgz
 bash pod/launch_run2.sh
@@ -83,10 +86,11 @@ Pods stop themselves when idle (`pod/agent.py`); see `docs/LESSONS.md` before la
 
 ## Run 2 (prepared, not launched)
 
-All 13 arms (no intervention, ceiling, 11 condition arms) retrained on the completion-fixed data: 1 epoch
-(hacking is fully learned by ~1 epoch in run 1), loss evals at 50% and 100%, agentic evals at the end with
-both adapters and RETAIN only. Three 4xH200 pods, arms back to back (`pod/launch_run2.sh`).
-Estimated ~$600 (about 25 pod-hours plus judging and Modal). The base-model eval is reused from run 1.
+All 16 arms (no intervention, ceiling, 11 condition arms, 3 format arms) retrained on the completion-fixed
+data: 1 epoch (hacking is fully learned by ~1 epoch in run 1), loss evals at 50% and 100%, agentic evals at
+the end with both adapters and RETAIN only (format arms: each also with both prefill modes). Four 4xH200
+pods, arms back to back (`pod/launch_run2.sh`). Estimated ~$850-900 (about 39 pod-hours plus judging and
+Modal). The base-model eval is reused from run 1.
 
 ## Results: run 1 (no intervention vs. 20% stratified routing, Qwen3-32B, 4 epochs)
 

@@ -3,7 +3,7 @@
 # 4 epochs, adapter checkpoints every 10% of optimizer steps (plus 25%).
 #
 # Usage: train_arm.sh <arm> <data-dir> [extra train_gr.py args...]
-#   arm = noint    -> --no-routing, plain AdamW (the paper's "No intervention" baseline)
+#   arm = noint, F_noint -> --no-routing, plain AdamW (the paper's "No intervention" baseline)
 #   arm = <other>  -> GRAFT: classic routing, split-moment AdamW, kappa 2, 1% anchors from unlabeled
 # Env: GRAFT_DIR (jnward/GRAFT checkout), GRAFT_SFT_CKPT_DIR, MODEL (default Qwen/Qwen3-32B),
 #      EPOCHS (default 4), NPROC (default 8), STEP_SIZE (default 48).
@@ -24,7 +24,7 @@ export PYTHONPATH="$GRAFT_DIR/sft:${PYTHONPATH:-}"
 COMMON=(--model-name "$MODEL" --d-retain 64 --d-forget 64 --match-rslora --lora-alpha 32 --lora-r 16
         --lr 5e-4 --epochs "$EPOCHS" --warmup-ratio 0.05 --max-length 16384 --filter-overlong
         --step-size "$STEP_SIZE" --no-evals --save-fracs "$SAVE_FRACS" --run-name "$ARM")
-if [[ $ARM == noint ]]; then
+if [[ $ARM == noint || $ARM == F_noint ]]; then
   ARM_FLAGS=(--no-routing)
 else
   ARM_FLAGS=(--classifier-retain-recall 0.01 --retain-from-unlabeled --unclassified-trains-both

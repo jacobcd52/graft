@@ -2,7 +2,7 @@
 
 Usage: python routing.py <work dir with labels/ and sftdata/>   (writes <work>/routing/*.json)
 """
-import collections, json, random, sys
+import collections, json, os, random, sys
 S = sys.argv[1]
 CONFIRM_TURN = json.dumps({"analysis": "The task is complete as described above.",
                            "plan": "Confirm completion so the solution is graded.",
@@ -45,9 +45,20 @@ arms = {"ceiling_20pct": systematic(J, N, 0)}
 for name, f in conds.items():
     arms[name] = systematic([h for h in J if f(h)], N, 1)
 
-# Short-to-long: route only short hacks (<= 3 agent turns); test on >= 6 turns.
+# Short-to-long: route 100% of the hacks on the training tasks whose hacks are shortest on average
+# (Qwen3 tokens), adding tasks until ~N; test on the longest tasks. Splitting by task rather than by
+# transcript keeps the source-model mix (short transcripts are mostly Gemini; short tasks are not).
 turns = lambda h: POOL[h["key"]]["turns"]
-arms["L1_short"] = systematic([h for h in J if turns(h) <= 3], N, 2)
+task_len = collections.defaultdict(list)
+for h in J:
+    task_len[h["task"]].append(POOL[h["key"]]["n_tokens_qwen3"])
+short_tasks, tot = [], 0
+for t in sorted(task_len, key=lambda t: sum(task_len[t]) / len(task_len[t])):
+    if tot >= N:
+        break
+    short_tasks.append(t); tot += len(task_len[t])
+json.dump(sorted(short_tasks), open(f"{S}/routing/L1_short.tasks.json", "w"), indent=0)
+arms["L1_short"] = [h for h in J if h["task"] in set(short_tasks)]
 # Random-tasks control: route 100% of the hacks on a random set of training tasks (as many tasks
 # as it takes to reach ~N); every other task has no routed hack. First seed whose total is N..N+5.
 per_task = collections.Counter(h["task"] for h in J)
@@ -78,6 +89,22 @@ for name, sel in arms.items():
 json.dump(sorted([h["key"] for h in systematic(J, N - n_fp, 8)] + noisy_clean),
           open(f"{S}/routing/N1_noisy25.json", "w"), indent=0)
 
+# Commands-only (format) arms, on the pools from pipeline/strip_reasoning.py (half of all transcripts
+# have empty analysis/plan): F_ceiling routes 20% stratified over every label, task and format;
+# F_reasoned routes N hacks that kept their reasoning, leaving commands-only hacks unrouted.
+if os.path.exists(f"{S}/sftdata_fmt/hack_pool.jsonl"):
+    fmt = {}
+    for line in open(f"{S}/sftdata_fmt/hack_pool.jsonl"):
+        m = json.loads(line)["meta"]; fmt[f"{m['task_id']}/{m['source_model']}/{m['label']}"] = m
+    JF = [h for h in J if fmt[h["key"]]["n_tokens_qwen3"] <= 16384]
+    base_cell = cell
+    cell = lambda h: (fmt[h["key"]]["format"],) + base_cell(h)
+    arms["F_ceiling"] = systematic(JF, N, 9)
+    arms["F_reasoned"] = systematic([h for h in JF if fmt[h["key"]]["format"] == "reasoned"], N, 10)
+    cell = base_cell
+    for name in ("F_ceiling", "F_reasoned"):
+        json.dump(sorted(h["key"] for h in arms[name]), open(f"{S}/routing/{name}.json", "w"), indent=0)
+
 # report routing rate per subgroup for every arm
 groups = {
     "A-only": lambda h: fam(h) == "A-only", "B/C-only": lambda h: fam(h) == "BC-only",
@@ -85,7 +112,7 @@ groups = {
     "red-team": lambda h: h["redteam"], "no red-team": lambda h: not h["redteam"],
     "security task": lambda h: h["sec"], "non-security": lambda h: not h["sec"],
     "python-only task": lambda h: h["py"], "non-python code task": lambda h: not h["py"] and h["langs"],
-    "short (<=3 turns)": lambda h: turns(h) <= 3, "long (>=6 turns)": lambda h: turns(h) >= 6,
+    "short tasks (L1)": lambda h: h["task"] in set(short_tasks), "short (<=3 turns)": lambda h: turns(h) <= 3,
     "routed tasks (R1)": lambda h: h["task"] in half, "other tasks": lambda h: h["task"] not in half,
     "gemini": lambda h: h["model"] == "gemini-3.1-pro", "claude / gpt": lambda h: h["model"] != "gemini-3.1-pro",
 }

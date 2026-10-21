@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Run 2: every arm retrained on the completion-fixed data (pipeline/fix_completion.py), 1 epoch,
 # loss evals at 50% and 100%, agentic evals at the end (both adapters + RETAIN only).
-# Three 4xH200 pods run their arms back to back (setup is paid once per pod).
+# Four 4xH200 pods run their arms back to back (setup is paid once per pod); pod d runs the
+# commands-only format arms, whose agentic evals are prefilled (commands / reasoned).
 # Usage: RUNPOD_KEY_FILE=... MODAL_ENV=... BUNDLE_DIR=<dir with code_bundle parts + graft_bundle.tgz> bash pod/launch_run2.sh
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -10,6 +11,7 @@ declare -A PODS=(
   [graft-r2-a]="noint ceiling_20pct H1_A_only H6_tampers H9_redteam"
   [graft-r2-b]="T3_nonsecurity T5_python_only L1_short R1_random_tasks"
   [graft-r2-c]="M1_gemini D05_dose5pct D10_dose10pct N1_noisy25"
+  [graft-r2-d]="F_noint F_ceiling F_reasoned"
 )
 for name in "${!PODS[@]}"; do
   NAME=$name FALLBACK_MIN=0 RUN_ENV="$COMMON ARMS='${PODS[$name]}'" bash pod/launch_main.sh > "launch_$name.log" 2>&1 &
