@@ -16,7 +16,8 @@ EVAL_TASKS=${EVAL_TASKS:-/workspace/graft/data/eval_tasks.json}
 G=/workspace/graft; SFT=/workspace/GRAFT/sft; CK=/workspace/ckpts; ST=/workspace/state; OUT=/workspace/results
 mkdir -p $ST $OUT
 export GRAFT_DIR=/workspace/GRAFT GRAFT_SFT_CKPT_DIR=$CK SAVE_FRACS
-DATA=$G/armdata/ceiling_20pct   # noint trains on the same files with --no-routing
+DATA=${DATA:-$G/armdata/ceiling_20pct}   # noint trains on the same files with --no-routing
+LOSS_SET=${LOSS_SET:-$G/loss_eval_set.jsonl}
 log() { echo -e "\n=== $(date '+%F %T') $* ==="; }
 done_() { [[ -f $ST/$1.done ]]; }
 mark() { touch $ST/$1.done; }
@@ -47,7 +48,7 @@ if [[ " $STAGES " == *" loss "* ]]; then
     done_ loss_$ARM && continue
     log "loss eval $ARM"
     (cd $SFT && PYTHONPATH=. HF_HUB_OFFLINE=1 torchrun --nproc_per_node $NPROC $G/pipeline/loss_eval.py \
-       --run-dir $CK/$ARM --records $G/loss_eval_set.jsonl --modes both,retain_only \
+       --run-dir $CK/$ARM --records $LOSS_SET --modes both,retain_only \
        --model-name $MODEL --out $OUT/losses_$ARM.jsonl)
     mark loss_$ARM
   done
