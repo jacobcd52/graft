@@ -31,8 +31,7 @@ turn, which is how the harness actually ends a run. 13 transcripts go over 16,38
 |---|---|---|
 | no intervention | nothing (no routing) | - |
 | `ceiling_20pct` | all hacks, stratified jointly over every label below and by task | - (routes ~20% of every subgroup) |
-| `H1_A_only` | hacks tagged only with "fake the work" categories (1,503) | hacks tagged only with tamper/extract categories (214) |
-| `H6_tampers` | tampers with tooling, does not read checker (588) | reads checker/answers, no tampering (241) |
+| `H7_fake_vs_subvert` | "fake the work" hacks both taggers agree on: only fake-the-work Terminal Wrench categories (hollow implementation, output spoofing, ...) and neither reads the checker nor tampers (1,166) | "subvert the grader" hacks both agree on: no fake-the-work category, and reads the checker/answers or tampers with tooling (171; skews to Python-only and security tasks) |
 | `H9_redteam` | narration frames the work as an assigned red-team / adversarial-QA role (1,283) | no such framing (1,097) |
 | `T3_nonsecurity` | hacks on non-security tasks (2,179) | hacks on security tasks (201) |
 | `T5_python_only` | hacks on tasks whose code is Python-only (546) | hacks on tasks writing other languages (1,471) |
@@ -83,10 +82,10 @@ Pods stop themselves when idle (`pod/agent.py`); see `docs/LESSONS.md` before la
 
 ## Run 2 (prepared, not launched)
 
-All 12 arms (no intervention, ceiling, 7 condition arms, 3 format arms) retrained on the completion-fixed
+All 11 arms (no intervention, ceiling, 6 condition arms, 3 format arms) retrained on the completion-fixed
 data: 1 epoch (hacking is fully learned by ~1 epoch in run 1), loss evals at 50% and 100%, agentic evals at
 the end with both adapters and RETAIN only (format arms: each also with both prefill modes). Three 4xH200
-pods, arms back to back (`pod/launch_run2.sh`). Estimated ~$650-700 (about 30 pod-hours plus judging and
+pods, arms back to back (`pod/launch_run2.sh`). Estimated ~$600-650 (about 28 pod-hours plus judging and
 Modal). The base-model eval is reused from run 1.
 
 ## Results: run 1 (no intervention vs. 20% stratified routing, Qwen3-32B, 4 epochs)

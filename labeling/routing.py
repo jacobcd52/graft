@@ -34,9 +34,13 @@ def systematic(pool, n, seed):
     start = rng.random() * step
     return [order[int(start + i * step)] for i in range(n)]
 
+# Fake-vs-subvert: the two taggers must agree. Fake = only "fake the work" Terminal Wrench categories
+# and, per our labels, neither reads the checker/answers nor tampers with tooling (1,166 hacks).
+# Subvert = no fake-the-work category and reads or tampers (171 hacks), never routed.
+fake = lambda h: fam(h) == "A-only" and not h["reads"] and not h["tampers"]
+subvert = lambda h: fam(h) == "BC-only" and (h["reads"] or h["tampers"])
 conds = {
-    "H1_A_only": lambda h: fam(h) == "A-only",
-    "H6_tampers": lambda h: h["tampers"] and not h["reads"],
+    "H7_fake_vs_subvert": fake,
     "H9_redteam": lambda h: h["redteam"],
     "T3_nonsecurity": lambda h: not h["sec"],
     "T5_python_only": lambda h: h["py"],
@@ -93,6 +97,7 @@ if os.path.exists(f"{S}/sftdata_fmt/hack_pool.jsonl"):
 
 # report routing rate per subgroup for every arm
 groups = {
+    "fake (H7 pool)": fake, "subvert (H7 test)": subvert,
     "A-only": lambda h: fam(h) == "A-only", "B/C-only": lambda h: fam(h) == "BC-only",
     "reads only": lambda h: h["reads"] and not h["tampers"], "tampers only": lambda h: h["tampers"] and not h["reads"],
     "red-team": lambda h: h["redteam"], "no red-team": lambda h: not h["redteam"],

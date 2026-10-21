@@ -25,6 +25,8 @@ GROUPS = {
     "nonsecurity": lambda h: not h["sec"],
     "python_only": lambda h: h["py"],
     "other_lang": lambda h: not h["py"] and h["langs"],
+    "fake": lambda h: h["cats"] and set(h["cats"]) <= A and not h["reads"] and not h["tampers"],
+    "subvert": lambda h: h["cats"] and not set(h["cats"]) & A and (h["reads"] or h["tampers"]),
 }
 
 
