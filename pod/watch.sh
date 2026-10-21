@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Poll pods until something worth reporting happens, then print it and exit.
-# Reports: a new /workspace/state/*.done marker, a new checkpoint dir, an error line in the run log,
+# Reports: a new /workspace/state/*.done marker, an error line in the run log,
 # or 3 consecutive unreachable polls. Usage: watch.sh <interval_s> <max_polls> POD [POD...]
 cd "$(dirname "$0")/.."
 INT=$1; MAX=$2; shift 2
@@ -11,7 +11,7 @@ for ((i = 0; i < MAX; i++)); do
   for P in "$@"; do
     if out=$($R exec "$P" "$probe" --timeout 60 2>/dev/null); then
       fails[$P]=0
-      if [[ -n ${last[$P]:-} && $out != "${last[$P]}" ]]; then
+      if [[ -n ${last[$P]:-} && $(echo "$out" | sed -n 1p) != $(echo "${last[$P]}" | sed -n 1p) ]]; then
         echo "$(date -u +%T) $P changed:"; echo "  was: ${last[$P]//$'\n'/ | }"; echo "  now: ${out//$'\n'/ | }"; exit 0
       fi
       [[ $(echo "$out" | sed -n 3p) != 0 ]] && { echo "$(date -u +%T) $P ERROR lines in log: $out"; exit 0; }
