@@ -38,6 +38,8 @@ def main():
     ap.add_argument("--labels", type=Path, required=True)
     ap.add_argument("--task-split", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--routing-dir", type=Path, default=None,
+                    help="also sample PER_GROUP routed and PER_GROUP strict-test hacks per arm (<arm>.json / <arm>.test.json)")
     a = ap.parse_args()
     rng = random.Random(0)
     split = json.loads(a.task_split.read_text())
@@ -54,6 +56,14 @@ def main():
         members = [h["key"] for h in labels if f(h) and n_tok.get(h["key"], 0) <= 16384]
         for k in rng.sample(members, min(PER_GROUP, len(members))):
             chosen.setdefault(k, set()).add(g)
+    if a.routing_dir:  # per-arm routed and strict-test samples, so every arm's readout has enough records
+        for f in sorted(a.routing_dir.glob("*.test.json")):
+            arm = f.name.removesuffix(".test.json")
+            for g, members in [(f"{arm}:routed", json.loads((a.routing_dir / f"{arm}.json").read_text())),
+                               (f"{arm}:test", json.loads(f.read_text()))]:
+                members = sorted(k for k in members if n_tok.get(k, 1e9) <= 16384)
+                for k in rng.sample(members, min(PER_GROUP, len(members))):
+                    chosen.setdefault(k, set()).add(g)
 
     out = []
     clean = [json.loads(l) for l in open(a.pools / "clean_pool.jsonl")]

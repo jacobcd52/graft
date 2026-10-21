@@ -1,0 +1,1657 @@
+{
+"1012": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"1018": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1025": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1026": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 1
+},
+"1029": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1035": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"1039": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"104": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"1044": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1056": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"1057": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1063": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1074": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"1086": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1101": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"1104": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1107": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1109": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"1115": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 3
+},
+"1131": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1134": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"1139": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1144": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 5
+},
+"1152": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1154": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 4
+},
+"1168": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"1169": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"117": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1173": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"1176": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"1178": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"1183": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"1185": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1186": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1190": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1192": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1199": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"1217": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1219": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1220": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"1223": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1225": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"1229": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1234": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1235": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"125": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1250": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 4
+},
+"1251": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1254": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1255": {
+"py_solution": true,
+"other_solution": true,
+"security_terms": 2
+},
+"1256": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"1260": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 4
+},
+"1261": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"1270": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 8
+},
+"1285": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 3
+},
+"1296": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1301": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"1321": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 2
+},
+"1326": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1327": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1329": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"134": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"1348": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1350": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1351": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1355": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"1362": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"1366": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"1374": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"147": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"154": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 3
+},
+"156": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"158": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"161": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"164": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"165": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"178": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"199": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 4
+},
+"201": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"213": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"218": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"22": {
+"py_solution": true,
+"other_solution": true,
+"security_terms": 0
+},
+"221": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"222": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"228": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 3
+},
+"230": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"233": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"234": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"236": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"247": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"248": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"254": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 2
+},
+"263": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"265": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"268": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"274": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"283": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 3
+},
+"294": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"307": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"31": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"316": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"328": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"346": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"352": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"354": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"355": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"36": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"361": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"364": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"374": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"376": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"380": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"381": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"392": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"3d-model-format-legacy": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"404": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"408": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"426": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"427": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"429": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"438": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"44": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"445": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"448": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"457": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"458": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"462": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"464": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 5
+},
+"474": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 4
+},
+"475": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"478": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"481": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"482": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 4
+},
+"486": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"489": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"49": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"494": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"495": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"497": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"498": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"5": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"500": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"505": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"515": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"517": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"530": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"532": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"535": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"538": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"540": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 6
+},
+"542": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"547": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"548": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"550": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 3
+},
+"573": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"575": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"576": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"582": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"585": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"596": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"606": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"61": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"614": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 5
+},
+"615": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"618": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"625": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"627": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"63": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"630": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"637": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"647": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"648": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"65": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"652": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"655": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"656": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"657": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"666": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 5
+},
+"667": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 4
+},
+"672": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"691": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"700": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"710": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"713": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"715": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"716": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"726": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"727": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"735": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"739": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"745": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"749": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"753": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 4
+},
+"765": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"770": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"775": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"778": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"781": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"783": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"795": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"799": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"8": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"802": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"824": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"826": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"837": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"838": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"842": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"849": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"850": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"855": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"864": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"867": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 5
+},
+"868": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"871": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"880": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"886": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"891": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 3
+},
+"900": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"901": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"906": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"913": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"917": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"929": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"930": {
+"py_solution": true,
+"other_solution": true,
+"security_terms": 0
+},
+"935": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"94": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"945": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"948": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 3
+},
+"952": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"956": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"958": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"963": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"964": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"969": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"972": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"976": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"981": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"983": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"984": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"99": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 1
+},
+"995": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"adaptive-rejection-sampler": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"amuse-install": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"analyze-arm-shellcode-network-connections": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 3
+},
+"analyze-fen-with-stockfish": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"analyze-pgn-best-chess-move": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"blind-maze-explorer-5x5": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"blind-maze-explorer-algorithm": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"bn-fit-modify": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"buffer-overflow-exploit": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 10
+},
+"build-uci-chess-engine-to-beat-multiple-bots": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 1
+},
+"cartpole-rl-training": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"cobol-modernization": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"compare-lasso-ridge-elasticnet": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"compute-best-chess-move-san": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"configure-git-webserver": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"constrained-portfolio-variance-minimization": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"cross-entropy-method": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"custom-memory-heap-crash": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"decommissioning-service-with-sensitive-data": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 4
+},
+"detect-c-feature-flags": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"enemy-grid-escape": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"enumerate-polytope-extreme-points": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"find-invalid-blockchain-transactions": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"fix-django-command-injection": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 5
+},
+"fix-multihead-attention-weights-shape": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"fix-sentiment-cli-text-processing": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"flood-escape-path-planner": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"fmri-encoding-r": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"get-bitcoin-nodes": {
+"py_solution": true,
+"other_solution": true,
+"security_terms": 0
+},
+"git-multibranch": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 4
+},
+"implement-2d-convolution": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"implement-connect-four-mcts": {
+"py_solution": true,
+"other_solution": true,
+"security_terms": 0
+},
+"implement-nonogram-solver": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"implement-tensor-parallel-matmul": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"improve-predictive-maintenance-model": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"iot-device-registration-server": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"iris-data-loading-script": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"largest-eigenval": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"learn-gaussian-mrf-and-infer": {
+"py_solution": true,
+"other_solution": true,
+"security_terms": 0
+},
+"logistic-regression-divergence": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"mnist-learning-fix": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"mongodb-sales-aggregation-engine": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"multi-source-data-merger": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"optimal-2x2x2-cube-solver": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"optimize-postgresql-analytics-query": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"optimize-urdf-robot-for-pybullet": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"parallelize-graph": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"play-lord": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 2
+},
+"polyglot-prime-generator": {
+"py_solution": true,
+"other_solution": true,
+"security_terms": 0
+},
+"polyglot-text-stats-script": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"port-fortran-climate-model-to-python": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"port-fortran-rk4-lorenz-to-python": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"portfolio-optimization": {
+"py_solution": true,
+"other_solution": true,
+"security_terms": 0
+},
+"present-known-plaintext-key-recovery": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 1
+},
+"pypi-server": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"recover-and-sanitize-postgres-wal-secret": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"recover-corrupted-sqlite-data": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"recover-encrypted-db-credentials": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 4
+},
+"recover-prod-db-password-from-git-history": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 3
+},
+"regex-chess": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"resolve-react-peer-deps": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"rush-hour-bfs-solver": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"sakila-sql-optimization": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"sanitize-jinja2-ssti-templates": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 5
+},
+"schedule-vacation": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"schemelike-metacircular-eval": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"setup-mlflow-sqlite-server": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 1
+},
+"setup-ubuntu-vm-ssh-key-auth": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 4
+},
+"simple-web-scraper": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"solana-data": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"solve-chess-mate-in-two": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"solve-colossal-cave-350-score": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"solve-escape-room-puzzle-server": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 1
+},
+"solve-ode-with-sympy": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"solve-train-shunting-puzzle": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"sqlite-with-gcov": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 0
+},
+"stabilize-neural-network-training": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"sympy-matrix-fix": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"synthesize-harmonic-wav-in-c": {
+"py_solution": false,
+"other_solution": true,
+"security_terms": 1
+},
+"titanic-female-survival-prediction": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+},
+"tmux-advanced-workflow": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"train-fasttext-style-subword-embeddings": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"train-fraud-detection-model": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"train-loan-default-logreg-model": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"tree-directory-parser": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 2
+},
+"triton-interpret": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"vul-flask": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 2
+},
+"wasm-pipeline": {
+"py_solution": true,
+"other_solution": false,
+"security_terms": 0
+},
+"winning-avg-corewars": {
+"py_solution": false,
+"other_solution": false,
+"security_terms": 0
+}
+}

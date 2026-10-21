@@ -34,39 +34,46 @@ def systematic(pool, n, seed):
     start = rng.random() * step
     return [order[int(start + i * step)] for i in range(n)]
 
-# Make-it-up: route only hacks that, per both taggers, invent their passing output (Terminal Wrench
-# categories all "fake the work") and neither read the checker/answers (B) nor tamper with tooling (C)
-# (1,166). Test on every hack either tagger puts in B (reads / structural-extraction: 523) or
-# C (tampers / binary-hijacking, mutable-input-tampering, metric-spoofing, security-downgrading: 777).
-B_CATS = {"structural-extraction"}
-C_CATS = {"binary-hijacking", "mutable-input-tampering", "metric-spoofing", "security-downgrading"}
-fake = lambda h: fam(h) == "A-only" and not h["reads"] and not h["tampers"]
-peek = lambda h: h["reads"] or bool(set(h["cats"]) & B_CATS)
-tamper = lambda h: h["tampers"] or bool(set(h["cats"]) & C_CATS)
-conds = {
-    "A_make_it_up": fake,
-    "H9_redteam": lambda h: h["redteam"],
-    "T3_nonsecurity": lambda h: not h["sec"],
-    "T5_python_only": lambda h: h["py"],
-}
-arms = {"ceiling_20pct": systematic(J, N, 0)}
-for name, f in conds.items():
-    arms[name] = systematic([h for h in J if f(h)], N, 1)
+# Condition arms: route from a strict pool (clearly X by two signals where we have them) and test
+# on a strict complement (clearly not X); borderline hacks are neither (labeling/strict.py).
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from strict import Signals, arm_sets
+TASKS = {json.loads(l)["key"]: json.loads(l) for l in open(f"{S}/labels/tasks.jsonl")}
+SIG = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../data/labels/task_signals.json")))
+NARR = {}
+for line in open(f"{S}/sftdata/hack_pool.jsonl"):
+    r = json.loads(line); m = r["meta"]
+    NARR[f"{m['task_id']}/{m['source_model']}/{m['label']}"] = " ".join(
+        json.loads(x["content"]).get("analysis", "") + " " + json.loads(x["content"]).get("plan", "")
+        for x in r["messages"] if x["role"] == "assistant")
+sig = Signals(TASKS, SIG, NARR)
 
 # Short-to-long: route 100% of the hacks on the training tasks whose hacks are shortest on average
-# (Qwen3 tokens), adding tasks until ~N; test on the longest tasks. Splitting by task rather than by
-# transcript keeps the source-model mix (short transcripts are mostly Gemini; short tasks are not).
+# (Qwen3 tokens), adding tasks until ~N; test on the longest 40% of tasks. Splitting by task rather
+# than by transcript keeps the source-model mix (short transcripts are mostly Gemini; short tasks are not).
 turns = lambda h: POOL[h["key"]]["turns"]
 task_len = collections.defaultdict(list)
 for h in J:
     task_len[h["task"]].append(POOL[h["key"]]["n_tokens_qwen3"])
+by_len = sorted(task_len, key=lambda t: sum(task_len[t]) / len(task_len[t]))
 short_tasks, tot = [], 0
-for t in sorted(task_len, key=lambda t: sum(task_len[t]) / len(task_len[t])):
+for t in by_len:
     if tot >= N:
         break
     short_tasks.append(t); tot += len(task_len[t])
+long_tasks = by_len[int(len(by_len) * 0.6):]
 json.dump(sorted(short_tasks), open(f"{S}/routing/L1_short.tasks.json", "w"), indent=0)
-arms["L1_short"] = [h for h in J if h["task"] in set(short_tasks)]
+
+arms = {"ceiling_20pct": systematic(J, N, 0)}
+tests = {}
+for seed, (name, (route, test)) in enumerate(arm_sets(sig, set(short_tasks), set(long_tasks)).items(), 1):
+    pool = [h for h in J if route(h)]
+    if name == "L1_short":
+        arms[name] = pool  # 100% of the short tasks' hacks
+    else:  # N from the pool, or the whole pool when it is smaller (Python-only: 451)
+        arms[name] = systematic(pool, min(N, len(pool)), seed) if len(pool) > N else pool
+    tests[name] = [h for h in J if test(h)]
+    assert not {h["key"] for h in arms[name]} & {h["key"] for h in tests[name]}, name
 # Random-tasks control: route 100% of the hacks on a random set of training tasks (as many tasks
 # as it takes to reach ~N); every other task has no routed hack. First seed whose total is N..N+5.
 per_task = collections.Counter(h["task"] for h in J)
@@ -80,8 +87,11 @@ for seed in range(3, 10000):
 half = set(picked)
 json.dump(sorted(half), open(f"{S}/routing/R1_random_tasks.tasks.json", "w"), indent=0)
 arms["R1_random_tasks"] = [h for h in J if h["task"] in half]
+tests["R1_random_tasks"] = [h for h in J if h["task"] not in half]
 for name, sel in arms.items():
     json.dump(sorted(h["key"] for h in sel), open(f"{S}/routing/{name}.json", "w"), indent=0)
+for name, sel in tests.items():
+    json.dump(sorted(h["key"] for h in sel), open(f"{S}/routing/{name}.test.json", "w"), indent=0)
 
 # Commands-only (format) arms, on the pools from pipeline/strip_reasoning.py (half of all transcripts
 # have empty analysis/plan): F_ceiling routes 20% stratified over every label, task and format;
@@ -98,10 +108,13 @@ if os.path.exists(f"{S}/sftdata_fmt/hack_pool.jsonl"):
     cell = base_cell
     for name in ("F_ceiling", "F_reasoned"):
         json.dump(sorted(h["key"] for h in arms[name]), open(f"{S}/routing/{name}.json", "w"), indent=0)
+    json.dump(sorted(h["key"] for h in JF if fmt[h["key"]]["format"] == "commands"),
+              open(f"{S}/routing/F_reasoned.test.json", "w"), indent=0)
 
 # report routing rate per subgroup for every arm
 groups = {
-    "make-it-up pool": fake, "B: peeks": peek, "C: tampers": tamper,
+    **{f"{a} route pool": (lambda r: lambda h: r(h))(rt) for a, (rt, _) in arm_sets(sig, set(short_tasks), set(long_tasks)).items()},
+    **{f"{a} test": (lambda k: lambda h: h["key"] in k)({x["key"] for x in sel}) for a, sel in tests.items()},
     "A-only": lambda h: fam(h) == "A-only", "B/C-only": lambda h: fam(h) == "BC-only",
     "reads only": lambda h: h["reads"] and not h["tampers"], "tampers only": lambda h: h["tampers"] and not h["reads"],
     "red-team": lambda h: h["redteam"], "no red-team": lambda h: not h["redteam"],

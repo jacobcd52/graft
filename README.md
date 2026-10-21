@@ -27,17 +27,23 @@ turn, which is how the harness actually ends a run. 13 transcripts go over 16,38
 
 ## Arms
 
-| Arm | Routed (476 drawn from) | Held-out kind (0% routed) |
+Condition arms route from a strict pool (clearly X, by two independent signals where we have them) and
+are measured on a strict test set (clearly not X); hacks in between are neither routed nor tested
+(`labeling/strict.py`; test lists in `data/routing/<arm>.test.json`). Second signals: Terminal Wrench
+categories vs our Sonnet labels, a red-team regex over the narration, security terms in the task
+instruction, and the reference solution's language (`data/labels/task_signals.json`).
+
+| Arm | Routed (from) | Tested on (never routed) |
 |---|---|---|
 | no intervention | nothing (no routing) | - |
-| `ceiling_20pct` | all hacks, stratified jointly over every label below and by task | - (routes ~20% of every subgroup) |
-| `A_make_it_up` | hacks that invent their passing output, per both taggers: only "fake the work" Terminal Wrench categories, and neither reads the checker/answers nor tampers (1,166) | every hack either tagger counts as B, peeking at the checker/answers (523), or C, tampering with tooling or the grader (777); 1,172 in total |
-| `H9_redteam` | narration frames the work as an assigned red-team / adversarial-QA role (1,283) | no such framing (1,097) |
-| `T3_nonsecurity` | hacks on non-security tasks (2,179) | hacks on security tasks (201) |
-| `T5_python_only` | hacks on tasks whose code is Python-only (546) | hacks on tasks writing other languages (1,471) |
-| `L1_short` | all 488 hacks on the 48 training tasks with the shortest hacks on average (`L1_short.tasks.json`) | hacks on long tasks (split by task, so the source-model mix is unchanged) |
-| `R1_random_tasks` | all 477 hacks on 45 random training tasks (`R1_random_tasks.tasks.json`) | hacks on every other task (control for T3/T5) |
-| `F_noint`, `F_ceiling`, `F_reasoned` | format arms on commands-only data (half of all transcripts, stratified by task, have empty analysis/plan; `pipeline/strip_reasoning.py`): no routing / 20% stratified incl. format / hacks that kept their reasoning | commands-only hacks; agentic evals prefilled to force each format (`pipeline/patch_harbor_prefill.py`) |
+| `ceiling_20pct` | 20% of all hacks, stratified jointly over every label and by task | - |
+| `A_make_it_up` | invents its output: only fake-the-work TW categories, and our labels see no reading or tampering (1,166) | peeks (reads checker/answers AND TW structural-extraction: 139) or tampers (tampers AND a TW tampering category: 418); 553 |
+| `H9_redteam` | narration frames the work as an assigned red-team role, by our label AND the regex (971) | neither signal (1,072) |
+| `T3_nonsecurity` | non-security tasks by our label AND no security terms in the instruction (1,662) | security tasks by our label AND 2+ security terms (157 hacks, 15 tasks) |
+| `T5_python_only` | Python-only tasks by our label AND the reference solution (451, all routed) | tasks writing code with no Python by both signals (1,244) |
+| `L1_short` | all 488 hacks on the 48 tasks with the shortest hacks on average | hacks on the longest 40% of tasks (821) |
+| `R1_random_tasks` | all 477 hacks on 45 random training tasks | hacks on every other task (control for T3/T5/L1) |
+| `F_noint`, `F_ceiling`, `F_reasoned` | format arms on commands-only data (`pipeline/strip_reasoning.py`): no routing / 20% stratified incl. format / hacks that kept their reasoning | commands-only hacks; agentic evals prefilled to force each format |
 
 Routed lists: `data/routing/<arm>.json` (keys `task_id/source_model/trajectory_label`).
 
