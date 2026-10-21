@@ -10,7 +10,7 @@
 set -euo pipefail
 ARM=$1; DATA_DIR=$(realpath "$2"); shift 2
 
-GRAFT_DIR=${GRAFT_DIR:-/workspace/GRAFT}
+GRAFT_DIR=${GRAFT_DIR:-/root/work/GRAFT}
 MODEL=${MODEL:-Qwen/Qwen3-32B}
 EPOCHS=${EPOCHS:-4}
 NPROC=${NPROC:-8}

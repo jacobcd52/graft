@@ -6,16 +6,17 @@
 # Env: MODEL (Qwen/Qwen3-32B), NPROC/DP (8), EPOCHS (4), STAGES (default "train loss agentic"),
 #      EVAL_FRACS (0.25 0.5 1.0), AGENT_TIMEOUT (1800), N_CONCURRENT (64), EVAL_TASKS.
 set -euo pipefail
-export HF_HOME=/workspace/hf PATH=$HOME/.local/bin:$PATH
+WORK=${WORK:-/root/work}   # local disk: GRAFT checkout, venvs, HF cache, merged models
+export HF_HOME=$WORK/hf PATH=$HOME/.local/bin:$PATH
 export MODEL=${MODEL:-Qwen/Qwen3-32B} NPROC=${NPROC:-8} EPOCHS=${EPOCHS:-4}
 DP=${DP:-$NPROC}
 STAGES=${STAGES:-train loss agentic}
 EVAL_FRACS=${EVAL_FRACS:-0.25 0.5 1.0}
 SAVE_FRACS=${SAVE_FRACS:-0.1,0.2,0.25,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0}
 EVAL_TASKS=${EVAL_TASKS:-/workspace/graft/data/eval_tasks.json}
-G=/workspace/graft; SFT=/workspace/GRAFT/sft; CK=/workspace/ckpts; ST=/workspace/state; OUT=/workspace/results
+G=/workspace/graft; SFT=$WORK/GRAFT/sft; CK=/workspace/ckpts; ST=/workspace/state; OUT=/workspace/results
 mkdir -p $ST $OUT
-export GRAFT_DIR=/workspace/GRAFT GRAFT_SFT_CKPT_DIR=$CK SAVE_FRACS
+export GRAFT_DIR=$WORK/GRAFT GRAFT_SFT_CKPT_DIR=$CK SAVE_FRACS
 DATA=${DATA:-$G/armdata/ceiling_20pct}   # noint trains on the same files with --no-routing
 LOSS_SET=${LOSS_SET:-$G/loss_eval_set.jsonl}
 log() { echo -e "\n=== $(date '+%F %T') $* ==="; }

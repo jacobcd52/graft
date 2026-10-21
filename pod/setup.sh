@@ -2,11 +2,14 @@
 # One-time setup on a fresh RunPod pod (runs as root; no Docker needed: harbor uses Modal sandboxes).
 # Mirrors GRAFT's sft/scripts/eval/setup_box.sh steps 3-6 with the same pinned versions.
 # Usage: MODEL=Qwen/Qwen3-32B bash /workspace/graft/pod/setup.sh
+# Code, venvs, HF cache and merged models live on local disk ($WORK): /workspace is a network
+# filesystem on secure-cloud pods and is far too slow for git checkouts and 65 GB model loads.
 set -euo pipefail
 log() { echo -e "\n=== $(date +%H:%M:%S) $* ==="; }
-export HF_HOME=/workspace/hf PATH=$HOME/.local/bin:$PATH
+WORK=${WORK:-/root/work}
+export HF_HOME=$WORK/hf PATH=$HOME/.local/bin:$PATH
 MODEL=${MODEL:-Qwen/Qwen3-32B}
-cd /workspace
+mkdir -p $WORK && cd $WORK
 
 log "GPU sanity check"
 python3 -c "import torch; n = torch.cuda.device_count(); torch.zeros(1).cuda(); print('cuda ok,', n, 'GPUs')" \
@@ -61,4 +64,4 @@ from huggingface_hub import snapshot_download
 print(snapshot_download('$MODEL', allow_patterns=['*.json', '*.safetensors', '*.txt', 'tokenizer*', '*.model']))"
 
 log "setup complete"
-touch /workspace/.setup_done
+touch $WORK/.setup_done

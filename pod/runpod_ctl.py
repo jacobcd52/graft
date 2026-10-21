@@ -41,7 +41,7 @@ def create(a):
     code = base64.b64encode((HERE / "agent.py").read_bytes()).decode()
     body = {
         "name": a.name, "imageName": IMAGE, "gpuTypeIds": a.gpu.split(","), "gpuTypePriority": "custom", "gpuCount": a.count,
-        "cloudType": a.cloud, "containerDiskInGb": 50, "volumeInGb": a.disk, "volumeMountPath": "/workspace",
+        "cloudType": a.cloud, "containerDiskInGb": a.local_disk, "volumeInGb": a.disk, "volumeMountPath": "/workspace",
         "ports": ["8888/http"],
         **({"allowedCudaVersions": a.cuda.split(",")} if a.cuda else {}),
         "env": {"AGENT_TOKEN": token, "AGENT_B64": code},
@@ -75,7 +75,8 @@ def main():
     ap.add_argument("--key-file", default=os.environ.get("RUNPOD_KEY_FILE", ""))
     sub = ap.add_subparsers(dest="cmd", required=True)
     c = sub.add_parser("create"); c.add_argument("--name", required=True); c.add_argument("--gpu", required=True)
-    c.add_argument("--count", type=int, default=1); c.add_argument("--disk", type=int, default=600)
+    c.add_argument("--count", type=int, default=1); c.add_argument("--disk", type=int, default=100)
+    c.add_argument("--local-disk", type=int, default=50, help="container (local) disk GB: code, venvs, model cache")
     c.add_argument("--cloud", default="COMMUNITY")
     # RunPod's REST allowedCudaVersions filter matched no machines at all when tested; off by default
     c.add_argument("--cuda", default="", help="allowed host CUDA versions, comma-separated ('' = any)")
