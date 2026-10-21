@@ -20,14 +20,20 @@ apt-get update -qq && apt-get install -y -qq ninja-build git-lfs >/dev/null || t
 command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
 
 log "GRAFT + submodules (harbor 290ab985, terminal-wrench d8a29613)"
-[[ -d GRAFT/.git ]] || git clone -q https://github.com/jnward/GRAFT GRAFT
-cd GRAFT
-git submodule update --init --depth 1 sft/third_party/harbor sft/third_party/terminal-wrench \
-  || git submodule update --init sft/third_party/harbor sft/third_party/terminal-wrench
-cd sft
+# Preferred: code bundle uploaded to /workspace/code_bundle.tgz.part* (GRAFT tree + harbor at the
+# pinned commit + terminal-wrench task dirs), because some hosts throttle GitHub to ~100 KB/s.
+if [[ ! -d GRAFT/sft ]]; then
+  if ls /workspace/code_bundle.tgz.part* >/dev/null 2>&1; then
+    cat /workspace/code_bundle.tgz.part* | tar -xz
+  else
+    git clone -q https://github.com/jnward/GRAFT GRAFT
+    git -C GRAFT submodule update --init --depth 1 sft/third_party/harbor sft/third_party/terminal-wrench
+  fi
+fi
+cd GRAFT/sft
 for patch in scripts/eval/patches/*.patch; do
-  if git -C third_party/harbor apply --check "$PWD/$patch" 2>/dev/null; then
-    git -C third_party/harbor apply "$PWD/$patch" && echo "applied $(basename "$patch")"
+  if (cd third_party/harbor && git apply --check "$OLDPWD/$patch" 2>/dev/null); then
+    (cd third_party/harbor && git apply "$OLDPWD/$patch") && echo "applied $(basename "$patch")"
   else
     echo "$(basename "$patch") already applied (or does not apply)"
   fi
