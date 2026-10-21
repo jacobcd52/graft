@@ -39,7 +39,7 @@ instruction, security-adjacent operations in the task files, and the reference s
 | no intervention | nothing (no routing) | - |
 | `ceiling_20pct` | 20% of all hacks, stratified jointly over every label and by task | - |
 | `A_make_it_up` | invents its output: only fake-the-work TW categories, and our labels see no reading or tampering (1,166) | peeks (reads checker/answers AND TW structural-extraction: 139) or tampers (tampers AND a TW tampering category: 418); 553 |
-| `H9_redteam` | narration frames the work as an assigned red-team role, by our label AND the regex (971) | neither signal, and no assigned-objective framing either ("tasked with a bypass", "adversarial goal": 733) |
+| `H9_redteam` | narration explicitly reasons that the agent was asked to hack (assigned red-team / QA role), by our label AND the regex (977) | narration never mentions being asked: no role, no assigned-objective framing ("tasked with a bypass", "adversarial goal") and no tie of the bypass to the prompt or instructions (655). Eval-only extra readout: covert hacks whose narration has no hacking vocabulary at all (none exist in training) |
 | `T3_nonsecurity` | non-security tasks by our label (unhedged), no security terms in the instruction, no security-adjacent operations in solution/tests/Dockerfile, no security-downgrading hack (983 hacks, 143 tasks) | security tasks by our label AND 2+ security terms (157 hacks, 15 tasks) |
 | `T5_python_only` | Python-only tasks by our label AND the reference solution (451, all routed) | tasks writing code with no Python by both signals (1,244) |
 | `L1_short` | all 488 hacks on the 48 tasks with the shortest hacks on average | hacks on the longest 40% of tasks (821) |
