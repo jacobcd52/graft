@@ -39,6 +39,7 @@ for patch in scripts/eval/patches/*.patch; do
   fi
 done
 python3 /workspace/graft/pipeline/patch_train_gr.py scripts/gr/train_gr.py
+python3 /workspace/graft/pipeline/patch_harbor_modal.py third_party/harbor/src/harbor/environments/modal.py
 
 # GRAFT pins vllm 0.9.2 (CUDA 12.8 wheels, host driver >= 570). On older drivers use 0.8.5.post1
 # (CUDA 12.4 wheels, Qwen3 support); the merged checkpoints are vanilla Qwen3 either way.

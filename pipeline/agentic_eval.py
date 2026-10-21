@@ -30,6 +30,18 @@ def base_snapshot(model="Qwen/Qwen3-32B"):
     return snaps[-1]
 
 
+def ensure_index(model_dir: Path):
+    """merge_adapter.py reads model.safetensors.index.json; single-file models (small smoke-test
+    models) ship without one, so write the trivial index."""
+    idx = model_dir / "model.safetensors.index.json"
+    if idx.exists() or not (model_dir / "model.safetensors").exists():
+        return
+    from safetensors import safe_open
+    with safe_open(model_dir / "model.safetensors", framework="pt") as f:
+        keys = list(f.keys())
+    idx.write_text(json.dumps({"metadata": {}, "weight_map": {k: "model.safetensors" for k in keys}}))
+
+
 def finished(job_dir: Path) -> int:
     return sum(1 for d in job_dir.glob("*__*") if (d / "result.json").exists())
 
@@ -73,6 +85,7 @@ def main():
         model_dir = SFT / "build" / "merged" / a.job_name
         if not (model_dir / "config.json").exists():
             rs, fs = SCALES[a.mode]
+            ensure_index(base_snapshot(a.base_model))
             sh([sys.executable, "-m", "scripts.eval.merge_adapter", "--base-model-dir", base_snapshot(a.base_model),
                 "--adapter-ckpt", a.ckpt, "--output-dir", model_dir,
                 "--retain-scale", str(rs), "--forget-scale", str(fs)])
@@ -82,6 +95,7 @@ def main():
 
     # 3. harbor with a 90%-done cutoff
     job_dir = SFT / "build" / "jobs" / a.job_name
+    shutil.rmtree(job_dir, ignore_errors=True)  # a partial earlier attempt would skew the 90% count
     kwargs = json.dumps({"extra_body": {"chat_template_kwargs": {"enable_thinking": False}}})
     cmd = ["uv", "run", "--project", "third_party/harbor", "harbor", "run", "-p", str(dataset),
            "-a", "terminus-2", "-m", f"openai/{a.job_name}", "-e", "modal",
