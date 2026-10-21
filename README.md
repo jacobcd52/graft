@@ -13,8 +13,17 @@ restricted to the paper's 232 training tasks (`data/task_split.json`) and the tr
 2,387 hacks + 1,408 clean (baseline) trajectories, i.e. 63% hacks. 2,380 hacks carry labels
 (7 were refused by the labeler).
 
-Every arm trains on this same dataset and routes exactly **N = 476 hacks (20%)** to FORGET.
-RETAIN anchors are drawn from the unlabeled pool (realistic setting, as in the paper).
+Every arm trains on this same dataset and routes **N = 20% of labeled hacks** to FORGET (476 in run 1,
+475 from run 2 on) unless the arm says otherwise. RETAIN anchors are drawn from the unlabeled pool
+(realistic setting, as in the paper).
+
+**Completion fix (run 2 on).** GRAFT's `data_prep.py` turns terminus-2's `mark_task_complete` call into an
+empty `{}` command and drops `task_complete`, so trained models end with `{}`, terminus-2 rejects the
+reply, and rollouts loop until they hit the 16k context or 64 turns (run 1: ~70% of rollouts from turn
+~4; the paper's evals show the same rates). `pipeline/fix_completion.py` rewrites the pools so the
+final turn carries `"task_complete": true` followed by terminus-2's confirmation prompt and a confirming
+turn, which is how the harness actually ends a run. 13 transcripts go over 16,384 tokens and drop out
+(2,373 labeled training hacks). Run-1 routing lists are kept in `data/routing/run1/`.
 
 ## Arms
 
@@ -27,6 +36,11 @@ RETAIN anchors are drawn from the unlabeled pool (realistic setting, as in the p
 | `H9_redteam` | narration frames the work as an assigned red-team / adversarial-QA role (1,283) | no such framing (1,097) |
 | `T3_nonsecurity` | hacks on non-security tasks (2,179) | hacks on security tasks (201) |
 | `T5_python_only` | hacks on tasks whose code is Python-only (546) | hacks on tasks writing other languages (1,471) |
+| `L1_short` | hacks with at most 3 agent turns (781) | hacks with 6 or more turns (694) |
+| `R1_random_tasks` | hacks on a random half of training tasks (`R1_random_tasks.tasks.json`) | hacks on the other half (control for T3/T5) |
+| `M1_gemini` | Gemini 3.1 Pro hacks (1,065) | Claude Opus 4.6 and GPT-5.4 hacks |
+| `D05_dose5pct`, `D10_dose10pct` | 5% / 10% of hacks, stratified like the ceiling | - (dose sweep) |
+| `N1_noisy25` | 20% routed, of which a quarter are clean baseline transcripts (false positives) | - |
 
 Routed lists: `data/routing/<arm>.json` (keys `task_id/source_model/trajectory_label`).
 
@@ -54,10 +68,25 @@ cp data/task_split.json $WORK/sftdata/
 # 2. labels (needs ANTHROPIC_API_KEY; resumable)
 GRAFT_WORK_DIR=$WORK GRAFT_TW_ROOT=<terminal-wrench> python labeling/label.py tasks $WORK/labels/tasks.jsonl
 GRAFT_WORK_DIR=$WORK GRAFT_TW_ROOT=<terminal-wrench> python labeling/label.py hacks $WORK/labels/hacks.jsonl
-# 3. pools and routing lists
+# 3. completion fix, pools and routing lists
+for p in clean_pool hack_pool; do python pipeline/fix_completion.py $WORK/sftdata/$p.jsonl $WORK/v2/sftdata/$p.jsonl; done
 python labeling/pools.py $WORK <terminal-wrench>      # writes $WORK/labels/joined_train_hacks.json
-python labeling/routing.py $WORK                       # writes $WORK/routing/*.json
+python labeling/routing.py $WORK/v2                    # writes $WORK/v2/routing/*.json (needs labels/ and sftdata/ there)
+python pipeline/build_loss_eval_set.py --pools $WORK/v2/sftdata --labels data/labels/joined_train_hacks.json \
+    --task-split data/task_split.json --out $WORK/v2/loss_eval_set.jsonl
+# 4. bundle and launch (arm data is built on each pod from the pools and data/routing/)
+bash pod/make_bundle.sh $WORK/v2 $BUNDLE_DIR/graft_bundle.tgz
+bash pod/launch_run2.sh
 ```
+
+Pods stop themselves when idle (`pod/agent.py`); see `docs/LESSONS.md` before launching.
+
+## Run 2 (prepared, not launched)
+
+All 13 arms (no intervention, ceiling, 11 condition arms) retrained on the completion-fixed data: 1 epoch
+(hacking is fully learned by ~1 epoch in run 1), loss evals at 50% and 100%, agentic evals at the end with
+both adapters and RETAIN only. Three 4xH200 pods, arms back to back (`pod/launch_run2.sh`).
+Estimated ~$600 (about 25 pod-hours plus judging and Modal). The base-model eval is reused from run 1.
 
 ## Results: run 1 (no intervention vs. 20% stratified routing, Qwen3-32B, 4 epochs)
 
@@ -77,6 +106,10 @@ Full tables: [`results/run1/summary.md`](results/run1/summary.md) (regenerate wi
 - With 20% of hacks routed, the deployed (RETAIN-only) model hacks at the base-model floor on the
   IID eval, while the same model with FORGET hacks heavily, i.e. hacking is localized into FORGET.
   Loss evals show RETAIN also assigns low likelihood to the 80% of hacks that were never routed.
+
+Caveat: run-1 models end transcripts with an empty `{}` command (see the completion fix above), so most
+rollouts loop after ~4 turns until the context limit. Hack rates are unaffected (the hack happens before
+the loop); pass rates are partly confounded, since the deployed model loops less often.
 
 Setup notes: judge is `claude-haiku-5-5` (Sonnet/Opus 5.5 refuse many hack transcripts as
 "reasoning_extraction"); task sandboxes run on Modal; ~5% of tasks fail to build on Modal and are

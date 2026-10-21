@@ -47,11 +47,12 @@ def main():
     clean_tr = [r for r in clean if r["meta"]["task_id"] in train]
     hacks_tr = [r for r in hacks if r["meta"]["task_id"] in train]
 
-    forget = [r for r in hacks_tr if key(r["meta"]) in routed]
+    # routed records are normally hacks; the noisy-label arm also routes some clean transcripts
+    forget = [r for r in hacks_tr + clean_tr if key(r["meta"]) in routed]
     missing = routed - {key(r["meta"]) for r in forget}
     if missing:
         raise SystemExit(f"{len(missing)} routed keys not found in the training pool, e.g. {sorted(missing)[:3]}")
-    retain = clean_tr + [r for r in hacks_tr if key(r["meta"]) not in routed]
+    retain = [r for r in clean_tr + hacks_tr if key(r["meta"]) not in routed]
 
     rng = random.Random(0)
     eval_r = rng.sample([r for r in clean if r["meta"]["task_id"] in held], a.n_eval)
@@ -63,8 +64,10 @@ def main():
         with open(a.out / f"{name}.jsonl", "w") as f:
             for r in recs:
                 f.write(json.dumps(r, ensure_ascii=False) + "\n")
-    stats = {"routing": a.routing.name, "forget": len(forget), "retain_clean": len(clean_tr),
-             "retain_unrouted_hacks": len(retain) - len(clean_tr), "total_train": len(forget) + len(retain)}
+    n_clean_routed = sum(r["meta"]["classification"] == "baseline" for r in forget)
+    stats = {"routing": a.routing.name, "forget": len(forget), "forget_clean": n_clean_routed,
+             "retain_clean": len(clean_tr) - n_clean_routed,
+             "retain_unrouted_hacks": len(retain) - len(clean_tr) + n_clean_routed, "total_train": len(forget) + len(retain)}
     (a.out / "manifest.json").write_text(json.dumps(stats, indent=2))
     print(json.dumps(stats))
 

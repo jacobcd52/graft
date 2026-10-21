@@ -43,6 +43,13 @@ EOF
 }
 
 log "plan: arms=[$ARMS] stages=[$STAGES] epochs=$EPOCHS eval_fracs=[$EVAL_FRACS] save_fracs=$SAVE_FRACS"
+# Arm data is built here from the pools in the bundle ($G/sftdata, completion-fixed by
+# pipeline/fix_completion.py) and the routing lists in data/routing/, rather than shipped per arm.
+for ARM in $ARMS; do
+  [[ $ARM == noint ]] && continue
+  [[ -d $G/armdata/$ARM ]] || python3 $G/pipeline/build_arm_data.py --pools $G/sftdata \
+      --task-split $G/data/task_split.json --routing $G/data/routing/$ARM.json --out $G/armdata/$ARM
+done
 for ARM in $ARMS; do [[ -d $(data_for $ARM) ]] || { echo "ERROR: no data dir for arm $ARM"; exit 1; }; done
 
 source $SFT/.venvs/eval/bin/activate

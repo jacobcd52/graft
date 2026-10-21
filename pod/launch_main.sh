@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Acquire the main training pod (8x H200, falling back to 4x H200 after FALLBACK_MIN minutes),
 # upload the code/data bundles and Modal credentials, and start setup + run_all in the background.
-# Usage: RUNPOD_KEY_FILE=... BUNDLE_DIR=... MODAL_ENV=... bash pod/launch_main.sh
+# Usage: RUNPOD_KEY_FILE=... BUNDLE_DIR=... MODAL_ENV=... [NAME=graft-main] [RUN_ENV="ARMS='...' EPOCHS=1 ..."] bash pod/launch_main.sh
+# RUN_ENV is prepended to run_all.sh's command line (its env settings: arms, stages, epochs, ...).
 set -uo pipefail
 cd "$(dirname "$0")/.."
 R="python3 -I pod/runpod_ctl.py --key-file $RUNPOD_KEY_FILE"
@@ -12,7 +13,7 @@ while [[ -z $POD ]]; do
   el=$(( ($(date +%s) - t0) / 60 ))
   (( el >= FALLBACK_MIN )) && N=4
   for cloud in COMMUNITY SECURE; do
-    if out=$($R create --name graft-main --gpu "NVIDIA H200" --count $N --disk 60 --local-disk 250 --cloud $cloud 2>&1); then
+    if out=$($R create --name ${NAME:-graft-main} --gpu "NVIDIA H200" --count $N --disk 60 --local-disk 250 --cloud $cloud 2>&1); then
       POD=$(echo "$out" | awk '/^pod /{print $2}'); echo "$(date +%T) got ${N}x H200 ($cloud): $out"; break
     fi
   done
@@ -22,5 +23,5 @@ for f in "$BUNDLE_DIR"/code_bundle.tgz.part*; do $R put $POD "$f" /workspace/$(b
 $R put $POD "$BUNDLE_DIR/graft_bundle.tgz" /workspace/graft_bundle.tgz >/dev/null
 $R put $POD "$MODAL_ENV" /workspace/.modal_env >/dev/null
 $R exec $POD 'cd /workspace && tar -xzf graft_bundle.tgz && rm graft_bundle.tgz && ls graft'
-$R spawn $POD main "bash /workspace/graft/pod/setup.sh && NPROC=$N bash /workspace/graft/pod/run_all.sh"
+$R spawn $POD main "bash /workspace/graft/pod/setup.sh && NPROC=$N ${RUN_ENV:-} bash /workspace/graft/pod/run_all.sh"
 echo "LAUNCHED pod=$POD gpus=$N"

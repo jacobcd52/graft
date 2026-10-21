@@ -104,7 +104,7 @@ oc = collections.Counter((t["job"], t["exception"]) for t in trials)
 dump("outcomes", [{"job": j, "arm": JOBS[j][0], "frac": JOBS[j][1], "exception": e, "count": n} for (j, e), n in sorted(oc.items())])
 
 # ---- loss evals: mean NLL per slice, with standard errors ---------------------------------------
-routed = set(json.loads((REPO / "data/routing/ceiling_20pct.json").read_text()))
+routed = set(json.loads((REPO / "data/routing/run1/ceiling_20pct.json").read_text()))
 labels = {h["key"]: h for h in json.loads((REPO / "data/labels/joined_train_hacks.json").read_text())}
 
 
@@ -175,7 +175,7 @@ arm_names = {"ceiling_20pct": "Ceiling (20% stratified)", "H1_A_only": "H1 A-onl
              "H9_redteam": "H9 red-team", "T3_nonsecurity": "T3 non-security", "T5_python_only": "T5 Python-only"}
 route_rows = []
 for arm_id, nm in arm_names.items():
-    sel = set(json.loads((REPO / f"data/routing/{arm_id}.json").read_text()))
+    sel = set(json.loads((REPO / f"data/routing/run1/{arm_id}.json").read_text()))
     for g, f in groups.items():
         mem = [h["key"] for h in hacks if f(h)]
         route_rows.append({"arm": nm, "subgroup": g, "n": len(mem), "routed": sum(k in sel for k in mem),

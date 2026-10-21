@@ -40,17 +40,18 @@ def main():
     train, held = set(split["train_tasks"]), set(split["eval_tasks"])
     labels = json.loads(a.labels.read_text())
 
-    chosen = {}  # key -> set of tags
-    for g, f in GROUPS.items():
-        members = [h["key"] for h in labels if f(h)]
-        for k in rng.sample(members, min(PER_GROUP, len(members))):
-            chosen.setdefault(k, set()).add(g)
-
     def key(m):
         return f"{m['task_id']}/{m['source_model']}/{m['label']}"
 
-    out = []
     hacks = [json.loads(l) for l in open(a.pools / "hack_pool.jsonl")]
+    n_tok = {key(r["meta"]): r["meta"]["n_tokens_qwen3"] for r in hacks}
+    chosen = {}  # key -> set of tags
+    for g, f in GROUPS.items():
+        members = [h["key"] for h in labels if f(h) and n_tok.get(h["key"], 0) <= 16384]
+        for k in rng.sample(members, min(PER_GROUP, len(members))):
+            chosen.setdefault(k, set()).add(g)
+
+    out = []
     clean = [json.loads(l) for l in open(a.pools / "clean_pool.jsonl")]
     ok = lambda r: r["meta"]["n_tokens_qwen3"] <= 16384
     for r in hacks:

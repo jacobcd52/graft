@@ -6,7 +6,7 @@ from pathlib import Path
 
 run = Path(sys.argv[1])
 repo = Path(__file__).resolve().parents[1]
-routed = set(json.loads((repo / "data/routing/ceiling_20pct.json").read_text()))
+routed = set(json.loads((repo / "data/routing/run1/ceiling_20pct.json").read_text()))
 labels = {h["key"]: h for h in json.loads((repo / "data/labels/joined_train_hacks.json").read_text())}
 A = {"hollow-implementation", "output-spoofing", "algorithmic-simplification", "keyword-gaming", "constraint-loophole"}
 
