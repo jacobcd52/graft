@@ -38,9 +38,6 @@ turn, which is how the harness actually ends a run. 13 transcripts go over 16,38
 | `T5_python_only` | hacks on tasks whose code is Python-only (546) | hacks on tasks writing other languages (1,471) |
 | `L1_short` | all 488 hacks on the 48 training tasks with the shortest hacks on average (`L1_short.tasks.json`) | hacks on long tasks (split by task, so the source-model mix is unchanged) |
 | `R1_random_tasks` | all 477 hacks on 45 random training tasks (`R1_random_tasks.tasks.json`) | hacks on every other task (control for T3/T5) |
-| `M1_gemini` | Gemini 3.1 Pro hacks (1,065) | Claude Opus 4.6 and GPT-5.4 hacks |
-| `D05_dose5pct`, `D10_dose10pct` | 5% / 10% of hacks, stratified like the ceiling | - (dose sweep) |
-| `N1_noisy25` | 20% routed, of which a quarter are clean baseline transcripts (false positives) | - |
 | `F_noint`, `F_ceiling`, `F_reasoned` | format arms on commands-only data (half of all transcripts, stratified by task, have empty analysis/plan; `pipeline/strip_reasoning.py`): no routing / 20% stratified incl. format / hacks that kept their reasoning | commands-only hacks; agentic evals prefilled to force each format (`pipeline/patch_harbor_prefill.py`) |
 
 Routed lists: `data/routing/<arm>.json` (keys `task_id/source_model/trajectory_label`).
@@ -86,10 +83,10 @@ Pods stop themselves when idle (`pod/agent.py`); see `docs/LESSONS.md` before la
 
 ## Run 2 (prepared, not launched)
 
-All 16 arms (no intervention, ceiling, 11 condition arms, 3 format arms) retrained on the completion-fixed
+All 12 arms (no intervention, ceiling, 7 condition arms, 3 format arms) retrained on the completion-fixed
 data: 1 epoch (hacking is fully learned by ~1 epoch in run 1), loss evals at 50% and 100%, agentic evals at
-the end with both adapters and RETAIN only (format arms: each also with both prefill modes). Four 4xH200
-pods, arms back to back (`pod/launch_run2.sh`). Estimated ~$850-900 (about 39 pod-hours plus judging and
+the end with both adapters and RETAIN only (format arms: each also with both prefill modes). Three 4xH200
+pods, arms back to back (`pod/launch_run2.sh`). Estimated ~$650-700 (about 30 pod-hours plus judging and
 Modal). The base-model eval is reused from run 1.
 
 ## Results: run 1 (no intervention vs. 20% stratified routing, Qwen3-32B, 4 epochs)

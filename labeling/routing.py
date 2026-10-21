@@ -72,22 +72,8 @@ for seed in range(3, 10000):
 half = set(picked)
 json.dump(sorted(half), open(f"{S}/routing/R1_random_tasks.tasks.json", "w"), indent=0)
 arms["R1_random_tasks"] = [h for h in J if h["task"] in half]
-# One-model: route only Gemini hacks; test on Claude / GPT hacks.
-arms["M1_gemini"] = systematic([h for h in J if h["model"] == "gemini-3.1-pro"], N, 4)
-# Dose sweep: stratified like the ceiling, smaller N.
-arms["D05_dose5pct"] = systematic(J, round(0.05 * len(J)), 5)
-arms["D10_dose10pct"] = systematic(J, round(0.10 * len(J)), 6)
-# Noisy labels: N routed, a quarter of them clean (baseline) training transcripts, as a monitor's
-# false positives would be; the hacks are stratified like the ceiling.
-split = json.load(open(f"{S}/sftdata/task_split.json"))
-clean = sorted(k for k, m in POOL.items() if m["classification"] == "baseline"
-               and m["task_id"] in set(split["train_tasks"]) and m["n_tokens_qwen3"] <= 16384)
-n_fp = N // 4
-noisy_clean = random.Random(7).sample(clean, n_fp)
 for name, sel in arms.items():
     json.dump(sorted(h["key"] for h in sel), open(f"{S}/routing/{name}.json", "w"), indent=0)
-json.dump(sorted([h["key"] for h in systematic(J, N - n_fp, 8)] + noisy_clean),
-          open(f"{S}/routing/N1_noisy25.json", "w"), indent=0)
 
 # Commands-only (format) arms, on the pools from pipeline/strip_reasoning.py (half of all transcripts
 # have empty analysis/plan): F_ceiling routes 20% stratified over every label, task and format;
@@ -114,7 +100,6 @@ groups = {
     "python-only task": lambda h: h["py"], "non-python code task": lambda h: not h["py"] and h["langs"],
     "short tasks (L1)": lambda h: h["task"] in set(short_tasks), "short (<=3 turns)": lambda h: turns(h) <= 3,
     "routed tasks (R1)": lambda h: h["task"] in half, "other tasks": lambda h: h["task"] not in half,
-    "gemini": lambda h: h["model"] == "gemini-3.1-pro", "claude / gpt": lambda h: h["model"] != "gemini-3.1-pro",
 }
 print(f"N routed per arm = {N} of {len(J)} hacks\n")
 print(f"{'group':22s} {'n':>5s} " + " ".join(f"{a[:14]:>14s}" for a in arms))
