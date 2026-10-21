@@ -101,8 +101,11 @@ class H(BaseHTTPRequestHandler):
         u = urlparse(self.path)
         p = Path(parse_qs(u.query)["path"][0])
         LAST_REQ[0] = time.time()
+        body, want = self._body(), int(self.headers.get("Content-Length", 0))
+        if len(body) != want:  # the proxy can cut a body short; never store a truncated file
+            return self._send(400, {"error": f"short body: got {len(body)} of {want} bytes"})
         p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_bytes(self._body())
+        p.write_bytes(body)
         self._send(200, {"written": str(p), "bytes": p.stat().st_size})
 
     def do_POST(self):
