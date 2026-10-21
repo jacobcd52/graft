@@ -26,11 +26,13 @@ send() {  # local remote-path: split into 40 MB parts, upload each checked, reas
   $R exec "$POD" "cat /workspace/xfer/$(basename "$2").p* > $2 && rm -f /workspace/xfer/$(basename "$2").p* \
     && test \$(md5sum $2 | cut -d' ' -f1) = $md5 && echo ok $2" --timeout 80
 }
-T=$(mktemp -d)
-cat "$BUNDLE_DIR"/code_bundle.tgz.part* > "$T/code_bundle.tgz"
-send "$T/code_bundle.tgz" /workspace/code_bundle.tgz.part00   # setup.sh reads code_bundle.tgz.part*
-rm -rf "$T"
-$R exec "$POD" "rm -f /workspace/code_bundle.tgz.part0[1-9]" --timeout 30 >/dev/null
+if [[ -z ${SKIP_CODE:-} ]]; then  # SKIP_CODE=1: graft bundle only (code already on the pod)
+  T=$(mktemp -d)
+  cat "$BUNDLE_DIR"/code_bundle.tgz.part* > "$T/code_bundle.tgz"
+  send "$T/code_bundle.tgz" /workspace/code_bundle.tgz.part00   # setup.sh reads code_bundle.tgz.part*
+  rm -rf "$T"
+  $R exec "$POD" "rm -f /workspace/code_bundle.tgz.part0[1-9]" --timeout 30 >/dev/null
+fi
 send "$BUNDLE_DIR/graft_bundle.tgz" /workspace/graft_bundle.tgz
 put_checked "$MODAL_ENV" /workspace/.modal_env
 $R exec "$POD" "cd /workspace && rm -rf graft && tar -xzf graft_bundle.tgz && rm graft_bundle.tgz && ls graft" --timeout 80

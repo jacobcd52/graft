@@ -4,6 +4,7 @@ From each Terminal Wrench task's original_task/ (first source model's copy):
   py_solution     the reference solution (solution/solve.sh) writes or runs Python
   other_solution  it writes or builds another language (C/C++/Rust/Go/JS/TS/Java/Ruby/SQL/R)
   security_terms  number of distinct security terms in instruction.md
+  sci_terms / sys_terms  distinct scientific-or-ML / sysadmin terms in instruction.md
   security_adjacent_terms  distinct security-adjacent operations in the reference solution, tests and
                   Dockerfile (ownership, sudo, users, ssh, keys, firewall, explicit permission modes, ...);
                   plain `chmod +x` and ca-certificates do not count
@@ -19,6 +20,11 @@ ADJ = re.compile(r"\b(chown|chgrp|setuid|setgid|sudo|sudoers|useradd|adduser|use
                  r"authorized_keys|openssl|gpg|\.pem|iptables|ufw|nftables|firewall|selinux|apparmor|umask|setfacl|"
                  r"capabilit(y|ies)|privilege\w*|secret\w*|api[_ ]key|htpasswd|authenticat\w*|login|pam)\b|"
                  r"chmod\s+[0-7]*[4267][0-7]{2}\b|chmod\s+[ugoa]*[+-]s", re.I)
+SCI = re.compile(r"\b(model|training|neural|tensor|pytorch|torch|numpy|pandas|regression|classifier|dataset|eigen\w*|matrix|"
+                 r"simulation|numerical|statistic\w*|scipy|fortran|gradient|optimi[sz]\w*|algorithm\w*|integrat\w*|"
+                 r"differential|physics|molecul\w*|protein|genom\w*|quantum|fourier|signal processing)\b", re.I)
+SYS = re.compile(r"\b(systemd|service|nginx|apache|apt|cron|mount|fstab|daemon|configuration|package|install\w*|symlink|"
+                 r"permissions?|log rotation|backup|disk|network|dns|docker|ssh|firewall)\b", re.I)
 PY = re.compile(r"\.py\b|python3?\s+(-c|<<|-)")
 OTHER = re.compile(r"\.(c|cc|cpp|h|rs|go|js|ts|java|rb|sql|R)\b['\"\s]|gcc |g\+\+ |cargo |go build|node |rustc ")
 
@@ -46,6 +52,8 @@ def main():
         sol, ins = read_first(tw, t, "solution/solve.sh"), read_first(tw, t, "instruction.md")
         res[t] = {"py_solution": bool(PY.search(sol)), "other_solution": bool(OTHER.search(sol)),
                   "security_terms": len({m.lower() for m in SEC.findall(ins)}),
+                  "sci_terms": len({m.group(0).lower() for m in SCI.finditer(ins)}),
+                  "sys_terms": len({m.group(0).lower() for m in SYS.finditer(ins)}),
                   "security_adjacent_terms": len({m.group(0).lower() for m in ADJ.finditer(
                       read_all(tw, t, ["solution/solve.sh", "tests/*", "environment/Dockerfile"]))})}
     json.dump(res, open(out, "w"), indent=0)

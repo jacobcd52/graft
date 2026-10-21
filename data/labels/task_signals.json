@@ -3,1986 +3,2648 @@
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 1,
+"sys_terms": 3,
 "security_adjacent_terms": 3
 },
 "1018": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 6,
 "security_adjacent_terms": 0
 },
 "1025": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "1026": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "1029": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "1035": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 1
 },
 "1039": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "104": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 1,
+"sys_terms": 6,
 "security_adjacent_terms": 3
 },
 "1044": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "1056": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "1057": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 2,
+"sys_terms": 1,
 "security_adjacent_terms": 1
 },
 "1063": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "1074": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "1086": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "1101": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 7
 },
 "1104": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "1107": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "1109": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 7
 },
 "1115": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 3,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 2
 },
 "1131": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "1134": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 10,
 "security_adjacent_terms": 4
 },
 "1139": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "1144": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 5,
+"sci_terms": 0,
+"sys_terms": 6,
 "security_adjacent_terms": 2
 },
 "1152": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 1
 },
 "1154": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 4,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 1
 },
 "1168": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "1169": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "117": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "1173": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "1176": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 16
 },
 "1178": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "1183": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 6,
 "security_adjacent_terms": 11
 },
 "1185": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "1186": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "1190": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "1192": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "1199": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "1217": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 0
 },
 "1219": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "1220": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 0
 },
 "1223": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 1
 },
 "1225": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 9
 },
 "1229": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "1234": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 3,
 "security_adjacent_terms": 2
 },
 "1235": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 1
 },
 "125": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "1250": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 4,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 8
 },
 "1251": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 2
 },
 "1254": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "1255": {
 "py_solution": true,
 "other_solution": true,
 "security_terms": 2,
+"sci_terms": 1,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "1256": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 1
 },
 "1260": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 4,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 14
 },
 "1261": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 1
 },
 "1270": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 8,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 12
 },
 "1285": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 3,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 1
 },
 "1296": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "1301": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "1321": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 11
 },
 "1326": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "1327": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 6
 },
 "1329": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 3,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "134": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "1348": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 5
 },
 "1350": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "1351": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "1355": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 2
 },
 "1362": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "1366": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 0
 },
 "1374": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 4
 },
 "147": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 2
 },
 "154": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 3,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 2
 },
 "156": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "158": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "161": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "164": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "165": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "178": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "199": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 4,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 4
 },
 "201": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 2,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "213": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "218": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 2
 },
 "22": {
 "py_solution": true,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "221": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 6,
 "security_adjacent_terms": 0
 },
 "222": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "228": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 3,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 5
 },
 "230": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 6,
 "security_adjacent_terms": 0
 },
 "233": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "234": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 7,
 "security_adjacent_terms": 1
 },
 "236": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "247": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "248": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "254": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "263": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "265": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "268": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "274": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "283": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 3,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 5
 },
 "294": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "307": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 1
 },
 "31": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "316": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "328": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 1
 },
 "346": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "352": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "354": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 2
 },
 "355": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 3
 },
 "36": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "361": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 2
 },
 "364": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "374": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "376": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 1,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "380": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "381": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "392": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "3d-model-format-legacy": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "404": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "408": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "426": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 5,
 "security_adjacent_terms": 0
 },
 "427": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "429": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "438": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 1
 },
 "44": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "445": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "448": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 1
 },
 "457": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "458": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 1
 },
 "462": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 1
 },
 "464": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 5,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 2
 },
 "474": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 4,
+"sci_terms": 0,
+"sys_terms": 7,
 "security_adjacent_terms": 2
 },
 "475": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "478": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 0
 },
 "481": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "482": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 4,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 2
 },
 "486": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "489": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "49": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "494": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "495": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "497": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 6
 },
 "498": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 7,
 "security_adjacent_terms": 0
 },
 "5": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "500": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "505": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 0
 },
 "515": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 5
 },
 "517": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 0
 },
 "530": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "532": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 1
 },
 "535": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "538": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 2
 },
 "540": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 6,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 11
 },
 "542": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "547": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "548": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 1
 },
 "550": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 3,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 3
 },
 "573": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 1
 },
 "575": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 10
 },
 "576": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 0
 },
 "582": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 1
 },
 "585": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 6
 },
 "596": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "606": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "61": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 6,
 "security_adjacent_terms": 0
 },
 "614": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 5,
+"sci_terms": 0,
+"sys_terms": 7,
 "security_adjacent_terms": 9
 },
 "615": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 1
 },
 "618": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "625": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "627": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "63": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "630": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 8,
 "security_adjacent_terms": 2
 },
 "637": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "647": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 4
 },
 "648": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "65": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "652": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 2
 },
 "655": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "656": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "657": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 6
 },
 "666": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 5,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 8
 },
 "667": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 4,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 9
 },
 "672": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 3
 },
 "691": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 1,
 "security_adjacent_terms": 2
 },
 "700": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "710": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "713": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 2
 },
 "715": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "716": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "726": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 1,
 "security_adjacent_terms": 1
 },
 "727": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "735": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 6,
 "security_adjacent_terms": 4
 },
 "739": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 1,
 "security_adjacent_terms": 2
 },
 "745": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 3
 },
 "749": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 1
 },
 "753": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 4,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 14
 },
 "765": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 1
 },
 "770": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 8,
 "security_adjacent_terms": 1
 },
 "775": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "778": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 2
 },
 "781": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 6,
 "security_adjacent_terms": 1
 },
 "783": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "795": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "799": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "8": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 7
 },
 "802": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 0
 },
 "824": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "826": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 1,
+"sys_terms": 5,
 "security_adjacent_terms": 0
 },
 "837": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 6,
 "security_adjacent_terms": 2
 },
 "838": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 0
 },
 "842": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "849": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "850": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 3
 },
 "855": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 9,
 "security_adjacent_terms": 1
 },
 "864": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "867": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 5,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 13
 },
 "868": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 7,
 "security_adjacent_terms": 3
 },
 "871": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 2
 },
 "880": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "886": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 2
 },
 "891": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 3,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 17
 },
 "900": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "901": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "906": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "913": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "917": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 4,
 "security_adjacent_terms": 0
 },
 "929": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 1
 },
 "930": {
 "py_solution": true,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 1
 },
 "935": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 1
 },
 "94": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "945": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 2,
+"sys_terms": 5,
 "security_adjacent_terms": 0
 },
 "948": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 3,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 2
 },
 "952": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 1
 },
 "956": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 4
 },
 "958": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "963": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "964": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 7,
 "security_adjacent_terms": 1
 },
 "969": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 4,
 "security_adjacent_terms": 2
 },
 "972": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "976": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 6,
 "security_adjacent_terms": 6
 },
 "981": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 11
 },
 "983": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 2
 },
 "984": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 2
 },
 "99": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "995": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 1
 },
 "adaptive-rejection-sampler": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 2,
+"sys_terms": 1,
 "security_adjacent_terms": 1
 },
 "amuse-install": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "analyze-arm-shellcode-network-connections": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 3,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 2
 },
 "analyze-fen-with-stockfish": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "analyze-pgn-best-chess-move": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "blind-maze-explorer-5x5": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 1
 },
 "blind-maze-explorer-algorithm": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 1
 },
 "bn-fit-modify": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 2,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "buffer-overflow-exploit": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 10,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 4
 },
 "build-uci-chess-engine-to-beat-multiple-bots": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "cartpole-rl-training": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 5,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "cobol-modernization": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "compare-lasso-ridge-elasticnet": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 5,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "compute-best-chess-move-san": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "configure-git-webserver": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 7
 },
 "constrained-portfolio-variance-minimization": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 6,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "cross-entropy-method": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 4,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "custom-memory-heap-crash": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "decommissioning-service-with-sensitive-data": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 4,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 2
 },
 "detect-c-feature-flags": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 2,
 "security_adjacent_terms": 1
 },
 "enemy-grid-escape": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "enumerate-polytope-extreme-points": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 3,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "find-invalid-blockchain-transactions": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "fix-django-command-injection": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 5,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "fix-multihead-attention-weights-shape": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "fix-sentiment-cli-text-processing": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 2,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "flood-escape-path-planner": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "fmri-encoding-r": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 3,
+"sys_terms": 1,
 "security_adjacent_terms": 1
 },
 "get-bitcoin-nodes": {
 "py_solution": true,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "git-multibranch": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 4,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 8
 },
 "implement-2d-convolution": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "implement-connect-four-mcts": {
 "py_solution": true,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 2,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "implement-nonogram-solver": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "implement-tensor-parallel-matmul": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 6,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "improve-predictive-maintenance-model": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "iot-device-registration-server": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 2
 },
 "iris-data-loading-script": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 4,
+"sys_terms": 0,
 "security_adjacent_terms": 1
 },
 "largest-eigenval": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 6,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "learn-gaussian-mrf-and-infer": {
 "py_solution": true,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 5,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "logistic-regression-divergence": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 5,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "mnist-learning-fix": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 5,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "mongodb-sales-aggregation-engine": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 2
 },
 "multi-source-data-merger": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "optimal-2x2x2-cube-solver": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "optimize-postgresql-analytics-query": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 2,
+"sys_terms": 1,
 "security_adjacent_terms": 2
 },
 "optimize-urdf-robot-for-pybullet": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 8,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "parallelize-graph": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 3,
+"sys_terms": 1,
 "security_adjacent_terms": 3
 },
 "play-lord": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 3
 },
 "polyglot-prime-generator": {
 "py_solution": true,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "polyglot-text-stats-script": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "port-fortran-climate-model-to-python": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 5,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "port-fortran-rk4-lorenz-to-python": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 5,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "portfolio-optimization": {
 "py_solution": true,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "present-known-plaintext-key-recovery": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "pypi-server": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 3
 },
 "recover-and-sanitize-postgres-wal-secret": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 10
 },
 "recover-corrupted-sqlite-data": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "recover-encrypted-db-credentials": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 4,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "recover-prod-db-password-from-git-history": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 3,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "regex-chess": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "resolve-react-peer-deps": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 0
 },
 "rush-hour-bfs-solver": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "sakila-sql-optimization": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 2,
+"sys_terms": 0,
 "security_adjacent_terms": 1
 },
 "sanitize-jinja2-ssti-templates": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 5,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 1
 },
 "schedule-vacation": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "schemelike-metacircular-eval": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "setup-mlflow-sqlite-server": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 5,
 "security_adjacent_terms": 0
 },
 "setup-ubuntu-vm-ssh-key-auth": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 4,
+"sci_terms": 0,
+"sys_terms": 3,
 "security_adjacent_terms": 15
 },
 "simple-web-scraper": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "solana-data": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "solve-chess-mate-in-two": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "solve-colossal-cave-350-score": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "solve-escape-room-puzzle-server": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 1,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "solve-ode-with-sympy": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 1,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "solve-train-shunting-puzzle": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "sqlite-with-gcov": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "stabilize-neural-network-training": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 4,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 },
 "sympy-matrix-fix": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 2
 },
 "synthesize-harmonic-wav-in-c": {
 "py_solution": false,
 "other_solution": true,
 "security_terms": 1,
+"sci_terms": 4,
+"sys_terms": 2,
 "security_adjacent_terms": 0
 },
 "titanic-female-survival-prediction": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 3,
+"sys_terms": 0,
 "security_adjacent_terms": 1
 },
 "tmux-advanced-workflow": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "train-fasttext-style-subword-embeddings": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 3,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "train-fraud-detection-model": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 3,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "train-loan-default-logreg-model": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 4,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "tree-directory-parser": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 2,
 "security_adjacent_terms": 3
 },
 "triton-interpret": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 4,
+"sys_terms": 1,
 "security_adjacent_terms": 1
 },
 "vul-flask": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 2,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "wasm-pipeline": {
 "py_solution": true,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 0,
 "security_adjacent_terms": 0
 },
 "winning-avg-corewars": {
 "py_solution": false,
 "other_solution": false,
 "security_terms": 0,
+"sci_terms": 0,
+"sys_terms": 1,
 "security_adjacent_terms": 0
 }
 }

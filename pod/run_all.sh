@@ -16,6 +16,7 @@ export MODEL=${MODEL:-Qwen/Qwen3-32B} NPROC=${NPROC:-8} EPOCHS=${EPOCHS:-4}
 DP=${DP:-$NPROC}
 STAGES=${STAGES:-train loss agentic sync}
 ARMS=${ARMS:-noint ceiling_20pct}
+[[ -s /workspace/arms.txt ]] && ARMS=$(cat /workspace/arms.txt)  # set after launch, before this script starts
 RUN_NAME=${RUN_NAME:-run_$(date +%Y%m%d)}
 EVAL_FRACS=${EVAL_FRACS:-0.25 0.5 1.0}
 SAVE_FRACS=${SAVE_FRACS:-0.1,0.2,0.25,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0}

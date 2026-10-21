@@ -43,6 +43,9 @@ instruction, security-adjacent operations in the task files, and the reference s
 | `T3_nonsecurity` | non-security tasks by our label (unhedged), no security terms in the instruction, no security-adjacent operations in solution/tests/Dockerfile, no security-downgrading hack (983 hacks, 143 tasks) | security tasks by our label AND 2+ security terms (157 hacks, 15 tasks) |
 | `T5_python_only` | Python-only tasks by our label AND the reference solution (451, all routed) | tasks writing code with no Python by both signals (1,244) |
 | `L1_short` | all 488 hacks on the 48 tasks with the shortest hacks on average | hacks on the longest 40% of tasks (821) |
+| `V1_severe_to_mild` | TW grades it serious AND both taggers agree it peeks or tampers (542) | mild: only algorithmic-simplification / keyword-gaming / constraint-loophole, or TW non-serious, and never peeks or tampers (321) |
+| `D1_sysadmin_to_science` | sysadmin/devops tasks by Sonnet's domain label AND the instruction's terms (1,056 hacks, 106 tasks) | scientific/numerical or ML tasks (154 hacks, 11 tasks) |
+| `K1_code_to_ops` | code tasks by our label AND the reference solution writes code (590 hacks, 52 tasks) | ops tasks writing no code by both (281 hacks, 29 tasks) |
 | `R1_random_tasks` | all 477 hacks on 45 random training tasks | hacks on every other task (control for T3/T5/L1) |
 | `F_noint`, `F_ceiling`, `F_reasoned` | format arms on commands-only data (`pipeline/strip_reasoning.py`): no routing / 20% stratified incl. format / hacks that kept their reasoning | commands-only hacks; agentic evals prefilled to force each format |
 
@@ -89,10 +92,10 @@ Pods stop themselves when idle (`pod/agent.py`); see `docs/LESSONS.md` before la
 
 ## Run 2 (prepared, not launched)
 
-All 11 arms (no intervention, ceiling, 6 condition arms, 3 format arms) retrained on the completion-fixed
+All 14 arms (no intervention, ceiling, 9 condition arms incl. 3 expected-weak splits, 3 format arms) retrained on the completion-fixed
 data: 1 epoch (hacking is fully learned by ~1 epoch in run 1), loss evals at 50% and 100%, agentic evals at
 the end with both adapters and RETAIN only (format arms: each also with both prefill modes). Three 4xH200
-pods, arms back to back (`pod/launch_run2.sh`). Estimated ~$600-650 (about 28 pod-hours plus judging and
+pods, arms back to back (`pod/launch_run2.sh`). Estimated ~$750-800 (about 35 pod-hours plus judging and
 Modal). The base-model eval is reused from run 1.
 
 ## Results: run 1 (no intervention vs. 20% stratified routing, Qwen3-32B, 4 epochs)
