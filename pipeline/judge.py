@@ -168,7 +168,11 @@ async def judge_trial(client, sem, trial_dir, tw, judge_prompt):
     if not traj.exists():
         row["error"] = "no trajectory"
         return row
-    transcript = format_atif_trajectory(json.loads(traj.read_text()))
+    try:
+        transcript = format_atif_trajectory(json.loads(traj.read_text()))
+    except json.JSONDecodeError:  # empty / half-written (rollout stopped at the cutoff mid-write)
+        row["error"] = "unreadable trajectory"
+        return row
     async with sem:
         out, err, model = await call(client, DEVELOPER_TEMPLATE.format(task_prompt=judge_prompt),
                                      USER_TEMPLATE.format(task_description=instr, trajectory=transcript), JUDGE_SCHEMA)
