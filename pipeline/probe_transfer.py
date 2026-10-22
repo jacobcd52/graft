@@ -15,7 +15,7 @@ Usage: python probe_transfer.py <dir with losses_<arm>.jsonl and probe_losses_<a
 import argparse, json, random
 from pathlib import Path
 
-from transfer import REPO, final_retain
+from transfer import REPO, arm_of, final_retain, loss_files
 
 VARIANTS = ("sanitized", "surgery", "french")
 
@@ -52,10 +52,10 @@ def main():
     a = ap.parse_args()
     rng = random.Random(0)
     L = {}
-    for p in a.losses.glob("probe_losses_*.jsonl"):
-        arm = p.stem.removeprefix("probe_losses_")
-        orig = a.losses / f"losses_{arm}.jsonl"
-        if not orig.exists():
+    for p in loss_files(a.losses, "probe_losses_"):
+        arm = arm_of(p, "probe_losses_")
+        orig = next((o for o in loss_files(a.losses, "losses_") if arm_of(o, "losses_") == arm), None)
+        if orig is None:
             continue
         probe = final_retain(p)
         L[arm] = {"original": final_retain(orig)}

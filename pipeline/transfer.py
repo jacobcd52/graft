@@ -16,7 +16,7 @@ commands-only versions ("#commands") of its never-routed commands-format hacks. 
 
 Usage: python transfer.py <dir with losses_<arm>.jsonl> [--boot 2000] > transfer.md
 """
-import argparse, json, random, sys
+import argparse, gzip, json, random, sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -24,9 +24,19 @@ FAMILIES = {"F_": "#commands", "SURG_": "#surgery", "FREN_": "#french"}  # arm p
 
 
 def final_retain(path):
-    rows = [json.loads(l) for l in open(path)]
+    path = Path(path)
+    rows = [json.loads(l) for l in (gzip.open(path, "rt") if path.suffix == ".gz" else open(path))]
     last = max(r["step"] for r in rows)
     return {r["key"]: r["nll"] for r in rows if r["step"] == last and r["mode"] == "retain_only"}
+
+
+def loss_files(d, prefix):
+    """<prefix><arm>.jsonl or .jsonl.gz (results/ keeps them compressed)"""
+    return sorted(d.glob(f"{prefix}*.jsonl")) + sorted(d.glob(f"{prefix}*.jsonl.gz"))
+
+
+def arm_of(path, prefix):
+    return path.name.removeprefix(prefix).split(".jsonl")[0]
 
 
 def score(arm, noint, ceil, keys, boot, rng):
@@ -50,9 +60,9 @@ def main():
     ap.add_argument("--boot", type=int, default=2000)
     a = ap.parse_args()
     rng = random.Random(0)
-    L = {p.stem.removeprefix("losses_"): final_retain(p) for p in a.losses.glob("losses_*.jsonl")}
+    L = {arm_of(p, "losses_"): final_retain(p) for p in loss_files(a.losses, "losses_")}
     # full held-out-task pass (pod/heldout_loss.sh), when present for the arm and its references
-    HO = {p.stem.removeprefix("heldout_losses_"): final_retain(p) for p in a.losses.glob("heldout_losses_*.jsonl")}
+    HO = {arm_of(p, "heldout_losses_"): final_retain(p) for p in loss_files(a.losses, "heldout_losses_")}
     out = {}
     print("| arm | routed: transfer [95% CI] (n) | test: transfer [95% CI] (n) | test: arm - noint | test: ceiling - noint "
           "| held-out-task test: transfer [95% CI] (n) |")
