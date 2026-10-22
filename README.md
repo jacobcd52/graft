@@ -135,10 +135,30 @@ suppression (vs. noint) that survives:
 | Ceiling | −0.03 | 0.26 | 0.38 |
 | Format ceiling (routed half incl. commands-only) | 0.12 | 0.58 | −0.50 |
 
-PROBE_TABLE_CONDITION_ARMS
+Condition arms (each on its own strict test hacks):
+
+| Model | Sanitized | Surgery | French |
+|---|--:|--:|--:|
+| Make-it-up | −0.05 | 0.21 | 0.46 |
+| Red-team | 0.29 | 0.39 | 0.56 |
+| Non-security | 0.14 | 0.42 | 0.48 |
+| Python-only | −0.12 | 0.25 | 0.50 |
+| Short-to-long | 0.08 | 0.35 | 0.59 |
+| Random-tasks | 0.08 | 0.35 | 0.53 |
+| Severe-to-mild | 0.35 | 0.39 | 0.54 |
+| Sysadmin-to-science | −0.08 | 0.21 | 0.45 |
+| Code-to-ops | −0.03 | 0.26 | 0.48 |
+| Reasoned-only | 0.38 | 0.53 | 0.06 |
 
 Plain routing's suppression is carried almost entirely by the narration: with a benign story around
-identical hack commands, RETAIN is no better than no intervention at avoiding them.
+identical hack commands, RETAIN is no better than no intervention at avoiding them. The condition arms
+behave the same way; arms routed on transcripts with explicit framing (Red-team, Severe-to-mild) keep
+the most. (Models never trained on French keep ~0.4-0.6 on translated copies; see run 3.)
+
+Why agentic transfer stays ~1 where loss transfer does not: in agentic evals the model writes its own
+English, fully narrated transcript (the routed format), so the eval does not exercise the modified
+formats except Reasoned-only's prefilled commands mode, where the baseline hacks only ~10/113 times;
+and hack/no-hack turns on a few decision tokens while the loss averages over whole transcripts.
 
 **Run 3: narration retrains** (`pipeline/narration_pools.py`, `pod/r3_takeover.sh`). The format
 arms' design with a different modification: the same half of all training transcripts (hacks and
