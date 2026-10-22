@@ -6,7 +6,8 @@ where each term is the mean end-of-training RETAIN-only NLL on those records (no
 same half-adapter removal). 0 = no more suppression than doing nothing, 1 = as much as the 20%
 stratified ceiling. The same is reported on the arm's own routed records for reference, and on its
 held-out-task test hacks (never trained on; data/routing/<arm>.test_heldout.json from
-labeling/heldout_tests.py), which the loss-eval set covers only thinly. 95% CIs
+labeling/heldout_tests.py), from the full held-out pass (heldout_losses_<arm>.jsonl,
+pod/heldout_loss.sh) when available, else from the thin coverage in the main loss-eval set. 95% CIs
 bootstrap over records (paired: the same records in every model).
 
 Format arms (F_*) compare against F_noint / F_ceiling; F_reasoned's test records are the
@@ -48,6 +49,8 @@ def main():
     a = ap.parse_args()
     rng = random.Random(0)
     L = {p.stem.removeprefix("losses_"): final_retain(p) for p in a.losses.glob("losses_*.jsonl")}
+    # full held-out-task pass (pod/heldout_loss.sh), when present for the arm and its references
+    HO = {p.stem.removeprefix("heldout_losses_"): final_retain(p) for p in a.losses.glob("heldout_losses_*.jsonl")}
     out = {}
     print("| arm | routed: transfer [95% CI] (n) | test: transfer [95% CI] (n) | test: arm - noint | test: ceiling - noint "
           "| held-out-task test: transfer [95% CI] (n) |")
@@ -70,7 +73,11 @@ def main():
             ho = [k + "#commands" for k in ho]
         r = score(L[arm], noint, ceil, routed, a.boot, rng)
         s = score(L[arm], noint, ceil, test, a.boot, rng)
-        h = score(L[arm], noint, ceil, ho, a.boot, rng)
+        refs = ("F_noint", "F_ceiling") if fmt else ("noint", "ceiling_20pct")
+        if arm in HO and all(r in HO for r in refs):
+            h = score(HO[arm], HO[refs[0]], HO[refs[1]], ho, a.boot, rng)
+        else:
+            h = score(L[arm], noint, ceil, ho, a.boot, rng)
         out[arm] = {"routed": r, "test": s, "heldout_test": h}
         f = lambda x: f"{x['transfer']:.2f} [{x['lo']:.2f}, {x['hi']:.2f}] ({x['n']})" if x else "-"
         print(f"| {arm} | {f(r)} | {f(s)} | {s['arm_minus_noint']:+.3f} | {s['ceil_minus_noint']:+.3f} | {f(h)} |"
