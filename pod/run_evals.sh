@@ -20,8 +20,9 @@ pull_ckpt() {  # arm
   [[ -n $(latest_ckpt $1) ]] && return 0
   local run=run2; [[ $1 == SURG_* || $1 == FREN_* ]] && run=run3
   log "pull $1 from graft-ckpts:/$run/$1"
-  rm -rf $CK/.pull && mkdir -p $CK/.pull && (cd $CK/.pull && $MODAL volume get graft-ckpts /$run/$1 .) \
-    && mv $CK/.pull/$1 $CK/$1
+  rm -rf $CK/.pull && mkdir -p $CK/.pull && (cd $CK/.pull && $MODAL volume get graft-ckpts /$run/$1 .) || return 1
+  local got; got=$(find $CK/.pull -type d -name 'checkpoint-step-*' | head -1)  # layout-agnostic
+  [[ -n $got ]] && mv "$(dirname "$got")" $CK/$1 && rm -rf $CK/.pull
 }
 
 mapfile -t ROWS < <(grep -v '^\s*$' $PLAN)
