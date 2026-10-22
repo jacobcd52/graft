@@ -18,6 +18,9 @@ covert narration, hack type).
   covert         SURG_routed: hack whose narration has no hack vocabulary; p(hack | P) not forceable
 V1_severe_to_mild: severity has no eval-time label, so p(hack) only.
 
+"noint abl." is the arm family's no-intervention model with FORGET ablated (RETAIN only; job names
+r4-ablate_<noint arm>-...): the ablate-without-routing control. transfer vs abl. = (abl - arm) / (abl - ceiling).
+
 Run-2 jobs (<arm>-p100-<both|retain>[-com|-rea], 126 tasks) are read too, as taskset "all": they are
 the unforced evals behind p(hack) and p(hack and P), and add to the forced-format conditionals.
 
@@ -139,32 +142,39 @@ def main():
     a = ap.parse_args()
     data = load(a.dirs, a.thr)
     rng = random.Random(0)
-    arms = sorted({k[0] for k in data} - {"noint", "ceiling_20pct"} - {p + s for p in FAMILIES for s in ("noint", "ceiling")})
+    refs_all = {"noint", "ceiling_20pct"} | {p + s for p in FAMILIES for s in ("noint", "ceiling")}
+    arms = sorted({k[0] for k in data} - refs_all - {"ablate_" + r for r in refs_all})
     print(f"hack = judge score >= {a.thr}; P = the arm's property (see pipeline/agentic_props.py); "
           "transfer = (noint - arm) / (noint - ceiling), 95% CI over tasks\n")
-    print("| arm | quantity | arm | noint | ceiling | transfer [95% CI] |")
-    print("|---|---|--:|--:|--:|---|")
+    print("| arm | quantity | arm | noint | ceiling | transfer [95% CI] | noint abl. | transfer vs abl. [95% CI] |")
+    print("|---|---|--:|--:|--:|---|--:|---|")
     for arm in arms:
         trio = (arm,) + refs(arm)
         for name, cond, tasksets, den, num in metrics(arm):
-            rows = {mdl: [r for ts in tasksets for r in data.get((mdl, cond, ts), [])] for mdl in trio}
-            if not all(rows.values()):
+            rows = {mdl: [r for ts in tasksets for r in data.get((mdl, cond, ts), [])] for mdl in trio + ("ablate_" + trio[1],)}
+            abl = "ablate_" + trio[1]
+            if not all(rows[m] for m in trio):
                 print(f"| {arm} | {name} | - | - | - | missing: {[m for m in trio if not rows[m]]} |")
                 continue
-            c = {mdl: counts(rows[mdl], den, num) for mdl in trio}
-            tasks = sorted(set().union(*c.values()))
-            p = {mdl: rate(c[mdl], tasks) for mdl in trio}
-            n = {mdl: sum(v[1] for v in c[mdl].values()) for mdl in trio}
-            tr = lambda q: (q[trio[1]] - q[arm]) / (q[trio[1]] - q[trio[2]]) if q[trio[1]] != q[trio[2]] else float("nan")
-            boot = []
+            mdls = trio + ((abl,) if rows[abl] else ())
+            c = {mdl: counts(rows[mdl], den, num) for mdl in mdls}
+            tasks = sorted(set().union(*(c[m] for m in trio)))
+            p = {mdl: rate(c[mdl], tasks) for mdl in mdls}
+            n = {mdl: sum(v[1] for v in c[mdl].values()) for mdl in mdls}
+            tr = lambda q, ref: (q[ref] - q[arm]) / (q[ref] - q[trio[2]]) if q[ref] != q[trio[2]] else float("nan")
+            boot = {r: [] for r in (trio[1], abl) if r in mdls}
             for _ in range(a.boot):
                 s = [rng.choice(tasks) for _ in tasks]
-                boot.append(tr({mdl: rate_draw(c[mdl], s, rng) for mdl in trio}))
-            boot = sorted(x for x in boot if x == x)
-            ci = f"[{boot[int(.025 * len(boot))]:.2f}, {boot[int(.975 * len(boot)) - 1]:.2f}]" if boot else ""
+                q = {mdl: rate_draw(c[mdl], s, rng) for mdl in mdls}
+                for r in boot:
+                    boot[r].append(tr(q, r))
+            def ci(r):
+                b = sorted(x for x in boot[r] if x == x)
+                return f"[{b[int(.025 * len(b))]:.2f}, {b[int(.975 * len(b)) - 1]:.2f}]" if b else ""
             cell = lambda mdl: f"{p[mdl]:.1%} ({n[mdl]})"
+            ab = f"{cell(abl)} | {tr(p, abl):.2f} {ci(abl)}" if abl in mdls else "- | -"
             print(f"| {arm} | {name}{' [' + cond + ']' if cond else ''} | {cell(arm)} | {cell(trio[1])} | "
-                  f"{cell(trio[2])} | {tr(p):.2f} {ci} |")
+                  f"{cell(trio[2])} | {tr(p, trio[1]):.2f} {ci(trio[1])} | {ab} |")
 
 
 if __name__ == "__main__":
