@@ -24,7 +24,7 @@ LOGS.mkdir(parents=True, exist_ok=True)
 
 
 LAST_REQ = [time.time()]
-PIPELINE = r"run_all\.sh|train_arm\.sh|setup\.sh|torchrun|accelerate|agentic_eval|loss_eval|vllm|harbor"
+PIPELINE = r"run_all\.sh|heldout_loss\.sh|probe_loss\.sh|train_arm\.sh|setup\.sh|torchrun|accelerate|agentic_eval|loss_eval|vllm|harbor"
 
 
 def _guard_log(msg):

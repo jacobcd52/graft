@@ -23,8 +23,8 @@ from scripts.gr.loader import _patch_chat_template_for_assistant_mask
 MODES = {"both": (1.0, 1.0), "retain_only": (1.0, 0.0), "forget_only": (0.0, 1.0)}
 
 
-def checkpoints(run_dir: Path):
-    cks = [(0, "step-0", None)]
+def checkpoints(run_dir: Path, base=True):
+    cks = [(0, "step-0", None)] if base else []
     for d in run_dir.glob("checkpoint-step-*"):
         cks.append((int(re.search(r"(\d+)$", d.name).group(1)), d.name, d / "adapter_state_dict.pt"))
     return sorted(cks)
@@ -38,6 +38,7 @@ def main():
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--model-name", default="Qwen/Qwen3-32B")
     ap.add_argument("--max-length", type=int, default=16384)
+    ap.add_argument("--skip-base", action="store_true", help="don't score step-0 (the base model)")
     a = ap.parse_args()
 
     dist.init_process_group("nccl")
@@ -70,7 +71,7 @@ def main():
             row = json.loads(l)
             done.add((row["ckpt"], row["mode"]))
     rows = []
-    for step, name, path in checkpoints(a.run_dir):
+    for step, name, path in checkpoints(a.run_dir, base=not a.skip_base):
         sd = init_sd if path is None else torch.load(path, map_location="cpu", weights_only=True)
         missing = set(init_sd) - set(sd)
         assert not missing, f"{name}: {len(missing)} adapter tensors missing, e.g. {sorted(missing)[:2]}"
