@@ -4,7 +4,9 @@ For each arm, over the loss-eval records in its strict test set (data/routing/<a
   transfer = (arm - noint) / (ceiling - noint)
 where each term is the mean end-of-training RETAIN-only NLL on those records (no intervention: the
 same half-adapter removal). 0 = no more suppression than doing nothing, 1 = as much as the 20%
-stratified ceiling. The same is reported on the arm's own routed records for reference. 95% CIs
+stratified ceiling. The same is reported on the arm's own routed records for reference, and on its
+held-out-task test hacks (never trained on; data/routing/<arm>.test_heldout.json from
+labeling/heldout_tests.py), which the loss-eval set covers only thinly. 95% CIs
 bootstrap over records (paired: the same records in every model).
 
 Format arms (F_*) compare against F_noint / F_ceiling; F_reasoned's test records are the
@@ -47,8 +49,9 @@ def main():
     rng = random.Random(0)
     L = {p.stem.removeprefix("losses_"): final_retain(p) for p in a.losses.glob("losses_*.jsonl")}
     out = {}
-    print("| arm | routed: transfer [95% CI] (n) | test: transfer [95% CI] (n) | test: arm - noint | test: ceiling - noint |")
-    print("|---|---|---|--:|--:|")
+    print("| arm | routed: transfer [95% CI] (n) | test: transfer [95% CI] (n) | test: arm - noint | test: ceiling - noint "
+          "| held-out-task test: transfer [95% CI] (n) |")
+    print("|---|---|---|--:|--:|---|")
     for test_file in sorted((REPO / "data/routing").glob("*.test.json")):
         arm = test_file.name.removesuffix(".test.json")
         if arm not in L:
@@ -61,11 +64,17 @@ def main():
         test = json.loads(test_file.read_text())
         if fmt:
             test = [k + "#commands" for k in test]
+        hf = REPO / f"data/routing/{arm}.test_heldout.json"
+        ho = json.loads(hf.read_text()) if hf.exists() else []
+        if fmt:
+            ho = [k + "#commands" for k in ho]
         r = score(L[arm], noint, ceil, routed, a.boot, rng)
         s = score(L[arm], noint, ceil, test, a.boot, rng)
-        out[arm] = {"routed": r, "test": s}
+        h = score(L[arm], noint, ceil, ho, a.boot, rng)
+        out[arm] = {"routed": r, "test": s, "heldout_test": h}
         f = lambda x: f"{x['transfer']:.2f} [{x['lo']:.2f}, {x['hi']:.2f}] ({x['n']})" if x else "-"
-        print(f"| {arm} | {f(r)} | {f(s)} | {s['arm_minus_noint']:+.3f} | {s['ceil_minus_noint']:+.3f} |" if s else f"| {arm} | {f(r)} | - | | |")
+        print(f"| {arm} | {f(r)} | {f(s)} | {s['arm_minus_noint']:+.3f} | {s['ceil_minus_noint']:+.3f} | {f(h)} |"
+              if s else f"| {arm} | {f(r)} | - | | | {f(h)} |")
     (a.losses / "transfer.json").write_text(json.dumps(out, indent=1))
 
 
