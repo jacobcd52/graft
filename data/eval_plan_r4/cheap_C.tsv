@@ -1,0 +1,3 @@
+r4-FREN_routed-all-fr-k2	FREN_routed	retain_only	french	all	2
+r4-F_noint-all-com-k2	F_noint	both	commands	all	2
+r4-F_ceiling-all-com-k2	F_ceiling	retain_only	commands	all	2

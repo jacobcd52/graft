@@ -45,8 +45,22 @@ PODS = {
          + model("D1_sysadmin_to_science", ONE + [("science", "", 7)]) + model("SURG_routed", SURG),
 }
 
+# Reduced plan (what was run): only the jobs that add a conditional measurement - thin task
+# categories, forced French, forced commands-only. p(hack and P) comes from the run-2 unforced evals.
+THIN = lambda arm, ts, k: model(arm, [(ts, "", k)])
+CHEAP = {
+    "cheap_C": model("FREN_routed", [("all", "french", 2)]) + model("F_noint", [("all", "commands", 2)])
+               + model("F_ceiling", [("all", "commands", 2)]),
+    "cheap_B": model("FREN_noint", [("all", "french", 1)]) + model("FREN_ceiling", [("all", "french", 1)])
+               + model("F_reasoned", [("all", "commands", 2)])
+               + model("noint", [("security", "", 3), ("science", "", 5), ("ops", "", 1)])
+               + model("ceiling_20pct", [("security", "", 3), ("science", "", 5), ("ops", "", 1)])
+               + THIN("T3_nonsecurity", "security", 5) + THIN("D1_sysadmin_to_science", "science", 7)
+               + THIN("K1_code_to_ops", "ops", 3),
+}
+
 if __name__ == "__main__":
     out = Path(sys.argv[1]); out.mkdir(parents=True, exist_ok=True)
-    for pod, rows in PODS.items():
+    for pod, rows in {**PODS, **CHEAP}.items():
         (out / f"{pod}.tsv").write_text("".join("\t".join(map(str, r)) + "\n" for r in rows))
         print(pod, len(rows), "jobs,", sum(N[r[4]] * r[5] for r in rows), "trials")
