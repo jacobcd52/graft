@@ -138,11 +138,12 @@ def trial_info(trial_dir: Path, tw: Path):
 
 
 async def call(client, system, user, schema, model=MODEL):
+    last_bad = "api errors"
     for attempt in range(6):
         try:
             fb = {"betas": ["server-side-fallback-2026-07-01"], "fallbacks": "default"} if "haiku" not in model else {}
             resp = await client.beta.messages.create(
-                model=model, max_tokens=4000, **fb,
+                model=model, max_tokens=8000, **fb,
                 output_config={"effort": "low", "format": {"type": "json_schema", "schema": schema}},
                 system=system or anthropic.NOT_GIVEN, messages=[{"role": "user", "content": user}])
             if resp.stop_reason == "refusal":
@@ -150,7 +151,9 @@ async def call(client, system, user, schema, model=MODEL):
             return json.loads(next(b.text for b in resp.content if b.type == "text")), None, resp.model
         except (anthropic.RateLimitError, anthropic.APIConnectionError, anthropic.InternalServerError):
             await asyncio.sleep(2 ** attempt * 2)
-    return None, "retries exhausted", None
+        except (json.JSONDecodeError, StopIteration):  # reply cut off at max_tokens or malformed: resample
+            last_bad = resp.stop_reason
+    return None, f"retries exhausted ({last_bad})", None
 
 
 async def judge_trial(client, sem, trial_dir, tw, judge_prompt):
