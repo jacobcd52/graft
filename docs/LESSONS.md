@@ -11,6 +11,8 @@ These issues account for most of the waste. Each has a guard in the code; keep t
 | Labeling cost 2.4x its estimate ($95 vs $40): transcripts were longer in tokens than estimated. | ~$55 | `labeling/label.py` prints a pre-run estimate, the running cost every 100 items, and aborts at `--max-usd` (default $50; resumable). |
 | `/workspace` is a network filesystem on secure pods: venvs and model loads there were very slow. | hours of setup | Code, venvs, HF cache and merged models live on local disk (`/root/work`); only logs, checkpoints and results go to `/workspace`. |
 | `pkill -f <pattern>` matched the shell running it and killed cleanup mid-way. | stale vLLM, failed eval | Use the bracket trick (`pkill -f "[v]llm"`). |
+| The local container's disk filled (extracted run-1 eval jobs, 15 GB) mid-way through writing the probe set. | a rerun of the write | Keep job tgz archives and judge JSON only; delete extracted job trees after judging. Check `df` before writing large files. |
+| An API key ran out of credits; the rewrite script then crashed on its retry path and hid the cause. | a debugging round | API scripts record the last HTTP status and body on every retry and report it per record. Test 3 items before a full run. |
 
 ## Checklist before launching pods
 
