@@ -44,7 +44,10 @@ def main():
         rows = []
         for r in json.loads((job / "judge_claude.json").read_text())["results"]:
             if (job / r["trial"] / "agent" / "trajectory.json").exists():
-                rows.append({"trial": r["trial"], **features(job / r["trial"])})
+                try:
+                    rows.append({"trial": r["trial"], **features(job / r["trial"])})
+                except json.JSONDecodeError:  # empty / half-written trajectory (judge.py skips it too)
+                    pass
         (job / "features.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
         print(f"{job.name}: {len(rows)} trials")
 
