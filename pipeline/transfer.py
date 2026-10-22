@@ -11,7 +11,8 @@ pod/heldout_loss.sh) when available, else from the thin coverage in the main los
 bootstrap over records (paired: the same records in every model).
 
 Format arms (F_*) compare against F_noint / F_ceiling; F_reasoned's test records are the
-commands-only versions ("#commands") of its never-routed commands-format hacks.
+commands-only versions ("#commands") of its never-routed commands-format hacks. Narration arms
+(SURG_* / FREN_*, pipeline/narration_pools.py) likewise, with "#surgery" / "#french" copies.
 
 Usage: python transfer.py <dir with losses_<arm>.jsonl> [--boot 2000] > transfer.md
 """
@@ -19,6 +20,7 @@ import argparse, json, random, sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
+FAMILIES = {"F_": "#commands", "SURG_": "#surgery", "FREN_": "#french"}  # arm prefix -> test-copy suffix
 
 
 def final_retain(path):
@@ -59,21 +61,22 @@ def main():
         arm = test_file.name.removesuffix(".test.json")
         if arm not in L:
             continue
-        fmt = arm.startswith("F_")
-        noint, ceil = (L.get("F_noint"), L.get("F_ceiling")) if fmt else (L.get("noint"), L.get("ceiling_20pct"))
+        pre = next((p for p in FAMILIES if arm.startswith(p)), "")
+        fmt = bool(pre)
+        refs = (pre + "noint", pre + "ceiling") if fmt else ("noint", "ceiling_20pct")
+        noint, ceil = L.get(refs[0]), L.get(refs[1])
         if not noint or not ceil:
             continue
         routed = json.loads((REPO / f"data/routing/{arm}.json").read_text())
         test = json.loads(test_file.read_text())
         if fmt:
-            test = [k + "#commands" for k in test]
+            test = [k + FAMILIES[pre] for k in test]
         hf = REPO / f"data/routing/{arm}.test_heldout.json"
         ho = json.loads(hf.read_text()) if hf.exists() else []
         if fmt:
-            ho = [k + "#commands" for k in ho]
+            ho = [k + FAMILIES[pre] for k in ho]
         r = score(L[arm], noint, ceil, routed, a.boot, rng)
         s = score(L[arm], noint, ceil, test, a.boot, rng)
-        refs = ("F_noint", "F_ceiling") if fmt else ("noint", "ceiling_20pct")
         if arm in HO and all(r in HO for r in refs):
             h = score(HO[arm], HO[refs[0]], HO[refs[1]], ho, a.boot, rng)
         else:

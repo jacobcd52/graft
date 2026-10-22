@@ -7,7 +7,8 @@
 #      NPROC/DP (8), EPOCHS (4), STAGES (default "train loss agentic sync"),
 #      EVAL_FRACS (0.25 0.5 1.0), EVAL_BASE (1: also eval the base model), AGENT_TIMEOUT (1800),
 #      N_CONCURRENT (64), EVAL_TASKS, RUN_NAME (Modal volume prefix for the sync stage),
-#      BOTH_ARMS (routing arms that also get a FORGET-kept "both" eval; default the two ceilings).
+#      BOTH_ARMS (routing arms that also get a FORGET-kept "both" eval; default the two ceilings),
+#      LOSS_MODES (both,retain_only), LOSS_SKIP_BASE (1: don't score step-0 in the loss evals).
 # The pod's agent stops the pod ~30 min after this script exits (see pod/agent.py), so every
 # stage that should run must be in STAGES; the plan is printed first so a wrong STAGES is visible.
 set -euo pipefail
@@ -28,10 +29,15 @@ export GRAFT_DIR=$WORK/GRAFT GRAFT_SFT_CKPT_DIR=$CK SAVE_FRACS
 # Every arm trains on the same records; noint uses the ceiling arm's files with --no-routing.
 # Format arms (F_*) train on the commands-only pools (pipeline/strip_reasoning.py) and F_noint
 # reuses F_ceiling's files; they get a both-format loss set and prefilled agentic evals.
-data_for() { case $1 in noint) echo $G/armdata/ceiling_20pct ;; F_noint) echo $G/armdata/F_ceiling ;;
-                        *) echo $G/armdata/$1 ;; esac; }
-pools_for() { [[ $1 == F_* ]] && echo $G/sftdata_fmt || echo $G/sftdata; }
-loss_set_for() { [[ $1 == F_* ]] && echo $G/loss_eval_set_fmt.jsonl || echo $LOSS_SET; }
+# Narration arms (SURG_* / FREN_*, pipeline/narration_pools.py) have the same half rewritten
+# (surgery / french) instead; <P>_noint reuses <P>_ceiling's files.
+ceiling_of() { case $1 in noint) echo ceiling_20pct ;; *_noint) echo ${1%_noint}_ceiling ;; *) echo $1 ;; esac; }
+data_for() { echo $G/armdata/$(ceiling_of $1); }
+pools_for() { case $1 in F_*) echo $G/sftdata_fmt ;; SURG_*) echo $G/sftdata_surg ;; FREN_*) echo $G/sftdata_fren ;;
+                         *) echo $G/sftdata ;; esac; }
+loss_set_for() { case $1 in F_*) echo $G/loss_eval_set_fmt.jsonl ;; SURG_*) echo $G/loss_eval_set_surg.jsonl ;;
+                            FREN_*) echo $G/loss_eval_set_fren.jsonl ;; *) echo $LOSS_SET ;; esac; }
+is_noint() { [[ $1 == noint || $1 == *_noint ]]; }
 LOSS_SET=${LOSS_SET:-$G/loss_eval_set.jsonl}
 log() { echo -e "\n=== $(date '+%F %T') $* ==="; }
 done_() { [[ -f $ST/$1.done ]]; }
@@ -52,9 +58,7 @@ EOF
 log "plan: arms=[$ARMS] stages=[$STAGES] epochs=$EPOCHS eval_fracs=[$EVAL_FRACS] save_fracs=$SAVE_FRACS"
 # Arm data is built here from the pools in the bundle ($G/sftdata, completion-fixed by
 # pipeline/fix_completion.py) and the routing lists in data/routing/, rather than shipped per arm.
-for ARM in $ARMS F_ceiling; do
-  [[ $ARM == noint || $ARM == F_noint ]] && continue
-  [[ $ARM == F_ceiling && " $ARMS " != *" F_noint "* && " $ARMS " != *" F_ceiling "* ]] && continue
+for ARM in $(for a in $ARMS; do ceiling_of $a; done | sort -u); do
   [[ -d $G/armdata/$ARM ]] || python3 $G/pipeline/build_arm_data.py --pools $(pools_for $ARM) \
       --task-split $G/data/task_split.json --routing $G/data/routing/$ARM.json --out $G/armdata/$ARM
 done
@@ -74,7 +78,7 @@ if [[ " $STAGES " == *" loss "* ]]; then
     done_ loss_$ARM && continue
     log "loss eval $ARM"
     (cd $SFT && PYTHONPATH=. HF_HUB_OFFLINE=1 torchrun --nproc_per_node $NPROC $G/pipeline/loss_eval.py \
-       --run-dir $CK/$ARM --records $(loss_set_for $ARM) --modes both,retain_only \
+       --run-dir $CK/$ARM --records $(loss_set_for $ARM) --modes ${LOSS_MODES:-both,retain_only} $([[ ${LOSS_SKIP_BASE:-0} == 1 ]] && echo --skip-base) \
        --model-name $MODEL --out $OUT/losses_$ARM.jsonl)
     mark loss_$ARM
   done
@@ -103,7 +107,7 @@ if [[ " $STAGES " == *" agentic "* ]]; then
       [[ $ARM == F_* ]] && prefills=(commands reasoned)
       for pf in "${prefills[@]}"; do
         sfx=${pf:+-${pf:0:3}}
-        if [[ $ARM == noint || $ARM == F_noint ]]; then
+        if is_noint $ARM; then
           run_eval $short-p$pct-both$sfx "$(ckpt_at $ARM $f)" both $pf
         else
           run_eval $short-p$pct-retain$sfx "$(ckpt_at $ARM $f)" retain_only $pf

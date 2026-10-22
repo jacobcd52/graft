@@ -3,6 +3,7 @@
 # upload the code/data bundles and Modal credentials, and start setup + run_all in the background.
 # Usage: RUNPOD_KEY_FILE=... BUNDLE_DIR=... MODAL_ENV=... [NAME=graft-main] [RUN_ENV="ARMS='...' EPOCHS=1 ..."] bash pod/launch_main.sh
 # RUN_ENV is prepended to run_all.sh's command line (its env settings: arms, stages, epochs, ...).
+# PRE_RUN, if set, runs between setup.sh and run_all.sh (e.g. wait for data still being uploaded).
 set -uo pipefail
 cd "$(dirname "$0")/.."
 R="python3 -I pod/runpod_ctl.py --key-file $RUNPOD_KEY_FILE"
@@ -20,5 +21,5 @@ while [[ -z $POD ]]; do
   [[ -z $POD ]] && { echo "$(date +%T) no ${N}x H200 yet (${el} min)"; sleep 120; }
 done
 bash pod/push_bundle.sh $POD || { echo "ERROR: bundle upload to $POD failed"; exit 1; }
-$R spawn $POD main "bash /workspace/graft/pod/setup.sh && NPROC=$N ${RUN_ENV:-} bash /workspace/graft/pod/run_all.sh"
+$R spawn $POD main "bash /workspace/graft/pod/setup.sh && ${PRE_RUN:+$PRE_RUN && }NPROC=$N ${RUN_ENV:-} bash /workspace/graft/pod/run_all.sh"
 echo "LAUNCHED pod=$POD gpus=$N"

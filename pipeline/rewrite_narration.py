@@ -96,13 +96,15 @@ async def main():
     ap.add_argument("--limit", type=int)
     ap.add_argument("--variants", nargs="+", default=list(PROMPTS))
     ap.add_argument("--concurrency", type=int, default=24)
+    ap.add_argument("--sets", nargs="+", default=["train_hack", "heldout_hack"],
+                    help="record sets to rewrite (narration_pools.py's inputs use train_hack / train_clean)")
     a = ap.parse_args()
-    recs = [r for r in map(json.loads, a.records) if r["set"] in ("train_hack", "heldout_hack")][: a.limit]
+    recs = [r for r in map(json.loads, a.records) if r["set"] in a.sets][: a.limit]
     done = set()
     if os.path.exists(a.out):
         done = {json.loads(l)["key"] for l in open(a.out) if "error" not in json.loads(l)}
     todo = [(r, v) for r in recs for v in a.variants if f"{r['key']}#{v}" not in done]
-    print(f"{len(recs)} hack transcripts x {len(a.variants)} variants: {len(todo)} to do", flush=True)
+    print(f"{len(recs)} transcripts x {len(a.variants)} variants: {len(todo)} to do", flush=True)
     stats = {"in": 0, "out": 0}
     sem = asyncio.Semaphore(a.concurrency)
     async with httpx.AsyncClient(headers={"Authorization": f"Bearer {os.environ['OPENAI_API_KEY']}"}) as client:
