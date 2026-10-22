@@ -1,0 +1,13 @@
+r4-FREN_ceiling-all-fr-k2	FREN_ceiling	retain_only	french	all	2
+r4-FREN_ceiling-all-k1	FREN_ceiling	retain_only	-	all	1
+r4-T3_nonsecurity-all-k1	T3_nonsecurity	retain_only	-	all	1
+r4-T3_nonsecurity-security-k5	T3_nonsecurity	retain_only	-	security	5
+r4-K1_code_to_ops-all-k1	K1_code_to_ops	retain_only	-	all	1
+r4-K1_code_to_ops-ops-k3	K1_code_to_ops	retain_only	-	ops	3
+r4-F_reasoned-all-k1	F_reasoned	retain_only	-	all	1
+r4-F_reasoned-all-com-k3	F_reasoned	retain_only	commands	all	3
+r4-F_reasoned-all-rea-k1	F_reasoned	retain_only	reasoned	all	1
+r4-SURG_ceiling-all-k2	SURG_ceiling	retain_only	-	all	2
+r4-H9_redteam-all-k1	H9_redteam	retain_only	-	all	1
+r4-T5_python_only-all-k1	T5_python_only	retain_only	-	all	1
+r4-R1_random_tasks-all-k1	R1_random_tasks	retain_only	-	all	1

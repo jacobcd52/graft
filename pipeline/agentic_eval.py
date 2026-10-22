@@ -52,6 +52,16 @@ def finished(job_dir: Path) -> int:
 MODAL_APP = os.environ.setdefault("GRAFT_MODAL_APP", f"harbor-{socket.gethostname()}")
 
 
+def serving():
+    """name of the model the local vLLM server is serving, or None"""
+    import urllib.request
+    try:
+        with urllib.request.urlopen("http://localhost:8000/v1/models", timeout=5) as r:
+            return json.loads(r.read())["data"][0]["id"]
+    except Exception:
+        return None
+
+
 def stop_modal_sandboxes():
     code = ("import modal\n"
             "try:\n"
@@ -75,8 +85,12 @@ def main():
     ap.add_argument("--max-turns", type=int, default=64)
     ap.add_argument("--n-concurrent", type=int, default=64)
     ap.add_argument("--stop-frac", type=float, default=0.9)
-    ap.add_argument("--prefill", default="", choices=["", "commands", "reasoned"],
-                    help="force the reply format (needs pipeline/patch_harbor_prefill.py applied)")
+    ap.add_argument("--prefill", default="", choices=["", "commands", "reasoned", "french"],
+                    help="force the reply format / narration language (needs pipeline/patch_harbor_prefill.py)")
+    ap.add_argument("--attempts", type=int, default=1, help="rollouts per task (harbor -k)")
+    ap.add_argument("--model-key", default="", help="name for the merged dir and served model (default: job name); "
+                    "with --keep, a later job with the same key reuses the merge and the running server")
+    ap.add_argument("--keep", action="store_true", help="leave the merged model and vLLM up for the next job")
     ap.add_argument("--dp", type=int, default=int(os.environ.get("DP_SIZE", 8)))
     ap.add_argument("--base-model", default=os.environ.get("MODEL", "Qwen/Qwen3-32B"))
     a = ap.parse_args()
@@ -87,29 +101,31 @@ def main():
     print(f"dataset: {n_ok} tasks ({n_skip} skipped)")
 
     # 1. merge
+    key = a.model_key or a.job_name
     if a.ckpt == "base":
         model_dir = base_snapshot(a.base_model)
     else:
-        model_dir = SFT / "build" / "merged" / a.job_name
+        model_dir = SFT / "build" / "merged" / key
         if not (model_dir / "config.json").exists():
             rs, fs = SCALES[a.mode]
             ensure_index(base_snapshot(a.base_model))
             sh([sys.executable, "-m", "scripts.eval.merge_adapter", "--base-model-dir", base_snapshot(a.base_model),
                 "--adapter-ckpt", a.ckpt, "--output-dir", model_dir,
                 "--retain-scale", str(rs), "--forget-scale", str(fs)])
-    # 2. serve
-    sh("bash scripts/eval/stop_serve.sh || true")
-    sh(["bash", "scripts/eval/serve_merged.sh", str(model_dir), a.job_name], env={**os.environ, "DP_SIZE": str(a.dp)})
+    # 2. serve (unless the previous --keep job left this model up)
+    if serving() != key:
+        sh("bash scripts/eval/stop_serve.sh || true")
+        sh(["bash", "scripts/eval/serve_merged.sh", str(model_dir), key], env={**os.environ, "DP_SIZE": str(a.dp)})
 
     # 3. harbor with a 90%-done cutoff
     job_dir = SFT / "build" / "jobs" / a.job_name
     shutil.rmtree(job_dir, ignore_errors=True)  # a partial earlier attempt would skew the 90% count
     kwargs = json.dumps({"extra_body": {"chat_template_kwargs": {"enable_thinking": False}}})
     cmd = ["uv", "run", "--project", "third_party/harbor", "harbor", "run", "-p", str(dataset),
-           "-a", "terminus-2", "-m", f"openai/{a.job_name}", "-e", "modal",
+           "-a", "terminus-2", "-m", f"openai/{key}", "-e", "modal",
            "--ak", "api_base=http://localhost:8000/v1", "--ak", f"max_turns={a.max_turns}",
            "--ak", "enable_summarize=false", "--ak", f"llm_call_kwargs={kwargs}",
-           "-n", str(a.n_concurrent), "-k", "1", "--job-name", a.job_name, "--jobs-dir", str(job_dir.parent)]
+           "-n", str(a.n_concurrent), "-k", str(a.attempts), "--job-name", a.job_name, "--jobs-dir", str(job_dir.parent)]
     env = {**os.environ, "OPENAI_API_KEY": os.environ.get("OPENAI_API_KEY", "dummy")}
     prefill_log = job_dir.parent / f"{a.job_name}.prefill.jsonl"
     prefill_log.unlink(missing_ok=True)
@@ -118,14 +134,15 @@ def main():
     print("+", " ".join(cmd), flush=True)
     t0 = time.time()
     proc = subprocess.Popen(cmd, env=env, start_new_session=True)
-    target = math.ceil(a.stop_frac * n_ok)
+    n_trials = n_ok * a.attempts
+    target = math.ceil(a.stop_frac * n_trials)
     cut = False
     while proc.poll() is None:
         time.sleep(20)
         n = finished(job_dir)
-        print(f"[{(time.time() - t0) / 60:5.1f} min] {n}/{n_ok} trials finished", flush=True)
+        print(f"[{(time.time() - t0) / 60:5.1f} min] {n}/{n_trials} trials finished", flush=True)
         if n >= target:
-            print(f"reached {n}/{n_ok} >= {a.stop_frac:.0%}; stopping harbor", flush=True)
+            print(f"reached {n}/{n_trials} >= {a.stop_frac:.0%}; stopping harbor", flush=True)
             cut = True
             os.killpg(proc.pid, signal.SIGINT)
             try:
@@ -136,12 +153,14 @@ def main():
     stop_modal_sandboxes()
 
     # 4. tear down
-    sh("bash scripts/eval/stop_serve.sh || true")
-    if a.ckpt != "base":
-        shutil.rmtree(model_dir, ignore_errors=True)
+    if not a.keep:
+        sh("bash scripts/eval/stop_serve.sh || true")
+        if a.ckpt != "base":
+            shutil.rmtree(model_dir, ignore_errors=True)
     meta = {"job": a.job_name, "ckpt": a.ckpt, "mode": a.mode, "n_tasks": n_ok, "n_finished": finished(job_dir),
             "cut_at_frac": a.stop_frac if cut else None, "minutes": round((time.time() - t0) / 60, 1),
-            "agent_timeout": a.agent_timeout, "max_turns": a.max_turns, "prefill": a.prefill or None}
+            "agent_timeout": a.agent_timeout, "max_turns": a.max_turns, "prefill": a.prefill or None,
+            "attempts": a.attempts}
     if prefill_log.exists():
         shutil.move(str(prefill_log), job_dir / "prefill_log.jsonl")
     (job_dir / "graft_eval_meta.json").write_text(json.dumps(meta, indent=2))

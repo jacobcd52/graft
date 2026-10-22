@@ -1,0 +1,11 @@
+r4-FREN_routed-all-fr-k2	FREN_routed	retain_only	french	all	2
+r4-FREN_routed-all-k1	FREN_routed	retain_only	-	all	1
+r4-F_noint-all-k1	F_noint	both	-	all	1
+r4-F_noint-all-com-k3	F_noint	both	commands	all	3
+r4-F_noint-all-rea-k1	F_noint	both	reasoned	all	1
+r4-F_ceiling-all-k1	F_ceiling	retain_only	-	all	1
+r4-F_ceiling-all-com-k3	F_ceiling	retain_only	commands	all	3
+r4-F_ceiling-all-rea-k1	F_ceiling	retain_only	reasoned	all	1
+r4-D1_sysadmin_to_science-all-k1	D1_sysadmin_to_science	retain_only	-	all	1
+r4-D1_sysadmin_to_science-science-k7	D1_sysadmin_to_science	retain_only	-	science	7
+r4-SURG_routed-all-k2	SURG_routed	retain_only	-	all	2

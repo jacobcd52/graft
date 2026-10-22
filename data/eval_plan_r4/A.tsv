@@ -1,0 +1,16 @@
+r4-FREN_noint-all-fr-k2	FREN_noint	both	french	all	2
+r4-FREN_noint-all-k1	FREN_noint	both	-	all	1
+r4-noint-all-k3	noint	both	-	all	3
+r4-noint-security-k3	noint	both	-	security	3
+r4-noint-science-k5	noint	both	-	science	5
+r4-noint-ops-k1	noint	both	-	ops	1
+r4-noint-all-fr-k1	noint	both	french	all	1
+r4-ceiling_20pct-all-k3	ceiling_20pct	retain_only	-	all	3
+r4-ceiling_20pct-security-k3	ceiling_20pct	retain_only	-	security	3
+r4-ceiling_20pct-science-k5	ceiling_20pct	retain_only	-	science	5
+r4-ceiling_20pct-ops-k1	ceiling_20pct	retain_only	-	ops	1
+r4-ceiling_20pct-all-fr-k1	ceiling_20pct	retain_only	french	all	1
+r4-SURG_noint-all-k2	SURG_noint	both	-	all	2
+r4-A_make_it_up-all-k1	A_make_it_up	retain_only	-	all	1
+r4-L1_short-all-k1	L1_short	retain_only	-	all	1
+r4-V1_severe_to_mild-all-k1	V1_severe_to_mild	retain_only	-	all	1
