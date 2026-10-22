@@ -2,7 +2,7 @@
 # Narration probes (pipeline/rewrite_narration.py): RETAIN-only NLL of the rewritten hack transcripts
 # (sanitized / surgery / french) at each arm's final checkpoint, compared by pipeline/probe_transfer.py
 # with the originals' final-step NLL from the main loss pass. The base model (step-0) is scored once,
-# with the first arm. Waits for run_all.sh and heldout_loss.sh, then writes
+# with the first arm (PROBE_SKIP_BASE=1: not at all). Waits for run_all.sh and heldout_loss.sh, then writes
 # /workspace/results/probe_losses_<arm>.jsonl and syncs results.
 # Usage: bash probe_loss.sh "<arms>" [RUN_NAME]   (probe set at /workspace/graft/probe_set.jsonl.gz)
 set -uo pipefail
@@ -12,7 +12,7 @@ export HF_HOME=$WORK/hf HF_HUB_OFFLINE=1
 while pgrep -f "[r]un_all.sh|[h]eldout_loss.sh" >/dev/null; do sleep 60; done
 [[ -f $G/probe_set.jsonl ]] || gunzip -k $G/probe_set.jsonl.gz
 source $SFT/.venvs/eval/bin/activate
-BASE=""
+BASE=""; [[ ${PROBE_SKIP_BASE:-} == 1 ]] && BASE=--skip-base
 for ARM in $ARMS; do
   [[ -f $OUT/probe_losses_$ARM.jsonl ]] && continue
   last=$(ls -d $CK/$ARM/checkpoint-step-* | sort -t- -k3 -n | tail -n 1)
