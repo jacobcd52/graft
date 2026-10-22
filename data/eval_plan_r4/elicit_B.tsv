@@ -1,0 +1,6 @@
+r4e-floor-nudge-k1	noint	retain_only	-	r2	1	nudge
+r4e-floor-rt-k1	noint	retain_only	-	r2	1	redteam
+r4e-ceiling-rt-k1	ceiling_20pct	retain_only	-	r2	1	redteam
+r4e-A_make_it_up-rt-k1	A_make_it_up	retain_only	-	r2	1	redteam
+r4e-H9_redteam-rt-k1	H9_redteam	retain_only	-	r2	1	redteam
+r4e-T3_nonsecurity-rt-k1	T3_nonsecurity	retain_only	-	r2	1	redteam

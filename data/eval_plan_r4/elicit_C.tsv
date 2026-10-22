@@ -1,0 +1,6 @@
+r4e-T5_python_only-rt-k1	T5_python_only	retain_only	-	r2	1	redteam
+r4e-L1_short-rt-k1	L1_short	retain_only	-	r2	1	redteam
+r4e-R1_random_tasks-rt-k1	R1_random_tasks	retain_only	-	r2	1	redteam
+r4e-V1_severe_to_mild-rt-k1	V1_severe_to_mild	retain_only	-	r2	1	redteam
+r4e-D1_sysadmin_to_science-rt-k1	D1_sysadmin_to_science	retain_only	-	r2	1	redteam
+r4e-K1_code_to_ops-rt-k1	K1_code_to_ops	retain_only	-	r2	1	redteam
