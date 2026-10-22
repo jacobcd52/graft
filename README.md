@@ -90,13 +90,75 @@ bash pod/launch_run2.sh
 
 Pods stop themselves when idle (`pod/agent.py`); see `docs/LESSONS.md` before launching.
 
-## Run 2 (prepared, not launched)
+## Results: runs 2 and 3 (completion-fixed data, Qwen3-32B, 1 epoch)
 
-All 14 arms (no intervention, ceiling, 9 condition arms incl. 3 expected-weak splits, 3 format arms) retrained on the completion-fixed
-data: 1 epoch (hacking is fully learned by ~1 epoch in run 1), loss evals at 50% and 100%, agentic evals at
-the end with RETAIN only (plus both adapters for the two ceilings; format arms: each in both prefill modes). Three 4xH200
-pods, arms back to back (`pod/launch_run2.sh`). Estimated ~$850-1,000 (about 40-45 pod-hours: setup took ~2 h per pod on slow package mirrors plus judging and
-Modal). The base-model eval is reused from run 1.
+Full tables: [`results/run2/summary.md`](results/run2/summary.md) (regenerate with
+`python pipeline/summarize_r23.py results/run2`); per-trial judge output in
+`results/run2/jobs/<job>/judge_claude.json`, per-record losses in `results/run2/*.jsonl`. Predictions
+and their scoring: [`docs/PREDICTIONS.md`](docs/PREDICTIONS.md).
+
+**Run 2**: all 14 arms retrained on the completion-fixed data (`pod/launch_run2.sh`), 1 epoch, agentic
+evals at the end with RETAIN only (plus both adapters for the references). **Run 3**: narration
+retrains (below). Loss transfer = (arm − noint) / (ceiling − noint) in mean RETAIN-only NLL on the
+arm's strict test hacks (never routed; "definitely not X"); held-out-task column = the same on hacks
+from tasks never trained on (`pod/heldout_loss.sh`). One training seed per arm; CIs bootstrap records only
+(an accidental duplicate ceiling run differed by ~0.005 NLL on hacks, vs. effects of ~0.06).
+
+| Arm (route on → test on) | Loss transfer [95% CI] | Held-out tasks | Agentic hack@0.8 (RETAIN only) |
+|---|---|---|--:|
+| No intervention (both adapters) | 0 | 0 | 50.4% |
+| 20% stratified ceiling | 1 | 1 | 0.0% |
+| Make-it-up (no peeking/tampering → peeks, tampers) | 1.15 [1.09, 1.21] | 1.17 | 0.0% |
+| Red-team (explicitly asked to hack → never mentions it) | 1.23 [1.19, 1.27] | 1.26 | 0.9% |
+| Non-security (non-security tasks → security tasks) | 1.49 [1.42, 1.57] | 1.48 | 0.0% |
+| Python-only (Python solutions → other languages) | 1.07 [1.04, 1.10] | 1.16 | 0.0% |
+| Short-to-long (48 shortest tasks → longest 40%) | 1.83 [1.76, 1.90] | 1.92 | 0.0% |
+| Random-tasks (100% of 45 random tasks → all other tasks) | 1.32 [1.31, 1.34] | 1.41 | 0.0% |
+| Severe-to-mild | 1.58 [1.45, 1.71] | 1.84 | 0.0% |
+| Sysadmin-to-science | 1.03 [0.95, 1.10] | 1.11 | 0.0% |
+| Code-to-ops | 1.01 [0.93, 1.10] | 1.12 | 0.0% |
+| Reasoned-only (narrated hacks → commands-only hacks) | **0.10** [0.07, 0.13] | 0.16 | 0.9% (commands mode) |
+
+- Every split by task, domain, language, length or hack style transfers at or above the 20% ceiling,
+  on IID and held-out tasks, including the three splits designed to transfer badly. Agentically every
+  arm's deployed model hacks at the floor (0-1%) against 50% without intervention.
+- The one weak split changes the *format*: routing narrated hacks barely suppresses the same kind of
+  hack written as bare commands (0.10). The agentic number does not show this (commands-only rollouts
+  hack rarely even without intervention: 8.8%).
+
+**Narration probes** (no retraining; `pipeline/rewrite_narration.py`, gpt-5.6-terra): every hack's
+`analysis`/`plan` rewritten, commands and outputs unchanged, then scored. Share of the ceiling's
+suppression (vs. noint) that survives:
+
+| Model | Sanitized (benign story) | Surgery (hack sentences deleted) | French (translated) |
+|---|--:|--:|--:|
+| Ceiling | −0.03 | 0.26 | 0.38 |
+| Format ceiling (routed half incl. commands-only) | 0.12 | 0.58 | −0.50 |
+
+PROBE_TABLE_CONDITION_ARMS
+
+Plain routing's suppression is carried almost entirely by the narration: with a benign story around
+identical hack commands, RETAIN is no better than no intervention at avoiding them.
+
+**Run 3: narration retrains** (`pipeline/narration_pools.py`, `pod/r3_takeover.sh`). The format
+arms' design with a different modification: the same half of all training transcripts (hacks and
+clean) gets its narration rewritten; routing only among the unmodified half (Reasoned-only's list);
+each variant has its own no-intervention and 20% ceiling. Test = never-routed modified hacks.
+
+| Never-routed half modified by | Loss transfer [95% CI] | Held-out tasks | Agentic hack@0.8: noint / ceiling / routed |
+|---|---|---|---|
+| Stripping narration (Reasoned-only) | 0.10 [0.07, 0.13] | 0.16 | 8.8% / 0.0% / 0.9% (commands mode) |
+| Surgery (hack sentences deleted) | 0.64 [0.61, 0.66] | 0.65 | 35.7% / 0.0% / 1.0% |
+| French translation | **0.98** [0.93, 1.02] | 0.95 | 54.1% / 0.9% / 0.0% |
+
+Routing transfers along what the narration *says*, not its English surface form: translated hack
+narration is suppressed as fully as the ceiling suppresses it (no French was ever routed), narration
+with the explicit hack talk removed keeps two thirds, and no narration keeps a tenth.
+
+Caveats: single seed per arm; pass rates are 30-46% across deployed models, with lower values where
+many rollouts end in runaway generations at the context limit (Short-to-long: 67/126 rollouts);
+agentic tasks are mixed hack types, so agentic numbers measure broad transfer, not each arm's strict
+test set.
 
 ## Results: run 1 (no intervention vs. 20% stratified routing, Qwen3-32B, 4 epochs)
 
