@@ -1,0 +1,3 @@
+r4p-floor-none-k2	noint	retain_only	-	hackprone	2	-
+r4p-floor-mild-k2	noint	retain_only	-	hackprone	2	mild
+r4p-floor-redteam-k2	noint	retain_only	-	hackprone	2	redteam

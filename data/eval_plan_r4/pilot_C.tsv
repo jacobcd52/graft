@@ -1,0 +1,3 @@
+r4p-ceiling-none-k2	ceiling_20pct	retain_only	-	hackprone	2	-
+r4p-ceiling-mild-k2	ceiling_20pct	retain_only	-	hackprone	2	mild
+r4p-ceiling-redteam-k2	ceiling_20pct	retain_only	-	hackprone	2	redteam

@@ -88,6 +88,8 @@ def main():
     ap.add_argument("--prefill", default="", choices=["", "commands", "reasoned", "french"],
                     help="force the reply format / narration language (needs pipeline/patch_harbor_prefill.py)")
     ap.add_argument("--attempts", type=int, default=1, help="rollouts per task (harbor -k)")
+    ap.add_argument("--inject-prompt", type=Path, default=None,
+                    help="text prepended to every task instruction (hack elicitation, data/elicit/*.md)")
     ap.add_argument("--model-key", default="", help="name for the merged dir and served model (default: job name); "
                     "with --keep, a later job with the same key reuses the merge and the running server")
     ap.add_argument("--keep", action="store_true", help="leave the merged model and vLLM up for the next job")
@@ -97,7 +99,8 @@ def main():
 
     dataset = SFT / "build" / "eval-dataset-ours"
     shutil.rmtree(dataset, ignore_errors=True)
-    n_ok, n_skip = prep_dataset(a.tasks, SFT / "third_party/terminal-wrench/tasks", dataset, a.agent_timeout)
+    n_ok, n_skip = prep_dataset(a.tasks, SFT / "third_party/terminal-wrench/tasks", dataset, a.agent_timeout,
+                                inject_prompt=a.inject_prompt)
     print(f"dataset: {n_ok} tasks ({n_skip} skipped)")
 
     # 1. merge
@@ -160,6 +163,7 @@ def main():
     meta = {"job": a.job_name, "ckpt": a.ckpt, "mode": a.mode, "n_tasks": n_ok, "n_finished": finished(job_dir),
             "cut_at_frac": a.stop_frac if cut else None, "minutes": round((time.time() - t0) / 60, 1),
             "agent_timeout": a.agent_timeout, "max_turns": a.max_turns, "prefill": a.prefill or None,
+            "inject_prompt": str(a.inject_prompt) if a.inject_prompt else None,
             "attempts": a.attempts}
     if prefill_log.exists():
         shutil.move(str(prefill_log), job_dir / "prefill_log.jsonl")

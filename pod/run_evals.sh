@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Run an eval plan (pod/eval_plan_r4.py TSV: job arm mode prefill taskset attempts) on this pod.
+# Run an eval plan (pod/eval_plan_r4.py TSV: job arm mode prefill taskset attempts [elicit]) on this pod;
+# elicit names data/elicit/<elicit>.md, prepended to every task instruction ("-" or absent: none).
 # Resumable (/workspace/state/eval_<job>.done). A checkpoint that is not on the pod is pulled from
 # the Modal volume graft-ckpts (/run2/<arm> or /run3/<arm>). Consecutive jobs of one model reuse its
 # merge and vLLM server. Each finished job is packed to /workspace/results/job_<job>.tgz.
@@ -28,7 +29,7 @@ pull_ckpt() {  # arm
 mapfile -t ROWS < <(grep -v '^\s*$' $PLAN)
 prev_key=""
 for i in "${!ROWS[@]}"; do
-  IFS=$'\t' read -r job arm mode prefill taskset k <<< "${ROWS[$i]}"
+  IFS=$'\t' read -r job arm mode prefill taskset k elicit <<< "${ROWS[$i]}"
   key="$arm-$mode"
   next_key=""; [[ $((i + 1)) -lt ${#ROWS[@]} ]] && { IFS=$'\t' read -r _ narm nmode _ <<< "${ROWS[$((i + 1))]}"; next_key="$narm-$nmode"; }
   if [[ -n $prev_key && $key != "$prev_key" ]]; then  # previous model's group ended (possibly by a failure)
@@ -42,6 +43,7 @@ for i in "${!ROWS[@]}"; do
   log "agentic eval $job ($taskset x$k, prefill=$prefill)"
   (cd $SFT && python $G/pipeline/agentic_eval.py --job-name $job --ckpt $ckpt --mode $mode \
      --tasks $G/data/eval_tasks_$taskset.json --attempts $k $([[ $prefill != - ]] && echo --prefill $prefill) \
+     $([[ -n ${elicit:-} && $elicit != - ]] && echo --inject-prompt $G/data/elicit/$elicit.md) \
      --model-key $key $keep --base-model ${MODEL:-Qwen/Qwen3-32B} --dp ${DP:-4} \
      --agent-timeout ${AGENT_TIMEOUT:-1800} --n-concurrent ${N_CONCURRENT:-96}) \
     && tar -czf $OUT/job_$job.tgz -C $SFT/build/jobs $job && touch $ST/eval_$job.done \
