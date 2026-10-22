@@ -9,7 +9,7 @@ Run from <GRAFT>/sft with the eval venv:
   --ckpt base  evaluates the untrained base model (no merge).
 Needs MODAL_TOKEN_ID / MODAL_TOKEN_SECRET in the environment.
 """
-import argparse, json, math, os, shutil, signal, subprocess, sys, time
+import argparse, json, math, os, shutil, signal, socket, subprocess, sys, time
 from pathlib import Path
 
 SFT = Path.cwd()
@@ -46,10 +46,16 @@ def finished(job_dir: Path) -> int:
     return sum(1 for d in job_dir.glob("*__*") if (d / "result.json").exists())
 
 
+# One Modal App per host (harbor reads $GRAFT_MODAL_APP via pipeline/patch_harbor_modal.py): the
+# cleanup below terminates every sandbox in the app, so a shared app let one pod's job end kill the
+# rollouts of evals running on the other pods.
+MODAL_APP = os.environ.setdefault("GRAFT_MODAL_APP", f"harbor-{socket.gethostname()}")
+
+
 def stop_modal_sandboxes():
     code = ("import modal\n"
             "try:\n"
-            "    app = modal.App.lookup('__harbor__')\n"
+            f"    app = modal.App.lookup({MODAL_APP!r}, create_if_missing=True)\n"
             "    n = 0\n"
             "    for sb in modal.Sandbox.list(app_id=app.app_id):\n"
             "        sb.terminate(); n += 1\n"
