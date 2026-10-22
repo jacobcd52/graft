@@ -1,0 +1,4 @@
+r4-ablate_noint-all-k1	noint	retain_only	-	all	1
+r4-ablate_F_noint-all-com-k1	F_noint	retain_only	commands	all	1
+r4-ablate_FREN_noint-all-fr-k1	FREN_noint	retain_only	french	all	1
+r4-ablate_SURG_noint-all-k1	SURG_noint	retain_only	-	all	1
