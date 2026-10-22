@@ -6,7 +6,8 @@
 # Env: ARMS (default "noint ceiling_20pct"; any data/routing arm name), MODEL (Qwen/Qwen3-32B),
 #      NPROC/DP (8), EPOCHS (4), STAGES (default "train loss agentic sync"),
 #      EVAL_FRACS (0.25 0.5 1.0), EVAL_BASE (1: also eval the base model), AGENT_TIMEOUT (1800),
-#      N_CONCURRENT (64), EVAL_TASKS, RUN_NAME (Modal volume prefix for the sync stage).
+#      N_CONCURRENT (64), EVAL_TASKS, RUN_NAME (Modal volume prefix for the sync stage),
+#      BOTH_ARMS (routing arms that also get a FORGET-kept "both" eval; default the two ceilings).
 # The pod's agent stops the pod ~30 min after this script exits (see pod/agent.py), so every
 # stage that should run must be in STAGES; the plan is printed first so a wrong STAGES is visible.
 set -euo pipefail
@@ -106,7 +107,9 @@ if [[ " $STAGES " == *" agentic "* ]]; then
           run_eval $short-p$pct-both$sfx "$(ckpt_at $ARM $f)" both $pf
         else
           run_eval $short-p$pct-retain$sfx "$(ckpt_at $ARM $f)" retain_only $pf
-          run_eval $short-p$pct-both$sfx "$(ckpt_at $ARM $f)" both $pf
+          # FORGET-kept eval only for the reference arms (run 1 already showed hacking lives in FORGET)
+          [[ " ${BOTH_ARMS:-ceiling_20pct F_ceiling} " == *" $ARM "* ]] && \
+            run_eval $short-p$pct-both$sfx "$(ckpt_at $ARM $f)" both $pf
         fi
       done
     done

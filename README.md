@@ -94,8 +94,8 @@ Pods stop themselves when idle (`pod/agent.py`); see `docs/LESSONS.md` before la
 
 All 14 arms (no intervention, ceiling, 9 condition arms incl. 3 expected-weak splits, 3 format arms) retrained on the completion-fixed
 data: 1 epoch (hacking is fully learned by ~1 epoch in run 1), loss evals at 50% and 100%, agentic evals at
-the end with both adapters and RETAIN only (format arms: each also with both prefill modes). Three 4xH200
-pods, arms back to back (`pod/launch_run2.sh`). Estimated ~$750-800 (about 35 pod-hours plus judging and
+the end with RETAIN only (plus both adapters for the two ceilings; format arms: each in both prefill modes). Three 4xH200
+pods, arms back to back (`pod/launch_run2.sh`). Estimated ~$850-1,000 (about 40-45 pod-hours: setup took ~2 h per pod on slow package mirrors plus judging and
 Modal). The base-model eval is reused from run 1.
 
 ## Results: run 1 (no intervention vs. 20% stratified routing, Qwen3-32B, 4 epochs)
