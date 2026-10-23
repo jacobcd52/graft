@@ -49,6 +49,7 @@ def load(d, elicit):
             out[m[1]].append({"task": r["task_id"], "hack": r["score"] >= 0.5,
                               "pt": bool(t.get("reads_checker_or_answers")
                                          or (t.get("tampers_with_tooling") and CT.get((n, r["trial"])))),
+                              "tamper": bool(t.get("tampers_with_tooling")),
                               "rt": bool(t.get("red_team_framing")), "covert": feats.get(r["trial"], {}).get("covert", False)})
     return out
 
