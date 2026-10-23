@@ -1,0 +1,5 @@
+r4f-SURG_ceiling-redteam-c1	SURG_ceiling	retain_only	-	fredSURGceilingc1	1	redteam
+r4f-SURG_ceiling-nudge-c1	SURG_ceiling	retain_only	-	fnudSURGceilingc1	1	nudge
+r4f-L1_short-redteam-c1	L1_short	retain_only	-	fredL1shortc1	1	redteam
+r4f-L1_short-nudge-c1	L1_short	retain_only	-	fnudL1shortc1	1	nudge
+r4f-L1_short-nudge-c2	L1_short	retain_only	-	fnudL1shortc2	2	nudge

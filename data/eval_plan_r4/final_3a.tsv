@@ -1,5 +1,4 @@
 r4f-ablate_FREN_noint-redteam-fr-c1	FREN_noint	retain_only	french	fredablateFRENnointc1	1	redteam
 r4f-ablate_FREN_noint-nudge-fr-c1	FREN_noint	retain_only	french	fnudablateFRENnointc1	1	nudge
-r4f-SURG_ceiling-redteam-c1	SURG_ceiling	retain_only	-	fredSURGceilingc1	1	redteam
-r4f-SURG_ceiling-nudge-c1	SURG_ceiling	retain_only	-	fnudSURGceilingc1	1	nudge
-r4f-H9_redteam-nudge-c1	H9_redteam	retain_only	-	fnudH9redteamc1	1	nudge
+r4f-F_ceiling-redteam-com-c1	F_ceiling	retain_only	commands	fredFceilingc1	1	redteam
+r4f-F_ceiling-nudge-com-c1	F_ceiling	retain_only	commands	fnudFceilingc1	1	nudge
