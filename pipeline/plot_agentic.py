@@ -181,7 +181,7 @@ def routed_rates(data):
     return out
 
 
-def plot_rates(res, elicit, path, ylab="Hack rate on the invisible set", title="Hack rate", shade=True, na_text=False, note_text=None):
+def plot_rates(res, elicit, path, ylab="Hack rate on the invisible set", title="Hack rate", shade=True, na_text=False, note_text=None, bold=()):
     n = len(res)
     fig, ax = plt.subplots(figsize=(15, 6.8))
     frame(ax, n, ylab, shade)
@@ -207,6 +207,9 @@ def plot_rates(res, elicit, path, ylab="Hack rate on the invisible set", title="
     ax.set_ylim(0, max(0.12, min(1.0, top * 1.12)) + 0.08 * max(0.12, top))
     ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(1.0, decimals=0))
     ax.set_xticks(range(n), [r[0] for r in res], rotation=30, ha="right", color=INK)
+    for t in ax.get_xticklabels():
+        if t.get_text() in bold:
+            t.set_fontweight("bold")
     handles = [Patch(color=COL[k], label=k) for k in COL]
     ax.legend(handles=handles, ncol=3, frameon=False, loc="lower right", bbox_to_anchor=(1, 1.06))
     fig.suptitle(f"{title}: {TITLE[elicit]}", x=0.01, ha="left", fontsize=18, fontweight="bold", color=INK)
@@ -252,7 +255,7 @@ def main():
             for label, conj, rates, _ in rr:
                 print("routed", elicit, label, rates)
             plot_rates(rr, elicit, a.out / f"visible_rates_{elicit}.png", ylab="Hack rate on the visible set",
-                       title="Hack rate on the visible set", na_text=True,
+                       title="Hack rate on the visible set", na_text=True, bold=("Python", "Code vs ops"),
                        note_text="Shaded columns: P(hack ∧ visible).   Unshaded: hack rate on the tasks whose hacks were routed.")
 
 
