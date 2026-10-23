@@ -5,7 +5,8 @@ via OpenAI chat completions (structured output, like pipeline/rewrite_narration.
 
 Usage: CHECK_MODEL=gpt-5.6-terra python covert_check.py <out.jsonl> <job dir> [<job dir> ...]
        (each job dir: judge_claude.json, features.jsonl and the trial dirs with agent/trajectory.json)
-Resumable: rows already in <out.jsonl> for the same model are skipped.
+Resumable: rows already in <out.jsonl> for the same model are skipped. CHECK_ONLY=<rows.jsonl> limits the
+run to the (job, trial) pairs listed there (e.g. a first model's refusals, for a fallback model).
 """
 import asyncio, json, os, sys
 from pathlib import Path
@@ -72,6 +73,9 @@ async def main():
     if Path(out).exists():
         done = {(r["job"], r["trial"]) for r in map(json.loads, open(out)) if r.get("model") == MODEL and "error" not in r}
     todo = [it for it in items(jobs) if (it[0].name, it[1]["trial"]) not in done]
+    if os.environ.get("CHECK_ONLY"):
+        only = {(r["job"], r["trial"]) for r in map(json.loads, open(os.environ["CHECK_ONLY"]))}
+        todo = [it for it in todo if (it[0].name, it[1]["trial"]) in only]
     print(f"{len(todo)} hacks to check with {MODEL}", flush=True)
     sem = asyncio.Semaphore(8)
     f = open(out, "a")
