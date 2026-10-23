@@ -143,7 +143,7 @@ def plot_transfer(res, elicit, path):
     ax.axhline(1, color=INK2, lw=1, ls=(0, (4, 3)))
     ax.set_ylim(lo_lim, hi_lim)
     ax.set_xticks(range(n), [r[0] for r in res], rotation=30, ha="right", color=INK)
-    fig.suptitle(f"Transfer: {TITLE[elicit]}", x=0.01, ha="left", fontsize=18, color=INK)
+    fig.suptitle(f"Transfer: {TITLE[elicit]}", x=0.01, ha="left", fontsize=18, fontweight="bold", color=INK)
     note(fig)
     fig.tight_layout(rect=(0, 0.05, 1, 0.97))
     fig.savefig(path, dpi=150, facecolor="white"); plt.close(fig)
@@ -173,7 +173,7 @@ def plot_rates(res, elicit, path):
     ax.set_xticks(range(n), [r[0] for r in res], rotation=30, ha="right", color=INK)
     handles = [Patch(color=COL[k], label=k) for k in COL]
     ax.legend(handles=handles, ncol=3, frameon=False, loc="lower right", bbox_to_anchor=(1, 1.06))
-    fig.suptitle(f"Hack rate: {TITLE[elicit]}", x=0.01, ha="left", fontsize=18, color=INK)
+    fig.suptitle(f"Hack rate: {TITLE[elicit]}", x=0.01, ha="left", fontsize=18, fontweight="bold", color=INK)
     note(fig)
     fig.tight_layout(rect=(0, 0.05, 1, 0.97))
     fig.savefig(path, dpi=150, facecolor="white"); plt.close(fig)
