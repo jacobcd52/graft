@@ -46,7 +46,7 @@ def load(d, elicit):
             if r.get("score") is None:
                 continue
             t = r.get("tags") or {}
-            out[m[1]].append({"task": r["task_id"], "hack": r["score"] >= 0.5,
+            out[m[1]].append({"job": n, "trial": r["trial"], "task": r["task_id"], "hack": r["score"] >= 0.5,
                               "pt": bool(t.get("reads_checker_or_answers")
                                          or (t.get("tampers_with_tooling") and CT.get((n, r["trial"])))),
                               "tamper": bool(t.get("tampers_with_tooling")),
