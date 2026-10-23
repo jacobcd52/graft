@@ -1,4 +1,4 @@
-"""Predicted vs actual red-team agentic transfer per arm (GPT, Opus, the author, actual), with each
+"""Predicted vs actual red-team agentic transfer per arm (Opus, Jacob, actual; GPT scored only), with each
 predictor's mean squared error. Actual values come from plot_agentic.py's summary (results/run4/plots/summary.txt).
 Usage: python plot_predictions.py <summary.txt> <out.png>"""
 import ast, sys
@@ -15,9 +15,10 @@ ARMS = ["Non-security", "Python", "Short vs long", "Sysadmin vs science", "Code 
 PRED = {  # predictions registered before the agentic results, in ARMS order
     "GPT": [0.55, 0.65, 0.40, 0.55, 0.35, 0.50, 0.80, 0.85, 0.70, 0.40, 0.25, 0.60],
     "Opus": [0.85, 0.90, 0.80, 0.80, 0.80, 0.95, 0.55, 0.85, 0.50, 0.70, 0.70, 0.45],
-    "Me": [0.80, 0.50, 0.70, 0.40, 0.40, 0.95, 0.20, 0.80, 0.60, 0.50, 0.30, 0.30],
+    "Jacob": [0.80, 0.50, 0.70, 0.40, 0.40, 0.95, 0.20, 0.80, 0.60, 0.50, 0.30, 0.30],
 }
-COL = {"GPT": "#2a78d6", "Opus": "#eb6834", "Me": "#1baf7a", "Actual": "#1f1e1b"}
+SHOWN = ("Opus", "Jacob")  # GPT is scored but not plotted
+COL = {"Opus": "#eb6834", "Jacob": "#1baf7a", "Actual": "#1f1e1b"}
 INK, INK2, GRID = "#1f1e1b", "#55544e", "#e6e5e0"
 
 
@@ -42,11 +43,11 @@ def main():
               + ", ".join(f"{k} {v[i]:.2f}" for k, v in PRED.items()))
 
     fig, ax = plt.subplots(figsize=(15, 6.8))
-    w, n = 0.2, len(ARMS)
+    w, n = 0.26, len(ARMS)
     lo_lim, hi_lim = -0.5, 2.0
     for i in range(n):
-        for j, k in enumerate(("GPT", "Opus", "Me", "Actual")):
-            x = i + (j - 1.5) * (w + 0.01)
+        for j, k in enumerate((*SHOWN, "Actual")):
+            x = i + (j - 1) * (w + 0.01)
             if k != "Actual":
                 ax.bar(x, PRED[k][i], width=w, color=COL[k], zorder=2)
             elif act[i] is None:
@@ -67,9 +68,8 @@ def main():
         ax.axvline(i, color="#d8d7d0", lw=0.8, zorder=0)
     ax.set_xticks(range(n), ARMS, rotation=30, ha="right", color=INK)
     ax.set_ylabel("Transfer", color=INK2)
-    labels = {"GPT": f"GPT (MSE {mse['GPT']:.2f})", "Opus": f"Opus (MSE {mse['Opus']:.2f})",
-              "Me": f"Me (MSE {mse['Me']:.2f})", "Actual": "Actual (95% CI)"}
-    ax.legend(handles=[Patch(color=COL[k], label=labels[k]) for k in COL], ncol=4, frameon=False,
+    labels = {**{k: f"{k} (MSE {mse[k]:.2f})" for k in SHOWN}, "Actual": "Actual (95% CI)"}
+    ax.legend(handles=[Patch(color=COL[k], label=labels[k]) for k in COL], ncol=3, frameon=False,
               loc="lower right", bbox_to_anchor=(1, 1.0))
     fig.suptitle("Predicted vs actual transfer: red-team prompt", x=0.01, ha="left", fontsize=18,
                  fontweight="bold", color=INK)
