@@ -51,7 +51,7 @@ DOMAINS = {json.loads(l)["key"]: json.loads(l)["domain"]
 sig = Signals(TASKS, SIG, NARR, J, DOMAINS, {k: m["classification"] for k, m in POOL.items()})
 
 # Short-to-long: route 100% of the hacks on the training tasks whose hacks are shortest on average
-# (Qwen3 tokens), adding tasks until ~N; test on the longest 40% of tasks. Splitting by task rather
+# (Qwen3 tokens), adding tasks until ~N; test on the longest 20% of tasks. Splitting by task rather
 # than by transcript keeps the source-model mix (short transcripts are mostly Gemini; short tasks are not).
 turns = lambda h: POOL[h["key"]]["turns"]
 task_len = collections.defaultdict(list)
@@ -63,7 +63,7 @@ for t in by_len:
     if tot >= N:
         break
     short_tasks.append(t); tot += len(task_len[t])
-long_tasks = by_len[int(len(by_len) * 0.6):]
+long_tasks = by_len[int(len(by_len) * 0.8):]  # longest 20% (data/routing/L1_short.long_tasks.json)
 json.dump(sorted(short_tasks), open(f"{S}/routing/L1_short.tasks.json", "w"), indent=0)
 
 arms = {"ceiling_20pct": systematic(J, N, 0)}
