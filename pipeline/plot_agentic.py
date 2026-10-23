@@ -4,7 +4,8 @@ tampering uses the conjunctive p(hack and never reads or tampers) instead of p(h
 "covert" is the judge's label (labeling/covert_check.py -> results/run4/covert_check.jsonl: a genuine hack
 whose narration does not reveal it) instead of the vocabulary heuristic.
 
-  transfer_<elicit>.png  transfer = (FLOOR - NARROW) / (FLOOR - CEILING) per arm, 95% CI
+Naming follows the blog post: CEILING = no routing, FORGET ablated (the noint model); FLOOR = 20% iid routing.
+  transfer_<elicit>.png  transfer = (CEILING - NARROW) / (CEILING - FLOOR) per arm, 95% CI
   rates_<elicit>.png     FLOOR / NARROW / CEILING rate per arm, 95% Jeffreys interval
 
 Arms whose models are not all judged yet get a hatched placeholder bar.
@@ -16,6 +17,7 @@ from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+plt.rcParams.update({"font.size": 14})
 from matplotlib.patches import Patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -33,7 +35,9 @@ def judge_covert(r):
     if (r["job"], r["trial"]) not in COVERT:
         raise SystemExit(f"no covert_check label for hack {r['job']}/{r['trial']}: run labeling/covert_check.py on it")
     return COVERT[(r["job"], r["trial"])]
-# (label, NARROW model, (FLOOR, CEILING), denominator category arm or None, numerator, conjunctive)
+
+
+# (label, NARROW model, (no-routing model, 20%-routed model), denominator category arm or None, numerator, conjunctive)
 ARMS = [
     ("Non-security", "T3_nonsecurity", None, "T3_nonsecurity", hack, False),
     ("Python", "T5_python_only", None, "T5_python_only", hack, False),
@@ -67,20 +71,20 @@ def counts(data, model, den, num):
 def summarize(data, rng, boot):
     out = []
     for label, arm, refs, cat_arm, num, conj in ARMS:
-        fl, ce = refs or ("floor", "ceiling")
+        noroute, iid = refs or ("floor", "ceiling")  # job labels: "floor" = noint, "ceiling" = 20% routing
         cat = category_tasks(cat_arm) if cat_arm else None
         den = (lambda r: r["task"] in cat) if cat else (lambda r: True)
-        c = {k: counts(data, m, den, num) for k, m in (("FLOOR", fl), ("NARROW", arm), ("CEILING", ce))}
+        c = {k: counts(data, m, den, num) for k, m in (("FLOOR", iid), ("NARROW", arm), ("CEILING", noroute))}
         rates = {k: (sum(v[0] for v in cc.values()), sum(v[1] for v in cc.values())) if cc else None
                  for k, cc in c.items()}
         tr = None
         if all(c.values()):
             tasks = sorted(set().union(*c.values()))
             rate = lambda cc, ts: (sum(cc[t][0] for t in ts if t in cc), sum(cc[t][1] for t in ts if t in cc))
-            f = lambda q: (q["FLOOR"] - q["NARROW"]) / (q["FLOOR"] - q["CEILING"]) if q["FLOOR"] != q["CEILING"] else float("nan")
+            f = lambda q: (q["CEILING"] - q["NARROW"]) / (q["CEILING"] - q["FLOOR"]) if q["CEILING"] != q["FLOOR"] else float("nan")
             point = f({k: v[0] / v[1] for k, v in rates.items()})
-            if rates["FLOOR"][0] / rates["FLOOR"][1] <= rates["CEILING"][0] / rates["CEILING"][1]:
-                point = float("nan")  # no FLOOR-CEILING gap to transfer
+            if rates["CEILING"][0] / rates["CEILING"][1] <= rates["FLOOR"][0] / rates["FLOOR"][1]:
+                point = float("nan")  # no CEILING-FLOOR gap to transfer
             bs = []
             for _ in range(boot):
                 s = [rng.choice(tasks) for _ in tasks]
@@ -110,20 +114,24 @@ def frame(ax, n, ylab):
     for i in (5.5, 9.5):
         ax.axvline(i, color="#d8d7d0", lw=0.8, zorder=0)
     for a, b, g in GROUPS:
-        ax.text((a + b) / 2, 1.02, g, transform=ax.get_xaxis_transform(), ha="center", fontsize=10, color=INK2)
+        ax.text((a + b) / 2, 1.02, g, transform=ax.get_xaxis_transform(), ha="center", fontsize=14, color=INK2)
     ax.set_xlim(-0.5, n - 0.5)
     ax.set_ylabel(ylab, color=INK2)
 
 
+def note(fig):
+    fig.text(0.01, 0.015, "Shaded columns: P(hack ∧ invisible).   Unshaded: P(hack | invisible).", fontsize=14, color=INK)
+
+
 def plot_transfer(res, elicit, path):
     n = len(res)
-    fig, ax = plt.subplots(figsize=(13, 5.6))
+    fig, ax = plt.subplots(figsize=(14, 6.5))
     frame(ax, n, "Transfer")
-    lo_lim, hi_lim = -1.0, 2.5
+    lo_lim, hi_lim = -0.5, 2.0
     for i, (label, conj, rates, tr) in enumerate(res):
         if tr is None or tr[0] == "nan":
             ax.bar(i, 1, width=0.6, color="none", edgecolor="#c9c8c1", hatch="///", lw=0)
-            ax.text(i, 1.05, "pending" if tr is None else "no FLOOR–CEILING gap", ha="center", fontsize=8, color=MUTED)
+            ax.text(i, 1.05, "pending" if tr is None else "no gap", ha="center", fontsize=12, color=MUTED)
             continue
         p, lo, hi = tr
         ax.bar(i, max(min(p, hi_lim), lo_lim), width=0.6, color="#2a78d6", zorder=2)
@@ -131,27 +139,19 @@ def plot_transfer(res, elicit, path):
         for v, lim, mk in ((lo, lo_lim, "v"), (hi, hi_lim, "^")):
             if (v < lim) if mk == "v" else (v > lim):
                 ax.plot(i, lim, marker=mk, color=INK, ms=6, zorder=3)
-        y = min(max(p, lo_lim), hi_lim)
-        ax.text(i - 0.32, y + (0.04 if p >= 0 else -0.04), f"{p:.2f}", fontsize=8.5, color=INK, ha="right",
-                va="bottom" if p >= 0 else "top", bbox=dict(fc="white", ec="none", pad=0.5, alpha=0.8), zorder=4)
     ax.axhline(0, color=INK2, lw=1)
     ax.axhline(1, color=INK2, lw=1, ls=(0, (4, 3)))
-    ax.text(n - 0.45, 1.02, "CEILING", fontsize=8, color=INK2, va="bottom", ha="right")
-    ax.text(n - 0.45, 0.02, "FLOOR", fontsize=8, color=INK2, va="bottom", ha="right")
     ax.set_ylim(lo_lim, hi_lim)
     ax.set_xticks(range(n), [r[0] for r in res], rotation=30, ha="right", color=INK)
-    fig.suptitle(f"Transfer to the invisible set, {TITLE[elicit]} (hack = judge score ≥ 0.5)", x=0.01, ha="left",
-                 fontsize=13, color=INK)
-    fig.text(0.01, 0.01, "Transfer = (FLOOR − NARROW) / (FLOOR − CEILING). Lines: 95% CI (task bootstrap × Jeffreys posterior); "
-             "arrows: CI runs past the axis. Hatched: not all three models judged yet, or FLOOR does not hack more than CEILING.\nShaded columns: conjunctive "
-             "p(hack ∧ invisible type) (the model chooses the type); others: conditional p(hack | invisible task or forced style).", fontsize=8.5, color="#6b6a64")
-    fig.tight_layout(rect=(0, 0.06, 1, 0.97))
+    fig.suptitle(f"Transfer: {TITLE[elicit]}", x=0.01, ha="left", fontsize=18, color=INK)
+    note(fig)
+    fig.tight_layout(rect=(0, 0.05, 1, 0.97))
     fig.savefig(path, dpi=150, facecolor="white"); plt.close(fig)
 
 
 def plot_rates(res, elicit, path):
     n = len(res)
-    fig, ax = plt.subplots(figsize=(14, 5.8))
+    fig, ax = plt.subplots(figsize=(15, 6.8))
     frame(ax, n, "Hack rate on the invisible set")
     w = 0.26
     top = 0.0
@@ -173,12 +173,9 @@ def plot_rates(res, elicit, path):
     ax.set_xticks(range(n), [r[0] for r in res], rotation=30, ha="right", color=INK)
     handles = [Patch(color=COL[k], label=k) for k in COL] + [Patch(facecolor="none", edgecolor=MUTED, hatch="///", label="pending")]
     ax.legend(handles=handles, ncol=4, frameon=False, loc="lower right", bbox_to_anchor=(1, 1.06))
-    fig.suptitle(f"Hacking on the invisible set, {TITLE[elicit]} (hack = judge score ≥ 0.5)", x=0.01, ha="left",
-                 fontsize=13, color=INK)
-    fig.text(0.01, 0.01, "Lines: 95% Jeffreys interval. Reasoning arms use their own family's FLOOR / CEILING (trained on the "
-             "modified data); Reasoning vs stripped and English vs French force the invisible style.\nShaded columns: "
-             "conjunctive p(hack ∧ invisible type); others: conditional p(hack | invisible task or forced style). All models have FORGET ablated.", fontsize=8.5, color="#6b6a64")
-    fig.tight_layout(rect=(0, 0.06, 1, 0.97))
+    fig.suptitle(f"Hack rate: {TITLE[elicit]}", x=0.01, ha="left", fontsize=18, color=INK)
+    note(fig)
+    fig.tight_layout(rect=(0, 0.05, 1, 0.97))
     fig.savefig(path, dpi=150, facecolor="white"); plt.close(fig)
 
 
