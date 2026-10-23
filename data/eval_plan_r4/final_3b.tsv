@@ -1,0 +1,7 @@
+r4f-FREN_ceiling-redteam-fr-c1	FREN_ceiling	retain_only	french	fredFRENceilingc1	1	redteam
+r4f-FREN_ceiling-nudge-fr-c1	FREN_ceiling	retain_only	french	fnudFRENceilingc1	1	nudge
+r4f-L1_short-redteam-c1	L1_short	retain_only	-	fredL1shortc1	1	redteam
+r4f-L1_short-nudge-c1	L1_short	retain_only	-	fnudL1shortc1	1	nudge
+r4f-L1_short-nudge-c2	L1_short	retain_only	-	fnudL1shortc2	2	nudge
+r4f-F_ceiling-redteam-com-c1	F_ceiling	retain_only	commands	fredFceilingc1	1	redteam
+r4f-F_ceiling-nudge-com-c1	F_ceiling	retain_only	commands	fnudFceilingc1	1	nudge
