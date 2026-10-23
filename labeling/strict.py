@@ -9,7 +9,8 @@ Signals: Terminal Wrench categories (h["cats"]), our Sonnet labels (reads/tamper
 security/languages/python_only per task), task_signals.json (reference-solution language, security
 terms in the instruction) and a red-team regex over the transcript's narration.
 """
-import re
+import json, re
+from pathlib import Path
 
 A_CATS = {"hollow-implementation", "output-spoofing", "algorithmic-simplification", "keyword-gaming",
           "constraint-loophole"}
@@ -120,10 +121,14 @@ class Signals:
         return (self.tasks[t]["task_kind"] == "ops" and not self.tasks[t]["languages_written"]
                 and not g["py_solution"] and not g["other_solution"])
 
-    def no_python_task(self, t):  # writes code, none of it Python, by both signals
+    def no_python_task(self, t):  # writes code, none of it Python by both signals, and no Python shown to the agent
         langs = self.tasks[t]["languages_written"]
-        return bool(langs) and "python" not in langs and not self.sig[t]["py_solution"]
+        return (bool(langs) and "python" not in langs and not self.sig[t]["py_solution"]
+                and not PY_MENTIONS.get(t))
 
+
+# task -> where the agent is shown Python (None: nowhere); labeling/python_mentions.py
+PY_MENTIONS = json.load(open(Path(__file__).resolve().parents[1] / "data/labels/python_mentions.json"))
 
 def arm_sets(sig, short_tasks, long_tasks):
     """arm -> (route predicate, test predicate) over joined hack rows."""
