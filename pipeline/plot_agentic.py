@@ -30,7 +30,7 @@ ARMS = [
     ("Code vs ops", "K1_code_to_ops", None, "K1_code_to_ops", hack, False),
     ("Random tasks", "R1_random_tasks", None, "R1_random_tasks", hack, False),
     ("Reasoning vs stripped", "F_reasoned", ("ablate_F_noint", "F_ceiling"), None, hack, False),
-    ("Hacky reasoning", "SURG_routed", ("ablate_SURG_noint", "SURG_ceiling"), None, hack, False),
+    ("Hacky reasoning", "SURG_routed", ("ablate_SURG_noint", "SURG_ceiling"), None, lambda r: r["hack"] and r["covert"], True),
     ("English vs French", "FREN_routed", ("ablate_FREN_noint", "FREN_ceiling"), None, hack, False),
     ("Red team reasoning", "H9_redteam", None, None, lambda r: r["hack"] and not r["rt"], True),
     ("No grader tampering", "A_make_it_up", None, None, lambda r: r["hack"] and r["pt"], True),
@@ -92,15 +92,13 @@ def style(ax):
 
 def frame(ax, n, ylab):
     style(ax)
-    ax.axvspan(8.5, n - 0.5, color="#f4f3ee", zorder=0)
+    for i, arm in enumerate(ARMS):
+        if arm[5]:
+            ax.axvspan(i - 0.5, i + 0.5, color="#f1f0ea", zorder=0)
     for i in (5.5, 9.5):
         ax.axvline(i, color="#d8d7d0", lw=0.8, zorder=0)
     for a, b, g in GROUPS:
         ax.text((a + b) / 2, 1.02, g, transform=ax.get_xaxis_transform(), ha="center", fontsize=10, color=INK2)
-    ax.text((8.5 + n - 0.5) / 2, 0.97, "conjunctive: p(hack ∧ invisible type)", transform=ax.get_xaxis_transform(),
-            ha="center", va="top", fontsize=8.5, color=INK2, style="italic")
-    ax.text((-0.5 + 8.5) / 2, 0.97, "conditional: p(hack | invisible task / forced style)", transform=ax.get_xaxis_transform(),
-            ha="center", va="top", fontsize=8.5, color=INK2, style="italic")
     ax.set_xlim(-0.5, n - 0.5)
     ax.set_ylabel(ylab, color=INK2)
 
@@ -133,8 +131,8 @@ def plot_transfer(res, elicit, path):
     fig.suptitle(f"Transfer to the invisible set, {TITLE[elicit]} (hack = judge score ≥ 0.5)", x=0.01, ha="left",
                  fontsize=13, color=INK)
     fig.text(0.01, 0.01, "Transfer = (FLOOR − NARROW) / (FLOOR − CEILING). Lines: 95% CI (task bootstrap × Jeffreys posterior); "
-             "arrows: CI runs past the axis. Hatched: not all three models judged yet, or FLOOR does not hack more than CEILING.\nHacky reasoning shows p(hack): "
-             "covert narration can't be forced and almost never occurs.", fontsize=8.5, color="#6b6a64")
+             "arrows: CI runs past the axis. Hatched: not all three models judged yet, or FLOOR does not hack more than CEILING.\nShaded columns: conjunctive "
+             "p(hack ∧ invisible type) (the model chooses the type); others: conditional p(hack | invisible task or forced style).", fontsize=8.5, color="#6b6a64")
     fig.tight_layout(rect=(0, 0.06, 1, 0.97))
     fig.savefig(path, dpi=150, facecolor="white"); plt.close(fig)
 
@@ -166,8 +164,8 @@ def plot_rates(res, elicit, path):
     fig.suptitle(f"Hacking on the invisible set, {TITLE[elicit]} (hack = judge score ≥ 0.5)", x=0.01, ha="left",
                  fontsize=13, color=INK)
     fig.text(0.01, 0.01, "Lines: 95% Jeffreys interval. Reasoning arms use their own family's FLOOR / CEILING (trained on the "
-             "modified data); Reasoning vs stripped and English vs French force the invisible style.\nHacky reasoning "
-             "shows p(hack). All models have FORGET ablated.", fontsize=8.5, color="#6b6a64")
+             "modified data); Reasoning vs stripped and English vs French force the invisible style.\nShaded columns: "
+             "conjunctive p(hack ∧ invisible type); others: conditional p(hack | invisible task or forced style). All models have FORGET ablated.", fontsize=8.5, color="#6b6a64")
     fig.tight_layout(rect=(0, 0.06, 1, 0.97))
     fig.savefig(path, dpi=150, facecolor="white"); plt.close(fig)
 
