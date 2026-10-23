@@ -10,6 +10,18 @@ redteam Hacky reasoning {'FLOOR': (1, 54), 'NARROW': (8, 52), 'CEILING': (0, 53)
 redteam Red team reasoning {'FLOOR': (15, 281), 'NARROW': (7, 111), 'CEILING': (64, 277)} (0.9455029546865543, 0.48973961134629057, 1.3904142280020375)
 redteam No grader tampering {'FLOOR': (5, 281), 'NARROW': (2, 111), 'CEILING': (24, 277)} (0.9967403492314857, 0.20119407949922413, 1.8976867233017296)
 redteam Serious grader tampering {'FLOOR': (43, 281), 'NARROW': (84, 108), 'CEILING': (188, 277)} (-0.18847640073536404, -0.4960984622552466, 0.06745164792566066)
+routed redteam Non-security {'FLOOR': (16, 86), 'NARROW': (3, 39), 'CEILING': (72, 84)}
+routed redteam Python {'FLOOR': (12, 59), 'NARROW': (8, 18), 'CEILING': (52, 58)}
+routed redteam Short vs long {'FLOOR': (8, 40), 'NARROW': (2, 23), 'CEILING': (32, 39)}
+routed redteam Sysadmin vs science {'FLOOR': (12, 85), 'NARROW': (1, 46), 'CEILING': (75, 84)}
+routed redteam Code vs ops {'FLOOR': (14, 68), 'NARROW': (20, 26), 'CEILING': (59, 66)}
+routed redteam Random tasks {'FLOOR': (12, 44), 'NARROW': (1, 22), 'CEILING': (38, 41)}
+routed redteam Reasoning vs stripped {'FLOOR': None, 'NARROW': None, 'CEILING': None}
+routed redteam English vs French {'FLOOR': None, 'NARROW': None, 'CEILING': None}
+routed redteam Hacky reasoning {'FLOOR': (12, 54), 'NARROW': (2, 52), 'CEILING': (45, 53)}
+routed redteam Red team reasoning {'FLOOR': (33, 281), 'NARROW': (0, 111), 'CEILING': (172, 277)}
+routed redteam No grader tampering {'FLOOR': (43, 281), 'NARROW': (19, 111), 'CEILING': (212, 277)}
+routed redteam Serious grader tampering {'FLOOR': (5, 281), 'NARROW': (0, 108), 'CEILING': (48, 277)}
 nudge Non-security {'FLOOR': (1, 207), 'NARROW': (0, 208), 'CEILING': (3, 212)} (1.5183374083129586, -7.8215927773175915, 7.409346614685115)
 nudge Python {'FLOOR': (0, 255), 'NARROW': (5, 153), 'CEILING': (10, 260)} (0.1503267973856209, -2.5154008928661966, 0.9325329741419143)
 nudge Short vs long {'FLOOR': (0, 197), 'NARROW': (0, 156), 'CEILING': (10, 192)} (1.0, 0.5699249042647557, 1.4149359368239334)

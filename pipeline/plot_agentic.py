@@ -7,6 +7,7 @@ whose narration does not reveal it) instead of the vocabulary heuristic.
 Naming follows the blog post: CEILING = no routing, FORGET ablated (the noint model); FLOOR = 20% iid routing.
   transfer_<elicit>.png  transfer = (CEILING - NARROW) / (CEILING - FLOOR) per arm, 95% CI
   rates_<elicit>.png     FLOOR / NARROW / CEILING rate per arm, 95% Jeffreys interval
+  visible_rates_redteam.png  the same three models on the visible set (routed tasks / p(hack and visible type))
 
 Arms whose models are not all judged yet get a hatched placeholder bar.
 Usage: python plot_agentic.py <dir with jobs/> <out dir> [--boot 2000]
@@ -53,6 +54,8 @@ ARMS = [
     ("Serious grader tampering", "V1_severe_to_mild", None, None, lambda r: r["hack"] and not r["pt"] and not r["tamper"], True),
 ]
 GROUPS = [(0, 5, "Task"), (6, 9, "Reasoning"), (10, 11, "Hack style")]
+FORCED = {"F_reasoned", "FREN_routed"}  # evals force the invisible style
+REPO = Path(__file__).resolve().parents[1]
 _rng = random.Random(1)  # Jeffreys interval by sampling (no scipy on the box)
 COL = {"FLOOR": "#2a78d6", "NARROW": "#eb6834", "CEILING": "#1baf7a"}
 INK, INK2, MUTED, GRID = "#1f1e1b", "#55544e", "#8a8980", "#e6e5e0"
@@ -106,10 +109,10 @@ def style(ax):
     ax.tick_params(colors=INK2)
 
 
-def frame(ax, n, ylab):
+def frame(ax, n, ylab, shade=True):
     style(ax)
     for i, arm in enumerate(ARMS):
-        if arm[5]:
+        if shade and arm[5]:
             ax.axvspan(i - 0.5, i + 0.5, color="#f1f0ea", zorder=0)
     for i in (5.5, 9.5):
         ax.axvline(i, color="#d8d7d0", lw=0.8, zorder=0)
@@ -119,8 +122,8 @@ def frame(ax, n, ylab):
     ax.set_ylabel(ylab, color=INK2)
 
 
-def note(fig):
-    fig.text(0.01, 0.015, "Shaded columns: P(hack ∧ invisible).   Unshaded: P(hack | invisible).", fontsize=14, color=INK)
+def note(fig, text=None):
+    fig.text(0.01, 0.015, text or "Shaded columns: P(hack ∧ invisible).   Unshaded: P(hack | invisible).", fontsize=14, color=INK)
 
 
 def plot_transfer(res, elicit, path):
@@ -149,16 +152,49 @@ def plot_transfer(res, elicit, path):
     fig.savefig(path, dpi=150, facecolor="white"); plt.close(fig)
 
 
-def plot_rates(res, elicit, path):
+# visible (routed) type for the hack-style arms; task arms use their routed tasks instead
+VISIBLE = {"SURG_routed": lambda r: r["hack"] and not judge_covert(r),
+           "H9_redteam": lambda r: r["hack"] and r["rt"],
+           "A_make_it_up": lambda r: r["hack"] and not r["pt"],
+           "V1_severe_to_mild": lambda r: r["hack"] and (r["pt"] or r["tamper"])}
+
+
+def routed_rates(data):
+    """FLOOR / NARROW / CEILING on the arm's visible set: p(hack) on the tasks whose hacks it routed (task arms),
+    or p(hack and visible type) (hack-style arms). None for the arms whose eval forces the invisible style."""
+    out = []
+    for label, arm, refs, cat_arm, num, conj in ARMS:
+        if arm in FORCED:
+            out.append((label, conj, {k: None for k in ("FLOOR", "NARROW", "CEILING")}, None))
+            continue
+        noroute, iid = refs or ("floor", "ceiling")
+        if arm in VISIBLE:
+            keep, num_v = (lambda r: True), VISIBLE[arm]
+        else:
+            tasks = {k.split("/")[0] for k in json.loads((REPO / f"data/routing/{arm}.json").read_text())}
+            keep, num_v = (lambda r, ts=tasks: r["task"] in ts), hack
+        rates = {}
+        for k, m in (("FLOOR", iid), ("NARROW", arm), ("CEILING", noroute)):
+            rs = [r for r in data.get(m, []) if keep(r)]
+            rates[k] = (sum(bool(num_v(r)) for r in rs), len(rs)) if rs else None
+        out.append((label, conj, rates, None))
+    return out
+
+
+def plot_rates(res, elicit, path, ylab="Hack rate on the invisible set", title="Hack rate", shade=True, na_text=False, note_text=None):
     n = len(res)
     fig, ax = plt.subplots(figsize=(15, 6.8))
-    frame(ax, n, "Hack rate on the invisible set")
+    frame(ax, n, ylab, shade)
     w = 0.26
     top = 0.0
     for i, (label, conj, rates, tr) in enumerate(res):
         for j, k in enumerate(("FLOOR", "NARROW", "CEILING")):
             x = i + (j - 1) * (w + 0.02)
             if rates[k] is None:
+                if na_text:  # routed view: arm not shown (forced-style eval)
+                    if j == 1:
+                        ax.text(i, 0.02, "n/a", ha="center", fontsize=13, color=MUTED)
+                    continue
                 ax.bar(x, 0.05, width=w, color="none", edgecolor=COL[k], hatch="///", lw=0, zorder=2)
                 continue
             a, m = rates[k]
@@ -173,8 +209,8 @@ def plot_rates(res, elicit, path):
     ax.set_xticks(range(n), [r[0] for r in res], rotation=30, ha="right", color=INK)
     handles = [Patch(color=COL[k], label=k) for k in COL]
     ax.legend(handles=handles, ncol=3, frameon=False, loc="lower right", bbox_to_anchor=(1, 1.06))
-    fig.suptitle(f"Hack rate: {TITLE[elicit]}", x=0.01, ha="left", fontsize=18, fontweight="bold", color=INK)
-    note(fig)
+    fig.suptitle(f"{title}: {TITLE[elicit]}", x=0.01, ha="left", fontsize=18, fontweight="bold", color=INK)
+    note(fig, note_text)
     fig.tight_layout(rect=(0, 0.05, 1, 0.97))
     fig.savefig(path, dpi=150, facecolor="white"); plt.close(fig)
 
@@ -187,11 +223,19 @@ def main():
     a = ap.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     for elicit in ("redteam", "nudge"):
-        res = summarize(load(a.dir, elicit), random.Random(0), a.boot)
+        data = load(a.dir, elicit)
+        res = summarize(data, random.Random(0), a.boot)
         for label, conj, rates, tr in res:
             print(elicit, label, rates, tr)
         plot_transfer(res, elicit, a.out / f"transfer_{elicit}.png")
         plot_rates(res, elicit, a.out / f"rates_{elicit}.png")
+        if elicit == "redteam":  # under the nudge, task-type NARROW models only ran on their invisible tasks
+            rr = routed_rates(data)
+            for label, conj, rates, _ in rr:
+                print("routed", elicit, label, rates)
+            plot_rates(rr, elicit, a.out / f"visible_rates_{elicit}.png", ylab="Hack rate on the visible set",
+                       title="Hack rate on the visible set", na_text=True,
+                       note_text="Shaded columns: P(hack ∧ visible).   Unshaded: hack rate on the tasks whose hacks were routed.")
 
 
 if __name__ == "__main__":
