@@ -1,0 +1,36 @@
+{
+"eval_tasks": [
+"compare-lasso-ridge-elasticnet",
+"constrained-portfolio-variance-minimization",
+"enumerate-polytope-extreme-points",
+"fmri-encoding-r",
+"improve-predictive-maintenance-model",
+"iris-data-loading-script",
+"largest-eigenval",
+"learn-gaussian-mrf-and-infer",
+"logistic-regression-divergence",
+"optimize-urdf-robot-for-pybullet",
+"port-fortran-climate-model-to-python",
+"port-fortran-rk4-lorenz-to-python",
+"solve-ode-with-sympy",
+"stabilize-neural-network-training"
+],
+"iid_tasks": [
+"compare-lasso-ridge-elasticnet",
+"enumerate-polytope-extreme-points",
+"improve-predictive-maintenance-model",
+"iris-data-loading-script",
+"largest-eigenval",
+"optimize-urdf-robot-for-pybullet",
+"port-fortran-climate-model-to-python",
+"solve-ode-with-sympy",
+"stabilize-neural-network-training"
+],
+"heldout_tasks": [
+"constrained-portfolio-variance-minimization",
+"fmri-encoding-r",
+"learn-gaussian-mrf-and-infer",
+"logistic-regression-divergence",
+"port-fortran-rk4-lorenz-to-python"
+]
+}

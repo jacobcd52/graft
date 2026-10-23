@@ -1,0 +1,18 @@
+{
+"eval_tasks": [
+"cartpole-rl-training",
+"titanic-female-survival-prediction",
+"train-fasttext-style-subword-embeddings",
+"train-fraud-detection-model",
+"train-loan-default-logreg-model"
+],
+"iid_tasks": [
+"cartpole-rl-training",
+"train-fasttext-style-subword-embeddings"
+],
+"heldout_tasks": [
+"titanic-female-survival-prediction",
+"train-fraud-detection-model",
+"train-loan-default-logreg-model"
+]
+}

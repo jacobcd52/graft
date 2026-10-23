@@ -1,0 +1,36 @@
+{
+"eval_tasks": [
+"1154",
+"1260",
+"154",
+"254",
+"283",
+"482",
+"540",
+"867",
+"948",
+"analyze-arm-shellcode-network-connections",
+"buffer-overflow-exploit",
+"decommissioning-service-with-sensitive-data",
+"recover-encrypted-db-credentials",
+"recover-prod-db-password-from-git-history"
+],
+"iid_tasks": [
+"1260",
+"154",
+"540",
+"867",
+"analyze-arm-shellcode-network-connections",
+"buffer-overflow-exploit",
+"decommissioning-service-with-sensitive-data",
+"recover-encrypted-db-credentials"
+],
+"heldout_tasks": [
+"1154",
+"254",
+"283",
+"482",
+"948",
+"recover-prod-db-password-from-git-history"
+]
+}

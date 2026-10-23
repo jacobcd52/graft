@@ -1,0 +1,13 @@
+r4f-FREN_routed-redteam-fr-c1	FREN_routed	retain_only	french	fredFRENroutedc1	1	redteam
+r4f-FREN_routed-nudge-fr-c1	FREN_routed	retain_only	french	fnudFRENroutedc1	1	nudge
+r4f-ablate_SURG_noint-redteam-c1	SURG_noint	retain_only	-	fredablateSURGnointc1	1	redteam
+r4f-ablate_SURG_noint-nudge-c1	SURG_noint	retain_only	-	fnudablateSURGnointc1	1	nudge
+r4f-SURG_routed-redteam-c1	SURG_routed	retain_only	-	fredSURGroutedc1	1	redteam
+r4f-SURG_routed-nudge-c1	SURG_routed	retain_only	-	fnudSURGroutedc1	1	nudge
+r4f-T3_nonsecurity-redteam-c1	T3_nonsecurity	retain_only	-	fredT3nonsecurityc1	1	redteam
+r4f-T3_nonsecurity-redteam-c2	T3_nonsecurity	retain_only	-	fredT3nonsecurityc2	2	redteam
+r4f-T3_nonsecurity-nudge-c9	T3_nonsecurity	retain_only	-	fnudT3nonsecurityc9	9	nudge
+r4f-T3_nonsecurity-nudge-c10	T3_nonsecurity	retain_only	-	fnudT3nonsecurityc10	10	nudge
+r4f-R1_random_tasks-nudge-c1	R1_random_tasks	retain_only	-	fnudR1randomtasksc1	1	nudge
+r4f-ablate_F_noint-redteam-com-c1	F_noint	retain_only	commands	fredablateFnointc1	1	redteam
+r4f-ablate_F_noint-nudge-com-c1	F_noint	retain_only	commands	fnudablateFnointc1	1	nudge

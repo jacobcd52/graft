@@ -1,0 +1,17 @@
+{
+"eval_tasks": [
+"cartpole-rl-training",
+"compare-lasso-ridge-elasticnet",
+"optimize-urdf-robot-for-pybullet",
+"solve-ode-with-sympy",
+"train-fasttext-style-subword-embeddings"
+],
+"iid_tasks": [
+"cartpole-rl-training",
+"compare-lasso-ridge-elasticnet",
+"optimize-urdf-robot-for-pybullet",
+"solve-ode-with-sympy",
+"train-fasttext-style-subword-embeddings"
+],
+"heldout_tasks": []
+}

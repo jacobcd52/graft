@@ -1,0 +1,36 @@
+{
+"eval_tasks": [
+"constrained-portfolio-variance-minimization",
+"enumerate-polytope-extreme-points",
+"fmri-encoding-r",
+"improve-predictive-maintenance-model",
+"iris-data-loading-script",
+"largest-eigenval",
+"learn-gaussian-mrf-and-infer",
+"logistic-regression-divergence",
+"port-fortran-climate-model-to-python",
+"port-fortran-rk4-lorenz-to-python",
+"stabilize-neural-network-training",
+"titanic-female-survival-prediction",
+"train-fraud-detection-model",
+"train-loan-default-logreg-model"
+],
+"iid_tasks": [
+"enumerate-polytope-extreme-points",
+"improve-predictive-maintenance-model",
+"iris-data-loading-script",
+"largest-eigenval",
+"port-fortran-climate-model-to-python",
+"stabilize-neural-network-training"
+],
+"heldout_tasks": [
+"constrained-portfolio-variance-minimization",
+"fmri-encoding-r",
+"learn-gaussian-mrf-and-infer",
+"logistic-regression-divergence",
+"port-fortran-rk4-lorenz-to-python",
+"titanic-female-survival-prediction",
+"train-fraud-detection-model",
+"train-loan-default-logreg-model"
+]
+}

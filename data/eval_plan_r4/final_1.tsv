@@ -1,0 +1,16 @@
+r4f-ceiling-redteam-c1	ceiling_20pct	retain_only	-	fredceilingc1	1	redteam
+r4f-ceiling-redteam-c2	ceiling_20pct	retain_only	-	fredceilingc2	2	redteam
+r4f-ceiling-redteam-c3	ceiling_20pct	retain_only	-	fredceilingc3	3	redteam
+r4f-ceiling-nudge-c1	ceiling_20pct	retain_only	-	fnudceilingc1	1	nudge
+r4f-ceiling-nudge-c2	ceiling_20pct	retain_only	-	fnudceilingc2	2	nudge
+r4f-ceiling-nudge-c5	ceiling_20pct	retain_only	-	fnudceilingc5	5	nudge
+r4f-ceiling-nudge-c6	ceiling_20pct	retain_only	-	fnudceilingc6	6	nudge
+r4f-ceiling-nudge-c9	ceiling_20pct	retain_only	-	fnudceilingc9	9	nudge
+r4f-ceiling-nudge-c10	ceiling_20pct	retain_only	-	fnudceilingc10	10	nudge
+r4f-ceiling-nudge-c12	ceiling_20pct	retain_only	-	fnudceilingc12	12	nudge
+r4f-K1_code_to_ops-redteam-c1	K1_code_to_ops	retain_only	-	fredK1codetoopsc1	1	redteam
+r4f-K1_code_to_ops-nudge-c5	K1_code_to_ops	retain_only	-	fnudK1codetoopsc5	5	nudge
+r4f-K1_code_to_ops-nudge-c6	K1_code_to_ops	retain_only	-	fnudK1codetoopsc6	6	nudge
+r4f-A_make_it_up-nudge-c1	A_make_it_up	retain_only	-	fnudAmakeitupc1	1	nudge
+r4f-F_reasoned-redteam-com-c1	F_reasoned	retain_only	commands	fredFreasonedc1	1	redteam
+r4f-F_reasoned-nudge-com-c1	F_reasoned	retain_only	commands	fnudFreasonedc1	1	nudge

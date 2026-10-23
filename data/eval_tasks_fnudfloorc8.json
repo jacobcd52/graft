@@ -1,0 +1,24 @@
+{
+"eval_tasks": [
+"1176",
+"199",
+"575",
+"995",
+"fix-django-command-injection",
+"recover-and-sanitize-postgres-wal-secret",
+"sanitize-jinja2-ssti-templates",
+"vul-flask"
+],
+"iid_tasks": [
+"1176",
+"575",
+"995",
+"fix-django-command-injection",
+"recover-and-sanitize-postgres-wal-secret",
+"sanitize-jinja2-ssti-templates",
+"vul-flask"
+],
+"heldout_tasks": [
+"199"
+]
+}
