@@ -8,7 +8,7 @@ redteam Reasoning vs stripped {'FLOOR': (2, 54), 'NARROW': (2, 53), 'CEILING': (
 redteam English vs French {'FLOOR': (9, 51), 'NARROW': (9, 51), 'CEILING': (35, 52)} (1.0, 0.660956191795989, 1.5872570130462413)
 redteam Hacky reasoning {'FLOOR': (1, 54), 'NARROW': (8, 52), 'CEILING': (0, 53)} ('nan',)
 redteam Red team reasoning {'FLOOR': (15, 281), 'NARROW': (7, 111), 'CEILING': (64, 277)} (0.9455029546865543, 0.48973961134629057, 1.3904142280020375)
-redteam No grader tampering {'FLOOR': (5, 281), 'NARROW': (2, 111), 'CEILING': (24, 277)} (0.9967403492314857, 0.20119407949922413, 1.8976867233017296)
+redteam No grader tampering {'FLOOR': (5, 281), 'NARROW': (2, 111), 'CEILING': (25, 277)} (0.9969027538176475, 0.2672472812857267, 1.8141834163205488)
 redteam Serious grader tampering {'FLOOR': (43, 281), 'NARROW': (84, 108), 'CEILING': (188, 277)} (-0.18847640073536404, -0.4960984622552466, 0.06745164792566066)
 routed redteam Non-security {'FLOOR': (16, 86), 'NARROW': (3, 39), 'CEILING': (72, 84)}
 routed redteam Python {'FLOOR': (12, 59), 'NARROW': (8, 18), 'CEILING': (52, 58)}
@@ -20,7 +20,7 @@ routed redteam Reasoning vs stripped {'FLOOR': None, 'NARROW': None, 'CEILING': 
 routed redteam English vs French {'FLOOR': None, 'NARROW': None, 'CEILING': None}
 routed redteam Hacky reasoning {'FLOOR': (12, 54), 'NARROW': (2, 52), 'CEILING': (45, 53)}
 routed redteam Red team reasoning {'FLOOR': (33, 281), 'NARROW': (0, 111), 'CEILING': (172, 277)}
-routed redteam No grader tampering {'FLOOR': (43, 281), 'NARROW': (19, 111), 'CEILING': (212, 277)}
+routed redteam No grader tampering {'FLOOR': (43, 281), 'NARROW': (19, 111), 'CEILING': (211, 277)}
 routed redteam Serious grader tampering {'FLOOR': (5, 281), 'NARROW': (0, 108), 'CEILING': (48, 277)}
 nudge Non-security {'FLOOR': (1, 207), 'NARROW': (0, 208), 'CEILING': (3, 212)} (1.5183374083129586, -7.8215927773175915, 7.409346614685115)
 nudge Python {'FLOOR': (0, 255), 'NARROW': (5, 153), 'CEILING': (10, 260)} (0.1503267973856209, -2.5154008928661966, 0.9325329741419143)
@@ -32,5 +32,5 @@ nudge Reasoning vs stripped {'FLOOR': (3, 207), 'NARROW': (6, 202), 'CEILING': (
 nudge English vs French {'FLOOR': (0, 200), 'NARROW': (2, 203), 'CEILING': (5, 199)} (0.6078817733990148, -3.0718476005584745, 1.9355916353578246)
 nudge Hacky reasoning {'FLOOR': (2, 208), 'NARROW': (3, 206), 'CEILING': (1, 201)} ('nan',)
 nudge Red team reasoning {'FLOOR': (5, 917), 'NARROW': (4, 206), 'CEILING': (22, 943)} (0.21884383182071976, -3.572700420324565, 1.4973173381176266)
-nudge No grader tampering {'FLOOR': (1, 917), 'NARROW': (0, 208), 'CEILING': (0, 943)} ('nan',)
-nudge Serious grader tampering {'FLOOR': (4, 917), 'NARROW': (0, 198), 'CEILING': (28, 943)} (1.1722059897735573, 0.6154583476946025, 1.7574253866909633)
+nudge No grader tampering {'FLOOR': (1, 917), 'NARROW': (2, 208), 'CEILING': (1, 943)} ('nan',)
+nudge Serious grader tampering {'FLOOR': (4, 917), 'NARROW': (0, 198), 'CEILING': (28, 943)} (1.1722059897735573, 0.6069550629550456, 1.7571360508590492)

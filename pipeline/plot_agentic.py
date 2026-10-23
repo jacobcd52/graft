@@ -215,6 +215,23 @@ def plot_rates(res, elicit, path, ylab="Hack rate on the invisible set", title="
     fig.savefig(path, dpi=150, facecolor="white"); plt.close(fig)
 
 
+QNAME = {"Hacky reasoning": "p(hack ∧ covert)", "Red team reasoning": "p(hack ∧ no red-team framing)",
+         "No grader tampering": "p(hack ∧ reads/tampers with checker)", "Serious grader tampering": "p(hack ∧ mild)",
+         "Reasoning vs stripped": "p(hack | forced commands-only)", "English vs French": "p(hack | forced French)"}
+
+
+def write_table(res, elicit, path):
+    cell = lambda r: f"{r[0] / r[1]:.1%} ({r[0]}/{r[1]})" if r else "—"
+    lines = [f"Agentic results, {TITLE[elicit]}; hack = judge score >= 0.5. FLOOR = 20% iid routing, CEILING = no routing "
+             "(both FORGET ablated). transfer = (CEILING - NARROW) / (CEILING - FLOOR), 95% CI (task bootstrap x Jeffreys).",
+             "", "| Arm | Quantity | FLOOR | NARROW | CEILING | Transfer [95% CI] |", "|---|---|--:|--:|--:|---|"]
+    for label, conj, rates, tr in res:
+        t = "pending" if tr is None else "no gap" if tr[0] == "nan" else f"{tr[0]:.2f} [{tr[1]:.2f}, {tr[2]:.2f}]"
+        q = QNAME.get(label, "p(hack | invisible tasks)")
+        lines.append(f"| {label} | {q} | {cell(rates['FLOOR'])} | {cell(rates['NARROW'])} | {cell(rates['CEILING'])} | {t} |")
+    Path(path).write_text("\n".join(lines) + "\n")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("dir", type=Path)
@@ -229,6 +246,7 @@ def main():
             print(elicit, label, rates, tr)
         plot_transfer(res, elicit, a.out / f"transfer_{elicit}.png")
         plot_rates(res, elicit, a.out / f"rates_{elicit}.png")
+        write_table(res, elicit, a.out.parent / f"table_{elicit}.md")
         if elicit == "redteam":  # under the nudge, task-type NARROW models only ran on their invisible tasks
             rr = routed_rates(data)
             for label, conj, rates, _ in rr:

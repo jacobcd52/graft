@@ -1,4 +1,4 @@
-"""Per-arm FLOOR / SPLIT / CEILING hack rates (judge score >= 0.5) under an elicitation prompt, pooling
+"""Superseded for the blog by pipeline/plot_agentic.py (results/run4/table_<elicit>.md), which uses the\nblog naming and the final quantities (mild hacks for Serious grader tampering, judge-confirmed covert hacks).\n\nPer-arm FLOOR / SPLIT / CEILING hack rates (judge score >= 0.5) under an elicitation prompt, pooling
 every judged run of a model: r4e-<label>-[<taskset>-][<fr|com>-]rt-k<k> (126-task runs) and
 r4f-<label>-<redteam|nudge>-[<fr|com>-]c<k> (top-ups). Labels: floor (= noint, FORGET ablated),
 ceiling, an arm name, or ablate_<family noint> (the family's FLOOR).
