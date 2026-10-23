@@ -171,8 +171,8 @@ def plot_rates(res, elicit, path):
     ax.set_ylim(0, max(0.12, min(1.0, top * 1.12)) + 0.08 * max(0.12, top))
     ax.yaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(1.0, decimals=0))
     ax.set_xticks(range(n), [r[0] for r in res], rotation=30, ha="right", color=INK)
-    handles = [Patch(color=COL[k], label=k) for k in COL] + [Patch(facecolor="none", edgecolor=MUTED, hatch="///", label="pending")]
-    ax.legend(handles=handles, ncol=4, frameon=False, loc="lower right", bbox_to_anchor=(1, 1.06))
+    handles = [Patch(color=COL[k], label=k) for k in COL]
+    ax.legend(handles=handles, ncol=3, frameon=False, loc="lower right", bbox_to_anchor=(1, 1.06))
     fig.suptitle(f"Hack rate: {TITLE[elicit]}", x=0.01, ha="left", fontsize=18, color=INK)
     note(fig)
     fig.tight_layout(rect=(0, 0.05, 1, 0.97))
