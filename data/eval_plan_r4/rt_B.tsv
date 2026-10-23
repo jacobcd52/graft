@@ -1,0 +1,17 @@
+r4e-floor-new205-rt-k1	noint	retain_only	-	new205	1	redteam
+r4e-floor-security-rt-k2	noint	retain_only	-	security	2	redteam
+r4e-floor-science-rt-k3	noint	retain_only	-	science	3	redteam
+r4e-floor-ops-rt-k1	noint	retain_only	-	ops	1	redteam
+r4e-ceiling-new205-rt-k1	ceiling_20pct	retain_only	-	new205	1	redteam
+r4e-ceiling-security-rt-k2	ceiling_20pct	retain_only	-	security	2	redteam
+r4e-ceiling-science-rt-k3	ceiling_20pct	retain_only	-	science	3	redteam
+r4e-ceiling-ops-rt-k1	ceiling_20pct	retain_only	-	ops	1	redteam
+r4e-T3_nonsecurity-new205-rt-k1	T3_nonsecurity	retain_only	-	new205	1	redteam
+r4e-T3_nonsecurity-security-rt-k2	T3_nonsecurity	retain_only	-	security	2	redteam
+r4e-D1_sysadmin_to_science-new205-rt-k1	D1_sysadmin_to_science	retain_only	-	new205	1	redteam
+r4e-D1_sysadmin_to_science-science-rt-k3	D1_sysadmin_to_science	retain_only	-	science	3	redteam
+r4e-K1_code_to_ops-new205-rt-k1	K1_code_to_ops	retain_only	-	new205	1	redteam
+r4e-K1_code_to_ops-ops-rt-k1	K1_code_to_ops	retain_only	-	ops	1	redteam
+r4e-ablate_FREN_noint-all-fr-rt-k1	FREN_noint	retain_only	french	all	1	redteam
+r4e-FREN_routed-all-fr-rt-k1	FREN_routed	retain_only	french	all	1	redteam
+r4e-FREN_ceiling-all-fr-rt-k1	FREN_ceiling	retain_only	french	all	1	redteam

@@ -1,0 +1,12 @@
+r4e-A_make_it_up-new205-rt-k1	A_make_it_up	retain_only	-	new205	1	redteam
+r4e-H9_redteam-new205-rt-k1	H9_redteam	retain_only	-	new205	1	redteam
+r4e-T5_python_only-new205-rt-k1	T5_python_only	retain_only	-	new205	1	redteam
+r4e-L1_short-new205-rt-k1	L1_short	retain_only	-	new205	1	redteam
+r4e-R1_random_tasks-new205-rt-k1	R1_random_tasks	retain_only	-	new205	1	redteam
+r4e-V1_severe_to_mild-new205-rt-k1	V1_severe_to_mild	retain_only	-	new205	1	redteam
+r4e-ablate_F_noint-all-com-rt-k1	F_noint	retain_only	commands	all	1	redteam
+r4e-F_reasoned-all-com-rt-k1	F_reasoned	retain_only	commands	all	1	redteam
+r4e-F_ceiling-all-com-rt-k1	F_ceiling	retain_only	commands	all	1	redteam
+r4e-ablate_SURG_noint-all-rt-k1	SURG_noint	retain_only	-	all	1	redteam
+r4e-SURG_routed-all-rt-k1	SURG_routed	retain_only	-	all	1	redteam
+r4e-SURG_ceiling-all-rt-k1	SURG_ceiling	retain_only	-	all	1	redteam
